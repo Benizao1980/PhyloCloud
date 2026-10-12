@@ -92,14 +92,16 @@ Deliver:
 4. Keep data provenance and core maths independent of font, SVG, PDF or image-output backend.
 5. Default to no public commitment of the user's unpublished GETcampy Newick/metadata.
 
-## Proposed GitHub tracking
+## Implementation issues (created)
 
-Open implementation issues for:
-- Scene/immutable geometry refactor;
-- native reference density and three style presets;
-- cloud labels and collision planning;
-- zoom/composite panels;
-- population-fidelity and performance QA;
-- documented versioned release.
+These issues are ready to use; each should be implemented in a separate reviewed pull request:
 
-Each implementation PR should reference its issue, include one synthetic test and provide a before/after visual image plus its scientific-validation output. This roadmap is a tracking document, not proof that phases are already implemented.
+- [#5 — Immutable tree/layout and RenderScene refactor](https://github.com/Benizao1980/PhyloCloud/issues/5) — Phase 1.
+- [#6 — Native density-based coloured cloud and styles](https://github.com/Benizao1980/PhyloCloud/issues/6) — Phase 2, highest visual priority.
+- [#7 — Semantic cloud labels and collision handling](https://github.com/Benizao1980/PhyloCloud/issues/7) — Phase 3.
+- [#8 — True-tree zooms and analytical multi-panels](https://github.com/Benizao1980/PhyloCloud/issues/8) — Phase 4.
+- [#9 — Independent equal-daylight implementation/validation](https://github.com/Benizao1980/PhyloCloud/issues/9) — Phase 5 layout evaluation.
+- [#10 — Export, provenance, scientific QA](https://github.com/Benizao1980/PhyloCloud/issues/10) — Phase 5 validation.
+- [#11 — Reproducible versioned pre-release](https://github.com/Benizao1980/PhyloCloud/issues/11) — Phase 6.
+
+Each implementation PR should reference its issue, include at least one scientific invariant test, and provide a before/after visual preview plus scientific-validation output. These are planned engineering tasks, not features already implemented.
