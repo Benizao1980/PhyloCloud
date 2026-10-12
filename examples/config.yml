@@ -1,0 +1,17 @@
+layout:
+  rotation_degrees: 19
+style:
+  species_background: true
+  reference_alpha: 0.20
+  reference_width: 0.42
+  halo_alpha: 0.045
+  halo_width: 2.4
+  foreground_width: 2.05
+  foreground_color: ink
+  mag_size: 64
+  label_font_size: 9
+  title: "PhyloCloud | diversity in context"
+export:
+  width_inches: 14
+  height_inches: 11
+  dpi: 400

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite the software release used to generate figures."
+title: "PhyloCloud: phylogenetic diversity in context"
+type: software
+authors:
+  - family-names: Pascoe
+    given-names: Ben
+repository-code: "https://github.com/Benizao1980/PhyloCloud"
+version: 0.1.0a0
+date-released: 2026-10-12
+license: MIT
