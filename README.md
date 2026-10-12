@@ -45,6 +45,10 @@ phylocloud plot \
 
 The present equal-arc implementation is an initial layout. Future daylight optimisation must use topology-preserving subtree rotations without changing edge lengths. The visual interpretation of a phylogram should always be reported accurately.
 
+## Population-structure fidelity
+
+PhyloCloud treats the original tree as scientific evidence, not a decorative template. **Every genome, original branch, unrooted split, patristic distance and sampled reference count must be preserved.** The organic look should emerge from the actual phylogeny; we will not force species fans, move focal tips independently, or hide outliers to imitate a drawing. Background density represents the sampled reference collection, not necessarily prevalence. See the [scientific invariants and tests](docs/SCIENTIFIC_INVARIANTS.md).
+
 ## Scientific and graphical validation
 
 - Tests cover original edge preservation and Euclidean lengths, selected-edge exactness, strict IDs and missing-length rejection, deterministic layouts and demo generation, pure/mixed taxonomy and SVG/PDF/PNG exports.
@@ -56,6 +60,7 @@ The present equal-arc implementation is an initial layout. Future daylight optim
 ## Development resources
 
 - [Original sketch comparison and acceptance criteria](docs/SKETCH_REVIEW.md)
+- [Scientific fidelity and population structure](docs/SCIENTIFIC_INVARIANTS.md)
 - [Architecture and roadmap](docs/ARCHITECTURE.md)
 - [Contributing and reproducibility](CONTRIBUTING.md)
 - [Ben-style scientific palette](https://github.com/Benizao1980/Ben-style)
