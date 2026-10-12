@@ -59,13 +59,18 @@ class Layout:
     descendants: dict[Any, int]
 
 
-def equal_arc_layout(graph: TreeGraph, rotate_degrees: float = 0.0) -> Layout:
+def equal_arc_layout(
+    graph: TreeGraph, rotate_degrees: float = 0.0,
+    angle_mode: str = "tip_count",
+) -> Layout:
     """Return unrooted equal-arc positions, with actual lengths and no tip rim.
 
     Equal-arc is the established initial layout used by PHYLIP's Drawtree.
     Wedges are proportional to terminal count; *no* radial/tip-distance
     normalisation, branch re-inference, or pruning is performed.
     """
+    if angle_mode not in {"tip_count", "phylogenetic_spread"}:
+        raise ValueError(f"Unknown angle_mode: {angle_mode}")
     if not graph.adjacency:
         raise ValueError('Empty tree')
     # Tree centroid: choose an internal vertex whose largest side has the
@@ -112,6 +117,18 @@ def equal_arc_layout(graph: TreeGraph, rotate_degrees: float = 0.0) -> Layout:
         descendants[node] = (1 if node in tip_nodes else 0) + sum(
             descendants[ch] for ch, _ in graph.adjacency[node] if parents.get(ch) is node
         )
+    # Layout-only sector weighting. Edge lengths remain original values.
+    # Experimental phylogenetic-spread mode is NOT PHYLIP equal-daylight.
+    spread_lengths = {}
+    for node in reversed(order):
+        spread_lengths[node] = sum(length + spread_lengths[child]
+                                   for child, length in graph.adjacency[node]
+                                   if parents.get(child) is node)
+    def angle_weight(child):
+        if angle_mode == "tip_count":
+            return float(descendants[child])
+        return (descendants[child] ** 0.40) * (max(spread_lengths[child], 1e-9) ** 0.60)
+
     coords: dict[Any, tuple[float, float]] = {centre: (0.0, 0.0)}
     edges: list[tuple[Any, Any, float]] = []
     # Wedge is the available angular interval for directions *away* from parent.
@@ -121,11 +138,11 @@ def equal_arc_layout(graph: TreeGraph, rotate_degrees: float = 0.0) -> Layout:
         node, low, high = stack.pop()
         children = [(ch, length) for ch, length in graph.adjacency[node]
                     if parents.get(ch) is node]
-        denom = sum(descendants[ch] for ch, _ in children)
+        denom = sum(angle_weight(ch) for ch, _ in children)
         cursor = low
         jobs = []
         for child, length in children:
-            width = (high - low) * descendants[child] / denom
+            width = (high - low) * angle_weight(child) / denom
             end = cursor + width
             angle = (cursor + end) * 0.5
             px, py = coords[node]

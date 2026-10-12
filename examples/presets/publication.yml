@@ -1,0 +1,11 @@
+layout:
+  angle_mode: tip_count
+  rotation_degrees: 19
+style:
+  preset: publication
+  title: 'PhyloCloud  /  population structure'
+  subtitle: 'Synthetic: original tree with selected focal genomes'
+export:
+  width_inches: 14
+  height_inches: 11
+  dpi: 350
