@@ -152,6 +152,16 @@ Keep layout coordinate precision independent of device resolution. RenderScene s
 5. Export actual edge-length scale bar only when untransformed proportional edge lengths are drawn. Avoid “scale” on topology-only modes.
 6. Regress unrooted splits, individual edge lengths, sampled path distances and identical selected-edge IDs after every layout addition.
 
+### Single metadata grouping contract (new requirement)
+
+- The proposed \`CloudGrouping\` object resolves **one selected metadata field** per reference genome: \`group_by = species\` by default; any validated metadata column is allowed. It must not infer species/lineage from the drawing.
+- Colour fields use that grouping and an explicit \`palette\`/exact-value overrides. Cloud labels use \`label_by = same\` by default; all colour and label categories therefore agree unless the user overrides the label source deliberately.
+- Unknown values map to \`Unassigned\` with a neutral colour and explicit status, not a random categorical colour. Preserve taxon identifiers, including GTDB \`Campylobacter_D\`.
+- A metadata category need not be a monophyletic subtree. The cloud engine may yield several spatially disconnected regions bearing the same category and its labels may repeat. The labels should refer to metadata subsets rather than invented clades.
+- Future input validation uses \`genome_id\` plus the configured grouping column(s); current v0.2 still requires \`species\`. Backwards compatibility must be tested when generalising the loader.
+
+**Suggested future objects:** \`CloudGrouping(group_by, label_by, palette, value_overrides, unassigned_style)\` passed to both \`cloud.density\` and \`annotations.cloud_labels\`. Do not duplicate species mapping logic across those layers. Test default \`species\`, alternative \`lineage\`, exact custom overrides, absent columns, polyphyly and missing values.
+
 ## Cloud engine: central scientific design
 
 **Input:** immutable reference-tip coordinates from LayoutMap; optionally edge segments from that same map; metadata category per tip/edge.
@@ -184,7 +194,7 @@ For hybrid figures, *only* the cloud grid is rasterised. Edges, markers, labels 
 
 ## Species and cloud labels
 
-- Semantics always follow a metadata column, **not** inferred proximity in XY.
+- The **default** broad colour and label category is `species`; both share the same grouping object (`label_by: same`) unless explicitly overridden. Users can choose any validated metadata column, e.g. `lineage`, `source`, `host` or `country`. Categories come from metadata, **not** inferred proximity in XY.
 - Partition each group into actual connected subtrees or spatial components before choosing labels; metadata species is not automatically monophyletic.
 - Choose actual density modes/medoids for labels, then move label boxes (never genomes) into nearby negative space.
 - Detect collisions with focal labels, selected segments, other cloud labels and axes/crops. Suppress or use an external legend when uncertain.

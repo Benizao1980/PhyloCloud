@@ -78,6 +78,12 @@ MIT. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff). Layout inspiration
 
 The publication and soft_cloud presets compare faithful renderings of one original Newick tree. The experimental phylogenetic-spread angular layout is **not** classical equal-daylight. A soft reference-tip sampling-density underlay is purely a display aid, not inferred population prevalence. True geometric crop and optional exact reference markers are available. See docs/V02_LAYOUT_REVIEW.md for interpretation and validation.
 
+## Cloud colours and labels: species by default (planned)
+
+The native \`cloud\` / \`cloud-hero\` engine is being designed to **colour and broadly label reference clouds by metadata \`species\` by default**. A user will be able to select any metadata column (for example \`lineage\`, \`source\`, \`host\`, \`country\`) and optionally override the colour palette. Broad labels should follow that same grouping unless explicitly configured otherwise; disconnected occurrences of one species must never be collapsed into a falsely monophyletic region.
+
+**Current v0.2 limitation:** the \`soft_cloud\` density haze is neutral, with optional species-tinted reference branches; there are **no automatic cloud labels or arbitrary-column cloud washes yet**. [Current CLI and I/O](docs/CURRENT_CLI.md) explains what runs today. The [design spec](docs/DESIGN_SPEC.md) contains the future group/colour/label schema.
+
 ## Planned native cloud architecture
 
 The next development cycle will separate an **immutable scientific tree and single shared unrooted coordinate map** from cloud-density estimation, semantic labels, layer composition and export. Planned presets: `publication`, `cloud`, and `cloud-hero`. Planned `phylocloud render` is a future compatibility addition; the current CLI entry point remains `phylocloud plot`.

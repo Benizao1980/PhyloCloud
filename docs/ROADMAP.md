@@ -31,7 +31,7 @@ Deliver:
 Deliver:
 - [ ] Vector reference tip points with exact original XY; optional line-segment samples from actual edges.
 - [ ] Deterministic Gaussian-splat/KDE-like layer with configuration for bandwidth, weights, opacity, alpha curve, raster resolution.
-- [ ] Separate metadata-coloured fields with transparent blending and neutral fallback for unassigned/mixed groups.
+- [ ] Separate metadata-coloured fields, **default grouped by species**, with configurable arbitrary metadata column and exact palette/value mapping; transparent blending and neutral fallback for unassigned/mixed groups.
 - [ ] Document sampled-tip versus sampled-branch density and **sampling bias**; no interpretation as natural prevalence.
 - [ ] Pure-vector `points` / `branches+points` and hybrid `density-wash` / `hybrid` modes.
 - [ ] Three style presets: `publication`, `cloud`, `cloud-hero`; retain `soft_cloud` as backward-compatible legacy alias.
@@ -42,7 +42,7 @@ Deliver:
 ## Phase 3 — semantic cloud and selected-genome labels
 
 Deliver:
-- [ ] `--cloud-labels` none/species/group/lineage/custom-column.
+- [ ] Broad cloud labels default to the **same metadata column as cloud colour** (`group_by: species`, `label_by: same`); support custom group/label columns and explicit none/species/lineage modes.
 - [ ] Compute anchors from actual selected group XY and density maxima/medoids.
 - [ ] Split visibly disconnected components for nonmonophyletic groups; use repeated labels or legend instead of a misleading one-cloud species boundary.
 - [ ] Deterministic placement and collision avoidance for direct MAG labels, cloud labels, annotation leaders and legend.

@@ -34,6 +34,33 @@ See [SCIENTIFIC_INVARIANTS.md](SCIENTIFIC_INVARIANTS.md). Specifically:
 - **Whites and transparent overlap:** lightly textured only when generated from data; paper white is default. Include grayscale and colour-blind-aware review.
 - **Aesthetic evaluation:** compare against the hand sketch and concept designs in a *separate design review*. These are style references, not authoritative branch-coordinate maps.
 
+## Default cloud taxonomy, colours and broad labels
+
+**Explicit default: \`cloud.group_by = species\` and \`cloud.label_by = same\`**, where \`same\` means “use the cloud's grouping column”. For GETcampy, major cloud regions therefore use the **species recorded in metadata** for both their soft wash colour and their broad, unobtrusive label (for example, *Campylobacter infans*, *Campylobacter_D jejuni*, *Campylobacter coli*). Never assign species solely from tree position or copy labels/colour regions from image-generation concepts.
+
+**The user may override the grouping:** \`cloud.group_by = lineage\`, \`source\`, \`host\`, \`country\`, \`clonal_complex\`, or any exact metadata column. Cloud labels follow the selected grouping by default. Advanced users may explicitly set \`cloud.label_by\` to another column, \`none\`, or select a custom label field, but this must not imply that labels and colours are the same if they aren't.
+
+**The user may override the palette:** \`cloud.palette\` chooses a semantic palette (initial default \`ben-style:getcampy.species\` when applicable) and \`cloud.colours\` optionally maps exact metadata values to Ben-style colour names or hex codes. The palette and map are presentation-only; they cannot alter the graph, selected subtree or metadata identities. Colour mappings are a data-driven **lookup**, not an attempt to construct visually neat monophyletic colour islands.
+
+**Unassigned/unknown values** receive a neutral cloud colour and an explicit “Unassigned” label/legend entry where appropriate. A metadata group occupying genuinely separated clades may produce several disjoint washes and multiple labels or an external legend; *never invent a merged species cloud* to match the sketch. No false membership, prevalence estimates or phylogenetic confidence regions.
+
+### Proposed future YAML schema (not runnable with v0.2)
+
+\`\`\`yaml
+cloud:
+  group_by: species             # default; any validated metadata column
+  label_by: same                # default; same grouping as the cloud colour
+  palette: ben-style:getcampy.species
+  colours:                     # optional exact group overrides
+    "Campylobacter infans": sage
+    "Campylobacter_D jejuni": powder_blue
+  label_style:
+    min_references: 12         # hide labels for tiny groups; keep all tree data
+    italicise_species: true
+\`\`\`
+
+To colour and label the same tree by lineage, a future user only changes \`group_by: lineage\` (and optionally a lineage-specific palette); \`label_by: same\` follows automatically. See [CURRENT_CLI.md](CURRENT_CLI.md) for the **existing** commands/inputs and proposed future calls.
+
 ## Three named styles
 
 | Preset | Purpose | Reference data | Soft colour | Output requirement |
@@ -57,7 +84,7 @@ The wash should become stronger through principled kernel bandwidth, opacity and
 
 ## Population / cloud labels
 
-`cloud_labels` may use `species`, `group`, `lineage` or an explicitly named metadata column. Groups are **metadata categories**, not necessarily monophyletic clades.
+By default, cloud labels use **the same metadata category as cloud colour** (`cloud.group_by: species`, `cloud.label_by: same`). Alternative metadata columns are user-configurable. Groups are **metadata categories**, not necessarily monophyletic clades.
 
 - For a genuinely connected/monophyletic group, anchor near a weighted medoid or a suitable density mode. Label only if there is enough whitespace.
 - For multiple disjoint components, label each supported region with a disambiguated suffix or create a legend; **never draw one encompassing silhouette that falsely suggests a single clade**.
@@ -74,7 +101,7 @@ The wash should become stronger through principled kernel bandwidth, opacity and
 
 ## Inputs and outputs
 
-**Inputs:** unrooted or rooted-serialization Newick with finite non-negative lengths; exact tip IDs; metadata TSV/CSV including `genome_id` and category fields; selected-tip text file; optional declarative YAML style/layout/panel file. Reject ambiguous/missing selection IDs and duplicate metadata IDs.
+**Inputs:** unrooted or rooted-serialization Newick with finite non-negative lengths; exact tip IDs; metadata TSV/CSV with `genome_id` plus the selected category column (default `species`); selected-tip text file; optional declarative YAML style/layout/panel file. **Today** the v0.2 loader always requires `genome_id` and `species`, even if custom metadata are present; a future schema revision should require `genome_id` and only the configured grouping columns. Reject ambiguous/missing selection IDs and duplicate metadata IDs.
 
 **Outputs:** high-resolution PNG, native SVG/PDF geometry and labels (with optional embedded density raster), and `*.provenance.json` recording tool version, input hashes, full/selected/reference counts, exact original-edge audit, layout parameters, cloud algorithm/parameters, semantic palette names and resolutions, warnings, and export settings.
 
