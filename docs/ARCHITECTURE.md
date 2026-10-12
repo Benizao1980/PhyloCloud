@@ -162,6 +162,16 @@ Keep layout coordinate precision independent of device resolution. RenderScene s
 
 **Suggested future objects:** \`CloudGrouping(group_by, label_by, palette, value_overrides, unassigned_style)\` passed to both \`cloud.density\` and \`annotations.cloud_labels\`. Do not duplicate species mapping logic across those layers. Test default \`species\`, alternative \`lineage\`, exact custom overrides, absent columns, polyphyly and missing values.
 
+## Visual motifs as interchangeable, science-neutral backends
+
+Style is **not** a substitute for tree/layout geometry. After one immutable \`ScientificTree\`, \`LayoutMap\`, \`CloudGrouping\` and exact \`SelectedEdgeSet\` have been validated, a registered \`StyleRenderer\` constructs a \`RenderScene\` **without changing those objects**.
+
+Four planned motifs (see [STYLE_FAMILY.md](STYLE_FAMILY.md)): \`cloud\` is default; \`constellation\` emphasizes actual tip points; \`river\` styles actual original edge paths, with no invented directional flow; \`canopy\` uses original edge/tip positions to produce fine twig texture and data-derived soft foliage/density. \`finish=publication|hero\` is independent of motif. A dark constellation finish may have reversed text/stroke colours only, not different edges.
+
+Reusable layer builders: \`reference_edges\`, \`selected_edges\`, \`tip_markers\`, \`semantic_labels\`, \`density_washes\`, \`title_legend\`. River and Canopy may layer additional **style commands tied to actual edge IDs and positions**, never hypothetical extra phylogenetic branches. The category-to-colour and broad-label mapping remains \`species\` by default with user-defined metadata-column override.
+
+Scientific invariants must be tested across **all** motifs for identical graph edges, original lengths, selected edge IDs, sampled reference counts, metadata colour category and true tip positions. Any visually directional River texture must state explicitly that it is not a direction-of-transmission estimate.
+
 ## Cloud engine: central scientific design
 
 **Input:** immutable reference-tip coordinates from LayoutMap; optionally edge segments from that same map; metadata category per tip/edge.

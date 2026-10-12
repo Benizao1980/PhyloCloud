@@ -34,10 +34,22 @@ Deliver:
 - [ ] Separate metadata-coloured fields, **default grouped by species**, with configurable arbitrary metadata column and exact palette/value mapping; transparent blending and neutral fallback for unassigned/mixed groups.
 - [ ] Document sampled-tip versus sampled-branch density and **sampling bias**; no interpretation as natural prevalence.
 - [ ] Pure-vector `points` / `branches+points` and hybrid `density-wash` / `hybrid` modes.
-- [ ] Three style presets: `publication`, `cloud`, `cloud-hero`; retain `soft_cloud` as backward-compatible legacy alias.
+- [ ] Native **Cloud** as the default visual motif; retain existing `publication` and `soft_cloud` compatibility presets. Implement `publication` and `hero` as finish options independent of motif.
 - [ ] Aesthetic review of two distinct fields (synthetic non-monophyletic fixture and real GETcampy), with the concept-art target shown strictly as a *style reference*.
 
 **Acceptance:** the cloud appearance is convincingly stronger than v0.2 while every branch, genome coordinate, source count and selected edge remains identical within numerical tolerance; no false boundaries or artificial new tips; high DPI and PDF/SVG are validated.
+
+## Phase 2b — four visual motifs (post-cloud baseline)
+
+Use the **same immutable real-tree layout**, full reference population and selected-edge set for all motifs. See [STYLE_FAMILY.md](STYLE_FAMILY.md).
+
+- [ ] **Cloud** — default, metadata species-coloured density and broad species labels; finish variants for manuscript and hero.
+- [ ] **Constellation** — second stable style, exact tip positions as points and original edges retained, light/dark canvases.
+- [ ] **River** — marked experimental, atmospheric strokes following original edges only; explicitly not directional transmission, gene flow or migration.
+- [ ] **Canopy** — new botanical-inspired style, fine original branch traces plus data-derived tip/edge density resembling soft foliage (no fabricated phylogenetic leaves).
+- [ ] Test style switching changes only \`RenderScene\` appearance, not underlying layout XY, unrooted splits, original edge lengths, group membership, tip/source counts or focal subtree.
+
+**Acceptance:** all four are reproducible software renders of the **same** test tree and all present truly comparable label/colour metadata categories; Canopy visually approaches the original hand-drawn atmospheric quality **without filling regions unsupported by the tree**. Visual attractiveness never overrides structural validation.
 
 ## Phase 3 — semantic cloud and selected-genome labels
 
