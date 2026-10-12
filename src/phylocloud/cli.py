@@ -122,4 +122,16 @@ def main(argv=None):
     return result
 
 
-if __name__=='__main__':main()
+def console_main():
+    """Set the installed console-script exit code, keeping main()'s stats API.
+
+    setuptools console_scripts wraps its target with sys.exit(...).
+    Returning a result dictionary would print it as a stderr error and exit 1,
+    even when plotting succeeded.
+    """
+    main()
+    return 0
+
+
+if __name__=='__main__':
+    console_main()

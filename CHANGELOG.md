@@ -35,3 +35,8 @@
 - Added fully synthetic, non-Campylobacter (E. coli lineage) input files, and tested example outputs; no private GETcampy data committed.
 - Added practical reference-genome / tree acquisition guide, GTDB release-version warning and explicit Kraken2 classification-vs-phylogeny explanation.
 - Made the README task-oriented with reference links, reproducible secondary use case and preview gallery.
+
+## CLI entry-point hotfix
+
+- The installed `phylocloud` command now returns exit status 0 after a successful plot/demo; the programmatic `main()` still returns the summary dictionary. This fixes the public gallery workflow and ensures shell scripts can use `set -e`.
+- Added a regression test for the console entry point.
