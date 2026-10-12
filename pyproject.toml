@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "phylocloud"
-version = "0.1.0a0"
+version = "0.2.0a0"
 description = "Unrooted phylogenetic diversity clouds with topology-preserving focal subtrees"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [{name = "PhyloCloud contributors"}]
-dependencies = ["biopython>=1.81", "matplotlib>=3.7", "PyYAML>=6"]
+dependencies = ["biopython>=1.81", "matplotlib>=3.7", "PyYAML>=6", "Pillow>=9", "numpy>=1.24"]
 classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License"]
 
 [project.scripts]

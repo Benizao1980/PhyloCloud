@@ -68,6 +68,7 @@ def make_demo(output_dir: str | Path, seed: int=47, reference_count: int=900):
 layout:
   rotation_degrees: 19
 style:
+  preset: soft_cloud
   title: "PhyloCloud  /  diversity in context"
   subtitle: "Synthetic illustration  ·  reference phylogeny + highlighted genomes"
   species_background: true

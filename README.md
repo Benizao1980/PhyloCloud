@@ -71,3 +71,7 @@ The repository deliberately does not contain the unpublished full GETcampy tree,
 ## Licence and citation
 
 MIT. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff). Layout inspiration: the classic PHYLIP Drawtree equal-arc method; implementation is independent. The design is a scientific visualization tool, not a replacement for phylogenetic inference.
+
+## v0.2 layout modes
+
+The publication and soft_cloud presets compare faithful renderings of one original Newick tree. The experimental phylogenetic-spread angular layout is **not** classical equal-daylight. A soft reference-tip sampling-density underlay is purely a display aid, not inferred population prevalence. True geometric crop and optional exact reference markers are available. See docs/V02_LAYOUT_REVIEW.md for interpretation and validation.

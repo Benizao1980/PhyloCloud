@@ -1,3 +1,9 @@
+## [0.2.0a0] — 2026-10-12 (pre-release candidate)
+
+- Two reversible styling presets, experimental phylogenetic-spread angles, sampled-reference-tip density underlay.
+- Full-tree-coordinate zoom and exact tip context markers; optional branch-length scale bar.
+- SHA-256 provenance and original edge-retention tests; no private tree data committed.
+
 # Changelog
 
 ## [Unreleased]

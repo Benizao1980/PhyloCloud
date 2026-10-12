@@ -23,9 +23,14 @@ SPECIES_COLORS = {
 }
 
 DEFAULT_CONFIG = {
-    'layout': {'rotation_degrees': 10.0},
+    'layout': {'rotation_degrees': 10.0, 'angle_mode': 'tip_count'},
     'style': {
         'species_background': True,
+        'preset': 'publication',
+        'density_overlay': False,
+        'zoom_to_selected': False,
+        'density_opacity': 0.11,
+        'density_sigma_px': 9.0,
         'reference_alpha': 0.23,
         'reference_width': 0.42,
         'halo_alpha': 0.045,
@@ -67,18 +72,37 @@ def load_selected(path: str | Path) -> list[str]:
 
 def load_config(path: str | Path | None) -> dict:
     cfg = json.loads(json.dumps(DEFAULT_CONFIG))
-    if path:
-        override = yaml.safe_load(Path(path).read_text(encoding='utf8')) or {}
-        if not isinstance(override, dict):
-            raise ValueError('Config must be a mapping')
-        def deep_merge(base, changes):
-            for k,v in changes.items():
-                if isinstance(v, dict) and isinstance(base.get(k),dict):
-                    deep_merge(base[k],v)
-                else:
-                    base[k] = v
-        deep_merge(cfg, override)
+    override = yaml.safe_load(Path(path).read_text(encoding='utf8')) or {} if path else {}
+    if not isinstance(override, dict):
+        raise ValueError('Config must be a mapping')
+    preset = (override.get('style', {}) or {}).get('preset', cfg['style']['preset'])
+    if preset not in PRESETS:
+        raise ValueError(f'Unknown style preset {preset!r}; choose {sorted(PRESETS)}')
+    cfg['style'].update(PRESETS[preset])
+    def deep_merge(base, changes):
+        for key, value in changes.items():
+            if isinstance(value, dict) and isinstance(base.get(key), dict):
+                deep_merge(base[key], value)
+            else:
+                base[key] = value
+    deep_merge(cfg, override)
     return cfg
+
+
+PRESETS = {
+    'publication': {
+        'species_background': False, 'density_overlay': False, 'reference_alpha': 0.25,
+        'reference_width': 0.42, 'halo_alpha': 0.014,
+        'halo_width': 1.25, 'foreground_width': 1.55,
+        'mag_size': 38, 'label_font_size': 8.5,
+    },
+    'soft_cloud': {
+        'species_background': True, 'density_overlay': True, 'density_opacity': 0.20,
+        'reference_alpha': 0.18, 'reference_width': 0.40, 'halo_alpha': 0.045,
+        'halo_width': 3.3, 'foreground_width': 1.7,
+        'mag_size': 47, 'label_font_size': 8.7,
+    },
+}
 
 
 def color(name: str) -> str:
