@@ -58,3 +58,21 @@ The provenance report includes input hashes, precise original edge-retention and
 Very large reference collections often contain overrepresented lineages and many extremely short or zero-length branches. A full-tree overview will **not** resemble a uniformly filled or radial reference field, and it would be scientifically misleading to move those tips to improve the design. Use explicit geometric crops/zoom panels (current YAML supports `style.zoom_to_selected` for an exact selected-tip crop), or separate neighbourhood figures. Disjoint occurrences of the same species must never be merged into a fictitious monophyletic cluster.
 
 This is a research software prototype. For manuscript submission, inspect the SVG/PDF and provenance at final print size, review genus/species labels against actual metadata, and compare to another trusted tree viewer.
+
+## Two-panel neighbourhood overview (`--detail-selected`)
+
+The v0.3 development CLI can optionally create a true-geometry view of **a subset of the original selected tips**. Supply a second text file (at least two distinct tip IDs, all present in `--selected`):
+
+```bash
+phylocloud plot \
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --cloud-group-by species \
+  --detail-selected selected_neighbourhood.txt \
+  --out outputs/my_phylogeny
+```
+
+Outputs include the ordinary `my_phylogeny.svg/.pdf/.png` and `my_phylogeny.provenance.json`, plus the independently editable `my_phylogeny_detail.svg/.pdf/.png` and a labelled `my_phylogeny_overview_detail.png`. The last file is a **raster contact sheet**, not fully editable SVG/PDF; use the underlying vector panels for manuscripts.
+
+The neighbourhood panel is **not a re-inferred or independently laid-out tree**: it plots the original full-tree coordinates with a crop centred on the selected subset, and may show the surrounding original reference edges. It suppresses broad cloud labels outside the crop to avoid an artificially huge export canvas. Zero-length coincident tips can remain indistinguishable and may require an appropriate additional annotation/inset.
+
+A complete second-species walkthrough with input files and real outputs from the renderer is in [the synthetic E. coli example](../examples/other_pathogen/README.md). For genuine GTDB reference accessions or Kraken2 input distinctions, see [Reference datasets](REFERENCE_DATA.md).

@@ -94,6 +94,38 @@ You can set exact category colours, density resolution, bandwidth and label coun
 
 All share the same unrooted tree geometry and exact selected connecting branches. Changing style **must never change phylogenetic relationships or branch lengths**.
 
+## Try a second dataset: synthetic *E. coli* lineages
+
+To demonstrate that PhyloCloud is not Campylobacter-specific, the repository includes a **complete fictional E. coli example**: 180 reference genomes, nine focal isolates and six labelled lineages. The `lineage` metadata column—not species—is selected for the colours and broad labels.
+
+```bash
+phylocloud plot \
+  --tree examples/other_pathogen/synthetic_tree.nwk \
+  --metadata examples/other_pathogen/synthetic_metadata.tsv \
+  --selected examples/other_pathogen/selected_genomes.txt \
+  --config examples/other_pathogen/config.yml \
+  --style cloud --cloud-group-by lineage \
+  --detail-selected examples/other_pathogen/detail_selected.txt \
+  --out outputs/ecoli_example
+```
+
+![Software-rendered synthetic E. coli overview and fixed-coordinate detail](examples/outputs/synthetic_ecoli_overview_detail.jpg)
+
+See [the full worked example](examples/other_pathogen/README.md), [actual example exports](examples/outputs/), and [usage details](docs/USAGE.md). The figure is **software-generated from synthetic data**, not a stylised AI rendering or a claim about real E. coli evolution.
+
+## Where to obtain reference genomes
+
+- **[GTDB](https://gtdb.ecogenomic.org/)** — genome taxonomy, reference-genome accessions and downloadable representative sequences. The [GTDB release archive](https://data.gtdb.ecogenomic.org/releases/latest/) also provides `bac120.tree` and `ar53.tree`, but those reference trees do **not automatically include your focal genomes**. Record and match release versions.
+- **[NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/)** — selected RefSeq/GenBank genome assemblies and metadata; [official genome-download tutorial](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/how-tos/genomes/download-genome/).
+- **[ENA](https://www.ebi.ac.uk/ena/browser/home)** and **[BV-BRC](https://www.bv-brc.org/)** — additional sequence/assembly resources.
+- **[Kraken2](https://kraken2.readthedocs.io/en/latest/introduction.html)** is a *taxonomic read/sequence classifier*, not a phylogenetic-tree repository. Kraken classifications can be used as metadata; its database or report is **not** a Newick phylogeny with branch lengths.
+
+You will need a combined tree inferred from/including your **reference and focal genomes**, not merely a collection of reference FASTAs or a taxonomic classification report. See our [reference-dataset and tree preparation guide](docs/REFERENCE_DATA.md).
+
+## Neighbourhood magnification (optional)
+
+Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a second, true-coordinate zoom of a **subset of the focal genomes**, plus a convenient side-by-side PNG. The original per-panel SVG/PDF remain editable. No new topology, branch length or genome coordinate is inferred for the detail panel.
+
 ## How to interpret the picture
 
 - The colourful background comes from **sampled reference genomes** and original branch coordinates, not simulated populations. Dense patches reflect the input sampling strategy; they do **not** establish natural prevalence.
@@ -104,6 +136,6 @@ All share the same unrooted tree geometry and exact selected connecting branches
 
 ## Documentation and contributing
 
-[Full usage / configuration](docs/USAGE.md) · [Scientific invariants](docs/SCIENTIFIC_INVARIANTS.md) · [Style family](docs/STYLE_FAMILY.md) · [Current v0.2 CLI background](docs/CURRENT_CLI.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md).
+[Full usage / configuration](docs/USAGE.md) · [Where to get GTDB/NCBI references](docs/REFERENCE_DATA.md) · [Scientific invariants](docs/SCIENTIFIC_INVARIANTS.md) · [Style family](docs/STYLE_FAMILY.md) · [Current v0.2 CLI background](docs/CURRENT_CLI.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md).
 
 PhyloCloud is MIT-licensed. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff). Developed in the context of the [Campylobacter Control Campaign](https://campylobacter-control-campaign.github.io/website/), but intended for **any organism or pathogen** with an inferred phylogenetic tree and metadata. **Unpublished GETcampy tree and sample data are not included in this public repository.**
