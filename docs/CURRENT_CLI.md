@@ -112,4 +112,4 @@ phylocloud render \
 
 Defaults: `--cloud-group-by species` and `--cloud-labels same`, meaning broad labels follow the colour grouping. To use a different metadata column, e.g. `--cloud-group-by lineage`, labels automatically become lineage labels too. A YAML variant would use `cloud.group_by: species`, `cloud.label_by: same` and `cloud.palette: ben-style:getcampy.species`, optionally `cloud.colours` for exact values.
 
-Planned styles: `publication`, `cloud` and `cloud-hero`. The new CLI will retain `plot` for compatibility. See [ROADMAP.md](ROADMAP.md).
+Planned visual motifs: `cloud` (default), `constellation`, `river` (experimental) and `canopy`. A separate `finish=publication|hero` will govern restraint/atmosphere. Current v0.2 `publication`/`soft_cloud` presets remain supported. The new CLI will retain `plot` for compatibility. See [ROADMAP.md](ROADMAP.md).

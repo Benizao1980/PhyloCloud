@@ -61,15 +61,20 @@ cloud:
 
 To colour and label the same tree by lineage, a future user only changes \`group_by: lineage\` (and optionally a lineage-specific palette); \`label_by: same\` follows automatically. See [CURRENT_CLI.md](CURRENT_CLI.md) for the **existing** commands/inputs and proposed future calls.
 
-## Three named styles
+## Visual motifs and figure finishes
 
-| Preset | Purpose | Reference data | Soft colour | Output requirement |
-| --- | --- | --- | --- | --- |
-| `publication` | Strict manuscript/Supplement | Fine complete vector edges; optional tiny reference tips | Minimal/none by default | Vector tree, text, labels, scale bar when valid |
-| `cloud` | Default scientific and visually rich figure | Every edge and terminal retained; density derived from real positions | Soft metadata-coloured overlapping wash | Vector branches and annotations; editable export with optionally embedded wash raster |
-| `cloud-hero` | Poster/web/cover visual | Same **unmodified** scientific scene | Denser, more atmospheric data-derived hybrid underlay | High-DPI PNG and hybrid SVG/PDF with transparency method stated |
+**The four motifs are independent visualizations of the exact same scientific geometry; see [STYLE_FAMILY.md](STYLE_FAMILY.md).**
 
-**Current code:** `publication` and `soft_cloud` exist as v0.2 YAML presets; `cloud` / `cloud-hero` are planned aliases/features, not live CLI choices. Changing the aesthetic preset must **never** regenerate or mutate the inferred tree.
+| Motif | Priority | What changes visually |
+| --- | --- | --- |
+| \`cloud\` | **Default** | Soft, continuous, data-derived species-coloured diversity washes beneath original reference branches |
+| \`constellation\` | Alternative | Discrete reference-tip stars with fine original edges on a light or dark background |
+| \`river\` | **Experimental** | Faint flow-like styling of the *original* branches; never implied migration/gene flow |
+| \`canopy\` | Next prototype | Fine botanical branch texture and soft density/foliage centred on actual tips and original branch segments |
+
+**Finishes are separate from motifs:** \`publication\` (legible, restrained) and \`hero\` (more atmospheric). For example, a \`cloud\` figure can use either finish without moving genomes. Shared grouping defaults are \`cloud.group_by: species\` and \`cloud.label_by: same\`; user-supplied columns and palettes are supported by the **planned** engine.
+
+**Current status:** \`publication\` and \`soft_cloud\` are the existing v0.2 preset values. None of the four new named motifs is integrated as a selectable PhyloCloud CLI style yet; real-tree Cloud/River/Constellation local style experiments do not change the public CLI. The previous \`cloud-hero\` design corresponds to a future \`cloud\` motif with \`hero\` finish.
 
 ## Cloud visualisation modes
 
@@ -136,7 +141,7 @@ phylocloud render \
   --label-field label --out outputs/my_cloud
 ```
 
-Planned: `--style publication|cloud|cloud-hero`, `--cloud-mode points|branches+points|density-wash|hybrid`, `--cloud-labels none|species|group|lineage|custom`, `--cloud-label-column`, `--zoom-panel`, and cloud density/bandwidth/alpha controls.
+Planned: `--style cloud|constellation|river|canopy` and `--finish publication|hero`, plus `--cloud-mode points|branches+points|density-wash|hybrid`, `--cloud-labels none|species|group|lineage|custom`, `--cloud-label-column`, `--zoom-panel`, and cloud density/bandwidth/alpha controls.
 
 **Current stable prototype commands remain `phylocloud plot` and `phylocloud demo`.** A compatibility alias should precede any CLI rename; do not silently break users.
 
@@ -149,4 +154,5 @@ No phylogenetic inference, ANI inference, prevalence estimation, hidden species 
 - [Planned code architecture](ARCHITECTURE.md)
 - [Implementation milestones](ROADMAP.md)
 - [Scientific invariant tests](SCIENTIFIC_INVARIANTS.md)
+- [Four native visual motifs and validation requirements](STYLE_FAMILY.md)
 - [Existing v0.2 analysis notes](V02_LAYOUT_REVIEW.md)
