@@ -1,0 +1,20 @@
+# Native Canopy — fine original branches with real-tip 'foliage' density
+layout:
+  angle_mode: tip_count
+  rotation_degrees: 19
+style:
+  preset: canopy
+  title: 'PhyloCloud / phylogenetic canopy'
+  subtitle: 'One original tree; fine branching and species density'
+cloud:
+  group_by: species
+  label_by: same
+  opacity: 0.50
+  bandwidth_px: 14
+  resolution: 480
+  max_density_groups: 12
+  min_label_references: 15
+export:
+  width_inches: 13
+  height_inches: 10.5
+  dpi: 350

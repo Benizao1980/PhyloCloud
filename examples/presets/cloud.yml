@@ -1,0 +1,20 @@
+# Native Cloud — first supported data-derived reference density style
+layout:
+  angle_mode: tip_count             # or experimental phylogenetic_spread
+  rotation_degrees: 19
+style:
+  preset: cloud
+  title: 'PhyloCloud / phylogenetic diversity'
+  subtitle: 'Complete reference tree and highlighted selected genomes'
+cloud:
+  group_by: species                # alternatively: lineage, host, source, etc.
+  label_by: same                   # or none
+  opacity: 0.53                    # visual intensity, not sample prevalence
+  bandwidth_px: 16                # smoothing in raster grid pixels
+  resolution: 480
+  max_density_groups: 12          # rare groups pooled in a NEUTRAL display layer
+  min_label_references: 15
+export:
+  width_inches: 13
+  height_inches: 10.5
+  dpi: 350

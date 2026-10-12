@@ -1,28 +1,29 @@
 # Changelog
 
-## [Unreleased] — proposed architecture and design direction (2026-10-12)
+## [0.3.0a0] — native Cloud/Canopy development
 
-- Specify native, **data-derived** coloured density clouds and editorial-quality figure modes in `docs/DESIGN_SPEC.md`.
-- Plan immutable scientific tree / layout geometry, cloud engine, scene layers, semantic annotation and export separation in `docs/ARCHITECTURE.md`.
-- Record staged architecture/cloud/labels/panels/validation/release milestones in `docs/ROADMAP.md`.
-- Clarify that existing generated illustration concepts are design references, not scientifically faithful software outputs.
-- No new rendering functionality is claimed for this documentation update.
+- Added native `cloud` and `canopy` species-coloured reference-density styles and simple broad semantic labels.
+- Added experimental `constellation` and `river` motifs; all use one original inferred tree, unchanged tip/edge coordinates and selected-edge set.
+- Added `--style` and `--cloud-group-by` CLI flags, retained v0.2 `plot`, `demo`, `publication`, `soft_cloud` compatibility.
+- Bounded native raster group layers for performance while recording all original species counts and references.
+- Added synthetic style previews, public-facing quick start, usage guide, examples and scientific regression tests.
+- Not yet a publication-ready automatically collision-free label engine or a full-tree + geometric-neighbourhood composite.
 
-## [0.2.0a0] — 2026-10-12 (pre-release prototype)
+## [Unreleased]
 
-- `publication` and `soft_cloud` presets, experimental phylogenetic-spread angles.
-- Full-tree-coordinate geometric crop/zoom with selected-neighbour markers and optional scale bar.
-- Neutral sampled-reference tip-density underlay (hybrid SVG/PDF); original edges stay vector editable.
-- SHA-256 provenance, original edge-retention validation and tests.
-- Applied locally to the 6,445-tip GETcampy tree for review; private source data not committed.
+- Equal-daylight algorithm benchmarking, line-crossing diagnostics and neighbourhood panels remain future work.
+
+## [0.2.0a0] — 2026-10-12 (pre-release candidate)
+
+- Two presets (`publication`, `soft_cloud`) with different opacity/color treatment, using the same full-tree coordinates within each figure.
+- Experimental `phylogenetic_spread` angular-sector weighting (not classical equal-daylight); unchanged original inferred edge lengths.
+- Optional display-only blurred reference-tip sampling-density underlay, with SVG/PDF edges and labels retained as vectors.
+- True geometric crops of the original full layout; optional original-tree context reference markers and branch-length scale bar.
+- Automated SHA-256 provenance JSON and explicit source-tip/edge preservation tests; 13 new and old tests expected in CI.
+- Guard against treating unselected MAGs as reference genomes when deriving legend/reference-density counts.
+- Public synthetic demonstrations and real-tree local comparison documented; private Box source data not committed.
 
 ## [0.1.0a0] — 2026-10-12
 
-- Newick/metadata/selected-tip command-line interface.
-- One unrooted equal-arc coordinate system for all original edges.
-- Exact minimal connecting subtree for focal genomes.
-- Two-pass semitransparent backgrounds; optional species colours using Ben-style palette.
-- Labelled focal genome markers; vector SVG/PDF and high-resolution PNG.
-- Synthetic demo generator, CI and draft-release workflow.
-
-Public releases require scientific validation and code review.
+- Initial unrooted equal-arc CLI, reference background and selected original-edge subtree.
+- Ben-style palette, SVG/PDF/PNG export, generated synthetic example, baseline tests, CI and draft releases.
