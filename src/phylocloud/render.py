@@ -120,10 +120,6 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
                 ax.scatter(ref_coords[:,0],ref_coords[:,1],s=3.8 if motif=='canopy' else 2.2,
                            c=ref_colours,alpha=.45 if motif=='canopy' else .40,
                            zorder=3,rasterized=True,linewidths=0)
-        if native_fields:
-            cloud_labels=label_cloud_groups(ax,native_fields,config,s,
-                               [layout.coordinates[graph.tips[n]] for n in selected_ids])
-
 
     fg = [[layout.coordinates[p],layout.coordinates[c]]
           for p,c,_ in layout.edges if frozenset((p,c)) in selected_edges]
@@ -131,6 +127,13 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
         ax.add_collection(LineCollection(fg, colors=color(s['foreground_color']),
                                          linewidths=s['foreground_width'],alpha=.9,
                                          capstyle='round',joinstyle='round',zorder=4))
+    # Group captions use actual reference coordinates and avoid highlighted
+    # original branches. A zoom suppresses labels outside the crop.
+    if native_fields and not s.get('zoom_to_selected',False):
+        cloud_labels = label_cloud_groups(ax,native_fields,config,s,
+            [layout.coordinates[graph.tips[n]] for n in selected_ids],
+            blocked_segments=fg)
+
     # Dot overprinted at each highlighted terminal; directly labelled.
     coords = layout.coordinates
     context_ids = s.get('context_reference_ids', [])
@@ -165,7 +168,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     # Offset labels in their local tip direction; text stays horizontal.
     # Collision avoidance in data space is label-only, never moves tips/edges.
     center_x,center_y=coords[layout.centre]
-    label_spacing=0.055*spread
+    label_spacing=0.038*spread
     positions={}
     for name,x,y,face in plotted:
         vx,vy=x-center_x,y-center_y
@@ -195,10 +198,13 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     for name,x,y,face in plotted:
         tx,ty,side=positions[name]
         label=metadata.get(name,{}).get('label') or name
-        ax.plot([x,tx-side*0.009*spread],[y,ty],color=face,
-                alpha=.62,linewidth=.75,zorder=5)
+        elbow=tx-side*0.013*spread
+        ax.plot([x,elbow,tx-side*0.006*spread],[y,ty,ty],color=face,
+                alpha=.70,linewidth=.68,zorder=5,solid_capstyle='round')
         ax.text(tx,ty,label,fontsize=s['label_font_size'],color=ink,
-                ha='left' if side==1 else 'right',va='center',weight='semibold',zorder=8)
+                ha='left' if side==1 else 'right',va='center',weight='medium',
+                zorder=8, bbox={'facecolor':background,'alpha':.56,
+                               'edgecolor':'none','pad':.65})
     # Content bounds plus deliberately generous margins for direct labels.
     ymin=min([lowy]+[positions[n][1] for n in selected_ids]); ymax=max([highy]+[positions[n][1] for n in selected_ids])
     xmargin=(.85 if s.get('zoom_to_selected',False) else .19)*spread

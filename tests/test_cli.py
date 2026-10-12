@@ -4,6 +4,8 @@ from phylocloud.synthetic import make_demo
 
 def test_small_end_to_end_render(tmp_path):
     inputs=make_demo(tmp_path/'data',seed=7,reference_count=60)
+
+    inputs['config'].write_text(inputs['config'].read_text()+'\ncloud:\n  resolution: 128\n  max_density_groups: 3\nexport:\n  width_inches: 8\n  height_inches: 6\n  dpi: 85\n')
     out=tmp_path/'figure'/'preview'
     stats=run_plot(inputs['tree'],inputs['metadata'],inputs['selected'],inputs['config'],out)
     assert stats['tips']==69
@@ -17,6 +19,8 @@ def test_small_end_to_end_render(tmp_path):
 
 def test_svg_is_reproducible_for_same_tree(tmp_path):
     inputs=make_demo(tmp_path/'data',seed=47,reference_count=60)
+
+    inputs['config'].write_text(inputs['config'].read_text()+'\ncloud:\n  resolution: 128\n  max_density_groups: 3\nexport:\n  width_inches: 8\n  height_inches: 6\n  dpi: 85\n')
     a=tmp_path/'a';b=tmp_path/'b'
     run_plot(inputs['tree'],inputs['metadata'],inputs['selected'],inputs['config'],a)
     run_plot(inputs['tree'],inputs['metadata'],inputs['selected'],inputs['config'],b)

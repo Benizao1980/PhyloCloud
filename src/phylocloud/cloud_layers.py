@@ -142,44 +142,65 @@ def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style):
     return fields, counts
 
 
-def label_cloud_groups(ax, fields, cfg, style, excluded_xy=()):
-    """Label only groups that have enough observed references; text-only offsets.
+def _point_to_segment_distance(point, segment):
+    """Euclidean screen-plane distance to an ORIGINAL plotted edge."""
+    p = np.asarray(point, dtype=float)
+    a, b = (np.asarray(q, dtype=float) for q in segment)
+    d = b-a
+    length = float(d@d)
+    t = np.clip(float((p-a)@d)/length,0.,1.) if length else 0.
+    return float(np.linalg.norm(p-a-t*d))
 
-    Position by observed median reference XY. This simple deterministic first
-    version intentionally omits crowded anchors rather than claiming globally
-    optimal collision-free placement.
+
+def label_cloud_groups(ax, fields, cfg, style, excluded_xy=(), blocked_segments=()):
+    """Place broad labels near real observed members, away from focal branches.
+
+    All candidates are observed reference positions, their medians, or quantiles;
+    no phylogenetic vertex/edge is moved. A skipped label retains its category
+    in the legend and provenance report.
     """
     label_by = cfg['cloud'].get('label_by','same')
     if label_by == 'none':
         return []
     if label_by != 'same':
-        # A separate metadata label dimension needs explicit per-group mapping.
         raise ValueError('cloud.label_by currently supports same or none')
     min_refs = int(cfg['cloud'].get('min_label_references', 15))
     max_labels = int(cfg['cloud'].get('max_labels',7))
-    anchors = []
-    xs, ys = [], []
+    anchors=[]
+    occupied=[]
     for field in fields:
         if field['group'] == 'Other reference categories' or field['count'] < min_refs or len(anchors) >= max_labels:
             continue
-        anchor = np.median(field['points'],axis=0)
-        # Never overwrite selected tips or other broad labels if close in XY.
-        width = field['bounds'][1]-field['bounds'][0]
-        height = field['bounds'][3]-field['bounds'][2]
-        if any(abs(anchor[0]-x) < width*.12 and abs(anchor[1]-y) < height*.045 for x,y in zip(xs,ys)):
+        points=field['points']
+        width=field['bounds'][1]-field['bounds'][0]
+        height=field['bounds'][3]-field['bounds'][2]
+        candidates=[np.median(points,axis=0)]
+        candidates.extend([np.quantile(points,q,axis=0) for q in (.20,.35,.65,.80)])
+        candidates.extend(points[::max(1,len(points)//20)][:20])
+        centroid=np.median(points,axis=0)
+        candidates=sorted(candidates,key=lambda p:float(np.linalg.norm(p-centroid)))
+        chosen=None
+        for anchor in candidates:
+            if any(abs(anchor[0]-x) < width*.105 and abs(anchor[1]-y) < height*.043 for x,y in occupied):
+                continue
+            if any(math.dist(anchor,p) < width*.038 for p in excluded_xy):
+                continue
+            if any(_point_to_segment_distance(anchor,edge)<min(width,height)*.023 for edge in blocked_segments):
+                continue
+            chosen=anchor
+            break
+        if chosen is None:
             continue
-        if any(math.dist(anchor,p) < width*.018 for p in excluded_xy):
-            continue
-        label = field['group']
-        label = label.replace('Campylobacter_D ', 'C_D. ').replace('Campylobacter ', 'C. ')
-        # Only move text; anchor stays at the actual medoid coordinates.
-        ax.text(anchor[0],anchor[1],label,ha='center',va='center',
-                fontsize=style.get('cloud_label_font_size',9.2),
+        label=field['group'].replace('Campylobacter_D ', 'C_D. ').replace('Campylobacter ', 'C. ')
+        x,y = float(chosen[0]),float(chosen[1])
+        ax.text(x,y,label,ha='center',va='center',
+                fontsize=style.get('cloud_label_font_size',9.4),
                 color=style.get('cloud_label_color','#343C38'),
                 fontstyle='italic' if cfg['cloud'].get('group_by')=='species' else 'normal',
-                weight='semibold',alpha=.92,zorder=3,
+                weight='medium',alpha=.94,zorder=3.7,
                 bbox={'facecolor':style.get('background','#FFFFFF'),
-                      'alpha':.72,'edgecolor':'none','pad':1.0})
-        anchors.append({'group':field['group'],'count':field['count'],'x':float(anchor[0]),'y':float(anchor[1])})
-        xs.append(anchor[0]);ys.append(anchor[1])
+                      'alpha':.83,'edgecolor':'none','boxstyle':'round,pad=0.42'})
+        anchors.append({'group':field['group'],'count':field['count'],
+                        'x':x,'y':y,'placement':'reference_position_or_quantile'})
+        occupied.append((x,y))
     return anchors
