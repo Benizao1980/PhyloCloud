@@ -2,6 +2,7 @@
 from __future__ import annotations
 import argparse
 import json
+import copy
 import hashlib
 import math
 from pathlib import Path
@@ -11,7 +12,7 @@ from .render import draw
 from .synthetic import make_demo
 
 
-def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None):
+def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,detail_selected=None):
     graph=TreeGraph.from_newick(tree)
     meta=load_metadata(metadata)
     ids=load_selected(selected)
@@ -65,6 +66,29 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None):
                                         'species_background')
     }
     report = Path(out).with_suffix('.provenance.json')
+    if detail_selected is not None:
+        detail = load_selected(detail_selected)
+        if len(set(detail)) != len(detail) or len(detail) < 2:
+            raise ValueError('Detail selection needs at least two distinct tip IDs')
+        if not set(detail).issubset(ids):
+            raise ValueError('Detail selection must be a subset of the full selected-genomes file')
+        detail_cfg = copy.deepcopy(cfg)
+        detail_cfg['style']['zoom_to_selected'] = True
+        detail_cfg['style']['title'] = 'PhyloCloud  /  selected-genome neighbourhood'
+        detail_cfg['style']['subtitle'] = 'True geometric crop of original full-tree coordinates'
+        detail_out = str(out) + '_detail'
+        detail_info = draw(graph, layout, meta, detail, detail_cfg, detail_out)
+        from .panels import compose_preview
+        composition = compose_preview(str(out)+'.png',detail_out+'.png',str(out)+'_overview_detail.png')
+        summary['detail_panel'] = {
+            'selected_tip_ids': detail,
+            'full_tree_edges': detail_info['tree_edges'],
+            'selected_subtree_edges': detail_info['foreground_edges'],
+            'same_layout': True,
+            'vector_detail_svg': detail_out+'.svg',
+            'vector_detail_pdf': detail_out+'.pdf',
+            **composition,
+        }
     report.write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n',encoding='utf-8')
     return summary
 
@@ -77,6 +101,7 @@ def main(argv=None):
     plot.add_argument('--metadata',required=True)
     plot.add_argument('--selected',required=True)
     plot.add_argument('--config')
+    plot.add_argument('--detail-selected',help='Subset of --selected tip IDs for a true-geometry zoom and side-by-side preview PNG')
     plot.add_argument('--style',choices=['publication','soft_cloud','cloud','canopy','constellation','river'])
     plot.add_argument('--cloud-group-by',help='Metadata column for native cloud colours and labels (default species)')
     plot.add_argument('--out',required=True,help='Output stem (no file extension)')
@@ -92,7 +117,7 @@ def main(argv=None):
                         Path(args.outdir)/'phylocloud_demo',style=args.style)
     else:
         result=run_plot(args.tree,args.metadata,args.selected,args.config,args.out,
-                        style=args.style,cloud_group_by=args.cloud_group_by)
+                        style=args.style,cloud_group_by=args.cloud_group_by,detail_selected=args.detail_selected)
     print(json.dumps(result,indent=2))
     return result
 

@@ -1,0 +1,28 @@
+layout:
+  angle_mode: tip_count
+  rotation_degrees: 14
+style:
+  preset: cloud
+  title: "Synthetic E. coli  /  reference diversity"
+  subtitle: "One species, six fictional lineages and nine selected isolates"
+  label_font_size: 8.4
+cloud:
+  group_by: lineage
+  label_by: same
+  max_density_groups: 8
+  min_label_references: 9
+  max_labels: 6
+  resolution: 250
+  bandwidth_px: 10
+  opacity: 0.50
+  colours:
+    "Lineage A": sage
+    "Lineage B": powder_blue
+    "Lineage C": dusty_pink
+    "Lineage D": lavender
+    "Lineage E": mustard
+    "Lineage F": teal
+export:
+  width_inches: 12
+  height_inches: 8.5
+  dpi: 145

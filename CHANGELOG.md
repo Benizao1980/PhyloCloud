@@ -27,3 +27,11 @@
 
 - Initial unrooted equal-arc CLI, reference background and selected original-edge subtree.
 - Ben-style palette, SVG/PDF/PNG export, generated synthetic example, baseline tests, CI and draft releases.
+
+## Unreleased — public examples and geometric neighbourhood comparison
+
+- Optional `--detail-selected` subset creates a second full-tree-coordinate crop with separate SVG/PDF/PNG plus a labelled overview-detail PNG contact sheet.
+- Refined selected-tip leaders and broad label avoidance of highlighted original branches; figure coordinates are never shifted for styling.
+- Added fully synthetic, non-Campylobacter (E. coli lineage) input files, and tested example outputs; no private GETcampy data committed.
+- Added practical reference-genome / tree acquisition guide, GTDB release-version warning and explicit Kraken2 classification-vs-phylogeny explanation.
+- Made the README task-oriented with reference links, reproducible secondary use case and preview gallery.
