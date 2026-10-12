@@ -109,7 +109,13 @@ phylocloud plot \
   --out outputs/ecoli_example
 ```
 
-![Software-rendered synthetic E. coli overview and fixed-coordinate detail](examples/outputs/synthetic_ecoli_overview_detail.jpg)
+The command produces an **overview**, an independently editable **detail SVG/PDF**, and a side-by-side comparison PNG. The images below are existing software-generated synthetic Cloud and Canopy demos, not inferred E. coli trees:
+
+| Software-rendered Cloud | Software-rendered Canopy |
+|:---:|:---:|
+| ![Synthetic reference phylogeny using Cloud style](examples/outputs/cloud-demo.jpg) | ![Same synthetic reference phylogeny using Canopy style](examples/outputs/canopy-demo.jpg) |
+
+Download reproducible E. coli figure outputs from the [example gallery workflow](.github/workflows/example-gallery.yml) / its GitHub Actions run artifacts, or run the above command locally.
 
 See [the full worked example](examples/other_pathogen/README.md), [actual example exports](examples/outputs/), and [usage details](docs/USAGE.md). The figure is **software-generated from synthetic data**, not a stylised AI rendering or a claim about real E. coli evolution.
 

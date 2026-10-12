@@ -1,0 +1,54 @@
+name: Build example figure gallery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/phylocloud/**'
+      - 'examples/other_pathogen/**'
+      - 'examples/presets/**'
+      - '.github/workflows/example-gallery.yml'
+
+jobs:
+  render-examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: pip install -e .
+      - name: Generate synthetic demo
+        run: phylocloud demo --outdir outputs/gallery_demo --references 60 --seed 47 --style cloud
+      - name: Build independent E. coli overview and detail
+        run: |
+          phylocloud plot \
+            --tree examples/other_pathogen/synthetic_tree.nwk \
+            --metadata examples/other_pathogen/synthetic_metadata.tsv \
+            --selected examples/other_pathogen/selected_genomes.txt \
+            --config examples/other_pathogen/config.yml \
+            --style cloud --cloud-group-by lineage \
+            --detail-selected examples/other_pathogen/detail_selected.txt \
+            --out outputs/gallery_ecoli
+      - name: Upload editable figure exports and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: phylocloud-synthetic-figures
+          path: |
+            outputs/gallery_demo/*.nwk
+            outputs/gallery_demo/*.tsv
+            outputs/gallery_demo/*.txt
+            outputs/gallery_demo/*.yml
+            outputs/gallery_demo/*.svg
+            outputs/gallery_demo/*.pdf
+            outputs/gallery_demo/*.png
+            outputs/gallery_demo/*.json
+            outputs/gallery_ecoli*.svg
+            outputs/gallery_ecoli*.pdf
+            outputs/gallery_ecoli*.png
+            outputs/gallery_ecoli*.json
+          if-no-files-found: error
+          retention-days: 30
