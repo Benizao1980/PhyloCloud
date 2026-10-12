@@ -1,0 +1,41 @@
+# Proposed configuration example — NOT YET SUPPORTED by PhyloCloud v0.2
+# This is a schema target for issues #6 (cloud engine) and #7 (cloud labels).
+# Existing CLI accepts --config files, but ignores unknown cloud keys.
+
+layout:
+  angle_mode: tip_count
+
+style:
+  preset: cloud                # FUTURE preset
+
+cloud:
+  group_by: species            # default: colour the cloud by species
+  label_by: same               # default: broad labels match cloud colours
+  palette: ben-style:getcampy.species
+  colours:                    # optional exact override values
+    "Campylobacter infans": sage
+    "Campylobacter_D jejuni": powder_blue
+    "Campylobacter coli": dusty_pink
+    "Campylobacter upsaliensis": lavender
+  label_style:
+    min_references: 12
+    italicise_species: true
+  density:
+    source: tips
+    kernel: gaussian
+    normalization: log
+    opacity: 0.35
+
+export:
+  width_inches: 14
+  height_inches: 11
+  dpi: 400
+
+# For custom group colour + labels:
+# cloud:
+#   group_by: lineage
+#   label_by: same
+#   palette: ben-style:balanced_8
+#   colours:
+#     "ST-828": teal
+#     "ST-1150": mustard
