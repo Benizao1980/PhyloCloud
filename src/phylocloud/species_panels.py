@@ -181,20 +181,33 @@ def draw_species_panels(graph, layout, metadata, selected_ids, out,
             axes.scatter([x],[y],s=31,c=[palette(taxon)],
                          edgecolors=ink,linewidths=.85,zorder=6)
         if group is not None:
-            names=list(markers)
-            for idx,name in enumerate(names):
-                p=coords[graph.tips[name]]
-                label=metadata[name].get("label","").strip() or name
-                if len(label)>26:
-                    label=label.replace("GETCAMPY_","").split("_Campylobacter")[0]
-                row_y=.88-idx*(.72/max(1,len(names)-1))
-                axes.annotate(label,xy=p,xycoords="data",xytext=(.985,row_y),
-                      textcoords="axes fraction",ha="right",va="center",
-                      fontsize=7.4,color=ink,
-                      arrowprops={"arrowstyle":"-","lw":.7,"color":palette(group)},
-                      bbox={"facecolor":background,"edgecolor":"none","alpha":.83,"pad":1.0},
-                      zorder=8,annotation_clip=True)
-        axes.set_xlim(bounds[0],bounds[1]);axes.set_ylim(bounds[2],bounds[3])
+            # Reserve a right-hand label gutter; never relocate the actual tips.
+            # Sort labels by their ORIGINAL vertical positions so leader lines
+            # remain ordered rather than crossing arbitrarily.
+            names = sorted(markers, key=lambda n: (
+                -coords[graph.tips[n]][1], coords[graph.tips[n]][0], n))
+            for idx, name in enumerate(names):
+                p = coords[graph.tips[name]]
+                label = metadata[name].get("label", "").strip() or name
+                if len(label) > 26:
+                    label = label.replace("GETCAMPY_", "").split("_Campylobacter")[0]
+                if len(label) > 28:
+                    label = label[:25] + "…"
+                row_y = .84 - idx * (.68 / max(1, len(names)-1))
+                axes.annotate(label, xy=p, xycoords="data",
+                    xytext=(.985, row_y), textcoords="axes fraction",
+                    ha="right", va="center",
+                    fontsize=6.8 if len(names) > 5 else 7.4, color=ink,
+                    arrowprops={"arrowstyle":"-", "lw":.6,
+                                "color":palette(group), "alpha":.78},
+                    bbox={"facecolor":background, "edgecolor":"none",
+                          "alpha":.88, "pad":.9},
+                    zorder=8, annotation_clip=False)
+            xspan = bounds[1] - bounds[0]
+            axes.set_xlim(bounds[0], bounds[1] + .31*xspan)
+        else:
+            axes.set_xlim(bounds[0], bounds[1])
+        axes.set_ylim(bounds[2],bounds[3])
         axes.set_aspect("equal",adjustable="box");axes.axis("off")
     draw_edges(ax,overview)
     side_x=.65;panel_top=.835;gap=.022
