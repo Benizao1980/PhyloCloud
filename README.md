@@ -128,6 +128,19 @@ See [the full worked example](examples/other_pathogen/README.md), [actual exampl
 
 You will need a combined tree inferred from/including your **reference and focal genomes**, not merely a collection of reference FASTAs or a taxonomic classification report. See our [reference-dataset and tree preparation guide](docs/REFERENCE_DATA.md).
 
+
+### Automatically show species neighbourhoods
+
+The optional `--species-panels 3` switch creates a companion `*_species_panels.png` with the full reference tree and the three most informative metadata-group neighbourhoods. All views use **one exact full-tree layout**; panels have independently disclosed camera magnifications. Example:
+
+```bash
+phylocloud plot \\
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \\
+  --style cloud --species-panels 3 --out outputs/my_cloud
+```
+
+Use `--cloud-group-by lineage` to choose and title panels by lineage instead. This composition is a visual review PNG; the standard editable SVG/PDF and original scientific verification remain available. See [usage](docs/USAGE.md).
+
 ## Neighbourhood magnification (optional)
 
 Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a second, true-coordinate zoom of a **subset of the focal genomes**, plus a convenient side-by-side PNG. The original per-panel SVG/PDF remain editable. No new topology, branch length or genome coordinate is inferred for the detail panel.

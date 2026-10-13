@@ -83,3 +83,19 @@ A complete second-species walkthrough with input files and real outputs from the
 Cloud/Canopy now support a `cloud.density_engine: multiscale` underlay (default in the development branch). Density is derived from **one real reference-tip sample per reference genome**, augmented with downweighted, on-segment samples of **original metadata-homogeneous edges that contain reference descendants**. It does not infer or add genomes or branches. The density wash is raster; tree geometry/text remain vectors. The alternative `cloud.density_engine: legacy` retains the previous reference-tip-only wash for comparison.
 
 This changes only cloud appearance, not tree geometry, branch lengths or selected-edge relationships. Very sparse species cannot acquire large artificial reference clouds. Figure aesthetics at whole-tree scale remain constrained by strongly unequal genetic distances and sampling; use the existing `--detail-selected` exact-coordinate crop for dense focal areas. See [Issue #6](https://github.com/Benizao1980/PhyloCloud/issues/6) for further compositional refinement.
+
+
+## Automatic reference-species neighbourhood composition (new opt-in preview)
+
+For densely sampled reference phylogenies, add `--species-panels 3` to automatically create a **separate** visually organised review PNG alongside the normal editable SVG/PDF/PNG.
+
+```bash
+phylocloud plot \\
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \\
+  --style cloud --cloud-group-by species --species-panels 3 \\
+  --out outputs/my_phylogeny
+```
+
+This adds `my_phylogeny_species_panels.png` and a `species_panels` section in `*.provenance.json`. Panel categories are selected reproducibly: the most-sampled reference groups, plus one cohort of two or more selected genomes if it would otherwise be excluded. Group names and group sizes come from real metadata. Each panel uses **one original full-tree coordinate system** with a different camera crop; no graph is pruned or independently re-laid out. The raster composition is for visual review/communication; continue to use the separately exported SVG/PDF for editable scientific plotting.
+
+**Scientific caution:** species panels have independent magnification. A species with a single reference genome is not assigned a fictitious rich cloud; grouped focal MAGs can still be labelled in that view. Sampling density is not prevalence. Original branch lengths and topology are unchanged. This feature is still experimental and not a substitute for manuscript validation.
