@@ -134,6 +134,9 @@ def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style):
     bounds = (xmin-padding, xmax+padding, ymin-padding, ymax+padding)
     cloud_cfg = dict(cfg['cloud'])
     cloud_cfg['motif'] = style['preset']
+    if style['preset'] in ('cloud','canopy') and cloud_cfg.get('density_engine','multiscale')=='multiscale':
+        return _multiscale_reference_atmosphere(ax,graph,layout,metadata,
+                 reference_names,cloud_cfg,style['species_colors'],bounds,style['preset'])
     fields,counts = compute_cloud_fields(graph,layout,metadata,reference_names,cloud_cfg,
                                          style['species_colors'],bounds)
     for field in fields:
@@ -204,3 +207,112 @@ def label_cloud_groups(ax, fields, cfg, style, excluded_xy=(), blocked_segments=
                         'x':x,'y':y,'placement':'reference_position_or_quantile'})
         occupied.append((x,y))
     return anchors
+
+
+def _multiscale_reference_atmosphere(
+        ax, graph, layout, metadata, reference_names, cloud_cfg,
+        species_colors, bounds, motif):
+    """Multiscale, shared-normalization soft colour washes from ORIGINAL geometry.
+
+    All tree edges are still rendered separately as vector lines by render.py.
+    This function only creates an additional visual underlay: one sampled point
+    per reference tip, plus downweighted points ON eligible reference-bearing,
+    metadata-homogeneous original edge segments. Interior samples are not tips.
+    Density is not ecological prevalence, ancestry probability or uncertainty.
+    """
+    from .geometry import edge_taxa
+    group_by = cloud_cfg.get('group_by', 'species')
+    true_groups = groups_for_references(graph, metadata, reference_names, group_by)
+    counts = {k: len(v) for k,v in true_groups.items()}
+    max_groups = int(cloud_cfg.get('max_density_groups',12))
+    if not 2 <= max_groups <= 40:
+        raise ValueError('cloud.max_density_groups must be 2..40')
+    ordered = sorted(true_groups, key=lambda x:(-len(true_groups[x]),x))
+    if len(ordered)>max_groups:
+        keep=set(ordered[:max_groups-1])
+        groups={g:true_groups[g] for g in ordered if g in keep}
+        groups['Other reference categories']=[
+            name for category in ordered if category not in keep
+            for name in true_groups[category]]
+    else:
+        groups={g:true_groups[g] for g in ordered}
+    xmin,xmax,ymin,ymax=bounds
+    res=int(cloud_cfg.get('resolution',600))
+    if not 128<=res<=900: raise ValueError('cloud.resolution must be in 128..900')
+    nx=res
+    ny=max(128,min(900,int(res*(ymax-ymin)/(xmax-xmin))))
+    bw=float(cloud_cfg.get('bandwidth_px',13))
+    opacity=float(cloud_cfg.get('opacity',.72))
+    if not .1<=bw<=100 or not 0<=opacity<=1:
+        raise ValueError('cloud bandwidth or opacity out of range')
+    # Determine species/group purity on the exact ORIGINAL tree. An edge only
+    # supplies cloud texture if its descendant side includes a reference tip.
+    # The edges keep their original coordinates and branch lengths.
+    by_tip={node:name for name,node in graph.tips.items()}
+    children=defaultdict(list)
+    for parent,child,length in layout.edges:
+        children[parent].append(child)
+    node_group={}
+    ref_tips=set(reference_names)
+    reference_descendants={}
+    for node in reversed(list(layout.coordinates)):
+        if node in by_tip:
+            name=by_tip[node]
+            node_group[node]=metadata[name].get(group_by,'').strip() or 'Unassigned'
+            reference_descendants[node]=int(name in ref_tips)
+        else:
+            labels={node_group[c] for c in children[node]}
+            node_group[node]=next(iter(labels)) if len(labels)==1 else None
+            reference_descendants[node]=sum(reference_descendants[c] for c in children[node])
+    segments=defaultdict(list)
+    for parent,child,length in layout.edges:
+        group=node_group[child]
+        if group not in groups or reference_descendants[child]==0 or length<=0:
+            continue
+        a=np.asarray(layout.coordinates[parent],float)
+        b=np.asarray(layout.coordinates[child],float)
+        for t in (.25,.5,.75):
+            segments[group].append(a+(b-a)*t)
+    densities=[]
+    fields=[]
+    for group, ids in groups.items():
+        tips=np.asarray([layout.coordinates[graph.tips[name]] for name in ids],dtype=float)
+        hist,_,_=np.histogram2d(tips[:,1],tips[:,0],bins=(ny,nx),
+                                range=((ymin,ymax),(xmin,xmax)))
+        if segments[group]:
+            pts=np.asarray(segments[group],dtype=float)
+            edge_hist,_,_=np.histogram2d(pts[:,1],pts[:,0],bins=(ny,nx),
+                                         range=((ymin,ymax),(xmin,xmax)))
+            hist+=edge_hist*.10  # 3 samples, total density 0.30 / original edge
+        fine=_blur_float_counts(hist,max(.5,bw*.65))
+        broad=_blur_float_counts(hist,bw*2.2)
+        density=(.74*fine + .26*broad).astype(np.float32)
+        weight=min(1.0,math.log1p(len(ids))/math.log1p(180))
+        if len(ids)<3:weight*=.18
+        density*=weight
+        peak=float(density.max())
+        if peak:
+            density[density<peak*.0025]=0.0
+        densities.append((group,density,tips))
+        fields.append({'group':group,'count':len(ids),'points':tips,'bounds':bounds})
+    global_peak=max((float(a.max()) for _,a,_ in densities),default=0.)
+    scale=max(global_peak*.055,1e-9)
+    rgb_total=np.zeros((ny,nx,3),dtype=np.float32)
+    weight_total=np.zeros((ny,nx),dtype=np.float32)
+    for group,density,tip_xy in densities:
+        strength=(1-np.exp(-1.25*np.sqrt(np.maximum(0,density/scale)))).astype(np.float32)
+        if len(tip_xy)<3: strength*=.24
+        if motif=='canopy':strength*=.72
+        rgb=to_rgb(colour_for_group(group,cloud_cfg,species_colors))
+        # Warm, luminous wash; not hard species-specific boundary polygons.
+        soft_rgb=np.asarray(rgb,dtype=np.float32)*.82+.18
+        rgb_total+=strength[:,:,None]*soft_rgb
+        weight_total+=strength
+    image=np.empty((ny,nx,4),dtype=np.float32)
+    image[:,:,:3]=rgb_total/np.maximum(weight_total[:,:,None],1e-8)
+    image[:,:,3]=np.minimum(opacity*.84,
+                            opacity*(1-np.exp(-weight_total*1.14)))
+    image[:,:,3][weight_total<.045]=0.0
+    ax.imshow(image,extent=bounds,origin='lower',interpolation='bilinear',
+              zorder=0,rasterized=True)
+    return fields,counts

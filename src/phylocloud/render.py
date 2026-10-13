@@ -264,7 +264,9 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             'cloud_label_by':config['cloud'].get('label_by','same') if native else None,
             'reference_group_counts':group_counts,
             'native_cloud_labels':cloud_labels,
-            'density_type':'reference_tip_gaussian_visual' if native and native_fields else None,
+            'density_type':('reference_tip_and_pure_original_edge_multiscale_visual'
+                             if motif in ('cloud','canopy') and config['cloud'].get('density_engine','multiscale')=='multiscale'
+                             else 'reference_tip_gaussian_visual') if native and native_fields else None,
             'density_parameters':{k:config['cloud'][k] for k in (
                 'opacity','bandwidth_px','resolution')} if native and native_fields else None,
             'reference_genomes':len(reference_names),

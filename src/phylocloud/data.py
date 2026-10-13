@@ -52,7 +52,8 @@ DEFAULT_CONFIG = {
     },
     'cloud': {
         'group_by': 'species', 'label_by': 'same', 'colours': {},
-        'opacity': 0.52, 'bandwidth_px': 16, 'resolution': 480,
+        'opacity': 0.72, 'bandwidth_px': 13, 'resolution': 600,
+        'density_engine': 'multiscale',
         'max_density_groups': 12,
         'min_label_references': 15, 'max_labels': 7,
     },
@@ -115,13 +116,13 @@ PRESETS = {
     },
     'cloud': {
         'species_background': True, 'density_overlay': False, 'reference_alpha': .28,
-        'reference_width': .48, 'halo_alpha': .06, 'halo_width': 4.8,
+        'reference_width': .38, 'halo_alpha': .032, 'halo_width': 3.4,
         'foreground_width': 2.0, 'mag_size': 52, 'label_font_size': 8.8,
         'background': '#FCFCFA',
     },
     'canopy': {
         'species_background': True, 'density_overlay': False, 'reference_alpha': .36,
-        'reference_width': .40, 'halo_alpha': .085, 'halo_width': 4.4,
+        'reference_width': .34, 'halo_alpha': .045, 'halo_width': 3.2,
         'foreground_width': 1.85, 'mag_size': 52, 'label_font_size': 8.8,
         'background': '#FCFCFA',
     },
