@@ -76,3 +76,10 @@ Outputs include the ordinary `my_phylogeny.svg/.pdf/.png` and `my_phylogeny.prov
 The neighbourhood panel is **not a re-inferred or independently laid-out tree**: it plots the original full-tree coordinates with a crop centred on the selected subset, and may show the surrounding original reference edges. It suppresses broad cloud labels outside the crop to avoid an artificially huge export canvas. Zero-length coincident tips can remain indistinguishable and may require an appropriate additional annotation/inset.
 
 A complete second-species walkthrough with input files and real outputs from the renderer is in [the synthetic E. coli example](../examples/other_pathogen/README.md). For genuine GTDB reference accessions or Kraken2 input distinctions, see [Reference datasets](REFERENCE_DATA.md).
+
+
+## Multiscale native cloud experiment (v0.3 development)
+
+Cloud/Canopy now support a `cloud.density_engine: multiscale` underlay (default in the development branch). Density is derived from **one real reference-tip sample per reference genome**, augmented with downweighted, on-segment samples of **original metadata-homogeneous edges that contain reference descendants**. It does not infer or add genomes or branches. The density wash is raster; tree geometry/text remain vectors. The alternative `cloud.density_engine: legacy` retains the previous reference-tip-only wash for comparison.
+
+This changes only cloud appearance, not tree geometry, branch lengths or selected-edge relationships. Very sparse species cannot acquire large artificial reference clouds. Figure aesthetics at whole-tree scale remain constrained by strongly unequal genetic distances and sampling; use the existing `--detail-selected` exact-coordinate crop for dense focal areas. See [Issue #6](https://github.com/Benizao1980/PhyloCloud/issues/6) for further compositional refinement.

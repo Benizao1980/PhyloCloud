@@ -145,3 +145,8 @@ Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a se
 [Full usage / configuration](docs/USAGE.md) · [Where to get GTDB/NCBI references](docs/REFERENCE_DATA.md) · [Scientific invariants](docs/SCIENTIFIC_INVARIANTS.md) · [Style family](docs/STYLE_FAMILY.md) · [Current v0.2 CLI background](docs/CURRENT_CLI.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md).
 
 PhyloCloud is MIT-licensed. See [LICENSE](LICENSE) and [CITATION.cff](CITATION.cff). Developed in the context of the [Campylobacter Control Campaign](https://campylobacter-control-campaign.github.io/website/), but intended for **any organism or pathogen** with an inferred phylogenetic tree and metadata. **Unpublished GETcampy tree and sample data are not included in this public repository.**
+
+
+### Improved native density (development)
+
+Cloud/Canopy now have a configurable **multiscale** colour-wash engine that combines observed reference genome locations with sampled positions on **original reference-bearing, same-group branches**. Original branches and highlighted MAG edges remain unchanged and are drawn above the raster underlay. Species remains the default grouping; it can be changed with `--cloud-group-by`. Set `cloud.density_engine: legacy` in YAML to compare the older tip-only renderer. This is an alpha visual enhancement, not a claim that the current whole-tree figure matches the style reference or that sampled density estimates ecological abundance. For a strongly imbalanced phylogeny, use the true-coordinate detail panels described in [usage](docs/USAGE.md).

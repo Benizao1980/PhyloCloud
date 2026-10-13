@@ -70,7 +70,7 @@ def test_native_style_render_retains_tree_and_original_tip_count(tmp_path,style)
     assert out.with_suffix('.pdf').exists() and out.with_suffix('.png').exists()
     assert '<path' in out.with_suffix('.svg').read_text()
     if style in ('cloud','canopy'):
-        assert r['density_type']=='reference_tip_gaussian_visual'
+        assert r['density_type']=='reference_tip_and_pure_original_edge_multiscale_visual'
         assert '<image' in out.with_suffix('.svg').read_text()
 
 
@@ -81,3 +81,34 @@ def test_demo_new_native_default_cli(tmp_path):
     assert data['style_preset']=='canopy'
     assert data['reference_genomes']==60
     assert (out/'phylocloud_demo.svg').exists()
+
+
+def test_multiscale_references_and_labels_can_still_use_original_geometry(tmp_path):
+    p=tiny(tmp_path)
+    from phylocloud.cloud_layers import _multiscale_reference_atmosphere
+    from phylocloud.geometry import connecting_edges
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    tree=TreeGraph.from_newick(p['tree'])
+    meta=load_metadata(p['metadata'])
+    selected=load_selected(p['selected'])
+    refs=reference_ids(tree,meta,selected)
+    layout=equal_arc_layout(tree)
+    original=layout.coordinates.copy()
+    originals=connecting_edges(tree,selected)
+    xy=list(original.values())
+    bounds=(min(x for x,y in xy)-.02,max(x for x,y in xy)+.02,
+            min(y for x,y in xy)-.02,max(y for x,y in xy)+.02)
+    fig,ax=plt.subplots()
+    config=load_config(None)
+    config['cloud'].update(resolution=128, bandwidth_px=5, max_density_groups=4)
+    fields,counts=_multiscale_reference_atmosphere(
+        ax,tree,layout,meta,refs,config['cloud'],config['style']['species_colors'],
+        bounds,'cloud')
+    assert sum(counts.values())==60
+    assert len(fields)<=4
+    assert len(ax.images)==1
+    assert layout.coordinates==original
+    assert connecting_edges(tree,selected)==originals
+    plt.close(fig)
