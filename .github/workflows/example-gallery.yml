@@ -2,6 +2,12 @@ name: Build example figure gallery
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'src/phylocloud/**'
+      - 'examples/other_pathogen/**'
+      - 'examples/presets/**'
+      - '.github/workflows/example-gallery.yml'
   push:
     branches: [main]
     paths:
@@ -32,6 +38,7 @@ jobs:
             --config examples/other_pathogen/config.yml \
             --style cloud --cloud-group-by lineage \
             --detail-selected examples/other_pathogen/detail_selected.txt \
+            --species-panels 3 \
             --out outputs/gallery_ecoli
       - name: Upload editable figure exports and provenance
         uses: actions/upload-artifact@v4
