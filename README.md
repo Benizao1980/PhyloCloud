@@ -12,6 +12,8 @@ The scientific structure comes from **one original Newick tree and one shared la
 
 **Status:** early open-source prototype (v0.3 development). We welcome feedback and contributions. The existing v0.2 `publication` and `soft_cloud` modes remain available; native `cloud` and `canopy` are experimental new modes. [Design](docs/DESIGN_SPEC.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Issues](https://github.com/Benizao1980/PhyloCloud/issues)
 
+For **Linux HPC clusters**, including headless batch jobs and reproducible real-data commands, see the [HPC installation and reproduction guide](docs/HPC.md).
+
 ## Quick start (about two minutes)
 
 Requires **Python 3.10+**.
