@@ -11,8 +11,8 @@ module avail python                # if your cluster uses environment modules
 # module load python/3.11          # adapt to the actual module shown above
 python3 --version
 
-mkdir -p "\${SCRATCH:-$HOME}/phylocloud_work"
-cd "\${SCRATCH:-$HOME}/phylocloud_work"
+mkdir -p "${SCRATCH:-$HOME}/phylocloud_work"
+cd "${SCRATCH:-$HOME}/phylocloud_work"
 git clone https://github.com/Benizao1980/PhyloCloud.git
 cd PhyloCloud
 
@@ -33,7 +33,7 @@ The first render is small and publicly reproducible, and creates **fictional gen
 ```bash
 source .venv/bin/activate
 export MPLBACKEND=Agg
-export MPLCONFIGDIR="\${TMPDIR:-$HOME}/phylocloud-mpl-\${USER}"
+export MPLCONFIGDIR="${TMPDIR:-$HOME}/phylocloud-mpl-${USER}"
 mkdir -p "$MPLCONFIGDIR"
 
 phylocloud demo --outdir outputs/demo --seed 47 --references 60 \
@@ -83,7 +83,7 @@ Try the alternative available alpha motifs (each is a software style, not a diff
 for style in canopy river constellation; do
   phylocloud plot --tree "$TREE" --metadata "$META" --selected "$SELECTED" \
     --style "$style" --length-mode graphic \
-    --out "outputs/real/\${style}_graphic"
+    --out "outputs/real/${style}_graphic"
 done
 ```
 
@@ -115,7 +115,7 @@ set -euo pipefail
 cd /absolute/path/to/PhyloCloud
 source .venv/bin/activate
 export MPLBACKEND=Agg
-export MPLCONFIGDIR="\${SLURM_TMPDIR:-\${TMPDIR:-$PWD}}/phylocloud-mpl-\${SLURM_JOB_ID:-manual}"
+export MPLCONFIGDIR="${SLURM_TMPDIR:-${TMPDIR:-$PWD}}/phylocloud-mpl-${SLURM_JOB_ID:-manual}"
 mkdir -p "$MPLCONFIGDIR"
 export OPENBLAS_NUM_THREADS=1
 export OMP_NUM_THREADS=1
