@@ -81,6 +81,10 @@ phylocloud plot \
 
 You can set exact category colours, density resolution, bandwidth and label count in YAML. See the working [Cloud preset](examples/presets/cloud.yml), [Canopy preset](examples/presets/canopy.yml) and [usage guide](docs/USAGE.md).
 
+## Branch-length options
+
+**Original evolutionary branch lengths are preserved by default**, independently of Cloud/Canopy styling. Use `--length-mode original` (default) for a metric phylogram, or `--length-mode graphic` for an **explicitly non-metric**, more expansive layout of the very same tree. Graphic mode changes displayed distances (including expanding zero-length edges) but preserves source topology, edge IDs and original lengths in the model and provenance. See [usage and interpretation](docs/USAGE.md#displayed-branch-lengths-original-vs-graphical-non-metric).
+
 ## Visual styles
 
 | Style | Status | Appearance |

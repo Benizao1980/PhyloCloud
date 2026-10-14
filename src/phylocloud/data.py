@@ -30,7 +30,7 @@ SPECIES_COLORS = {
 }
 
 DEFAULT_CONFIG = {
-    'layout': {'rotation_degrees': 10.0, 'angle_mode': 'tip_count'},
+    'layout': {'rotation_degrees': 10.0, 'angle_mode': 'tip_count', 'length_mode': 'original'},
     'style': {
         'species_background': True,
         'preset': 'publication',

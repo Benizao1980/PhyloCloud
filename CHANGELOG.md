@@ -11,6 +11,8 @@
 
 ## [Unreleased]
 
+- Added `--length-mode original|graphic`; original-length phylograms are default, graphical spacing is explicitly non-metric, original tree data remain unchanged and mode-specific provenance tests distinguish the two.
+
 - Equal-daylight algorithm benchmarking, line-crossing diagnostics and neighbourhood panels remain future work.
 
 ## [0.2.0a0] — 2026-10-12 (pre-release candidate)

@@ -83,3 +83,21 @@ A complete second-species walkthrough with input files and real outputs from the
 Cloud/Canopy now support a `cloud.density_engine: multiscale` underlay (default in the development branch). Density is derived from **one real reference-tip sample per reference genome**, augmented with downweighted, on-segment samples of **original metadata-homogeneous edges that contain reference descendants**. It does not infer or add genomes or branches. The density wash is raster; tree geometry/text remain vectors. The alternative `cloud.density_engine: legacy` retains the previous reference-tip-only wash for comparison.
 
 This changes only cloud appearance, not tree geometry, branch lengths or selected-edge relationships. Very sparse species cannot acquire large artificial reference clouds. Figure aesthetics at whole-tree scale remain constrained by strongly unequal genetic distances and sampling; use the existing `--detail-selected` exact-coordinate crop for dense focal areas. See [Issue #6](https://github.com/Benizao1980/PhyloCloud/issues/6) for further compositional refinement.
+
+## Displayed branch lengths: original vs graphical (non-metric)
+
+The **default** is the original evolutionary branch lengths from your source Newick tree. The Cloud or Canopy style does not imply a length transformation.
+
+```bash
+phylocloud plot --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode original --out outputs/metric_cloud
+```
+
+For an explicitly **non-metric** graphical representation (more spacing around densely packed groups) opt in:
+
+```bash
+phylocloud plot --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode graphic --out outputs/graphic_cloud
+```
+
+YAML alternative: `layout: {length_mode: original}` or `layout: {length_mode: graphic}`. In graphic mode the displayed segment length is `0.36 + 0.63 * log1p(original_length / scale)**0.64`, where `scale` is the median positive source branch length. **This expands true zero-length branches and destroys evolutionary distance scaling**; the drawing is a topology-grounded graphic, not a phylogram. In both modes the original Newick and its edge lengths remain untouched, original edge identities and selected subtree are unchanged, and provenance records what was drawn. A scale bar is disabled for non-metric displays. Density represents sampled genome coverage rather than natural prevalence.

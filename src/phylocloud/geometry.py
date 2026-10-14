@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from collections import deque
 from dataclasses import dataclass
-from math import cos, radians, sin
+from math import cos, log1p, radians, sin
+from statistics import median
 from pathlib import Path
 from typing import Any
 from Bio import Phylo
@@ -57,18 +58,25 @@ class Layout:
     edges: list[tuple[Any, Any, float]]  # directed away from display-centre, for indexing only
     centre: Any
     descendants: dict[Any, int]
+    # Source edges retain original lengths; display lengths are separate.
+    length_mode: str = 'original'
+    display_lengths: dict[frozenset[Any], float] | None = None
+    display_scale: float | None = None
 
 
 def equal_arc_layout(
     graph: TreeGraph, rotate_degrees: float = 0.0,
     angle_mode: str = "tip_count",
+    length_mode: str = 'original',
 ) -> Layout:
-    """Return unrooted equal-arc positions, with actual lengths and no tip rim.
+    """Plot all original edges with either true or explicitly non-metric distances.
 
-    Equal-arc is the established initial layout used by PHYLIP's Drawtree.
-    Wedges are proportional to terminal count; *no* radial/tip-distance
-    normalisation, branch re-inference, or pruning is performed.
+    original: source Newick lengths unchanged in the drawing (default).
+    graphic: expanded display lengths for compressed topology, not divergence.
+    Source topology, tip IDs and edge length data never change.
     """
+    if length_mode not in {'original','graphic'}:
+        raise ValueError(f'Unknown length_mode: {length_mode}')
     if angle_mode not in {"tip_count", "phylogenetic_spread"}:
         raise ValueError(f"Unknown angle_mode: {angle_mode}")
     if not graph.adjacency:
@@ -117,7 +125,12 @@ def equal_arc_layout(
         descendants[node] = (1 if node in tip_nodes else 0) + sum(
             descendants[ch] for ch, _ in graph.adjacency[node] if parents.get(ch) is node
         )
-    # Layout-only sector weighting. Edge lengths remain original values.
+    # Median positive source edge length gives a dataset-relative display scale.
+    positive = [l for adjacent in graph.adjacency.values() for _,l in adjacent if l > 0]
+    scale = float(median(positive)) if length_mode == 'graphic' and positive else None
+    if length_mode == 'graphic' and scale is None:
+        raise ValueError('graphic length mode requires a positive source branch')
+    # Layout-only sector weighting; all source graph lengths remain original.
     # Experimental phylogenetic-spread mode is NOT PHYLIP equal-daylight.
     spread_lengths = {}
     for node in reversed(order):
@@ -131,6 +144,7 @@ def equal_arc_layout(
 
     coords: dict[Any, tuple[float, float]] = {centre: (0.0, 0.0)}
     edges: list[tuple[Any, Any, float]] = []
+    display_lengths: dict[frozenset[Any], float] = {}
     # Wedge is the available angular interval for directions *away* from parent.
     # Child tips are not moved to a shared circumference.
     stack = [(centre, radians(rotate_degrees), radians(rotate_degrees + 360.0))]
@@ -146,12 +160,14 @@ def equal_arc_layout(
             end = cursor + width
             angle = (cursor + end) * 0.5
             px, py = coords[node]
-            coords[child] = (px + length * cos(angle), py + length * sin(angle))
+            shown = length if length_mode == 'original' else 0.36 + 0.63 * log1p(length / scale)**0.64
+            coords[child] = (px + shown * cos(angle), py + shown * sin(angle))
+            display_lengths[frozenset((node, child))] = shown
             edges.append((node, child, length))
             jobs.append((child, cursor, end))
             cursor = end
         stack.extend(reversed(jobs))
-    return Layout(coords, edges, centre, descendants)
+    return Layout(coords, edges, centre, descendants, length_mode, display_lengths, scale)
 
 
 def connecting_edges(graph: TreeGraph, selected_ids: list[str]) -> set[frozenset[Any]]:
