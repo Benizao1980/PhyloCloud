@@ -10,11 +10,11 @@ from matplotlib.collections import LineCollection
 from matplotlib.colors import to_rgba
 from matplotlib.lines import Line2D
 import numpy as np
-from PIL import Image, ImageFilter
 from .data import color
 from . import __version__
 from .geometry import Layout, TreeGraph, connecting_edges, edge_taxa
 from .cloud_layers import add_native_cloud, label_cloud_groups, colour_for_group, reference_ids
+from .cloud_layers import _blur_float_counts
 
 
 def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
@@ -43,12 +43,9 @@ def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
     size = 460
     count, _, _ = np.histogram2d(ty, tx, bins=(size,size),
                                  range=((ymin,ymax),(xmin,xmax)))
-    # Compressive intensity is visual-only. Use a deterministic Gaussian blur
-    # from Pillow, without modifying original branch coordinates.
-    raw = 255 * np.log1p(count) / max(1e-12, np.log1p(float(count.max())))
-    luminance = Image.fromarray(np.asarray(raw,dtype=np.uint8),mode='L')
-    blur = luminance.filter(ImageFilter.GaussianBlur(radius=float(style['density_sigma_px'])))
-    blurred = np.asarray(blur,dtype=float) / 255
+    # Keep the historical log-count compression, but convolve in float
+    # precision. An 8-bit intermediate erased faint tails and made terraces.
+    blurred = _blur_float_counts(np.log1p(count), float(style['density_sigma_px']))
     alpha = np.clip((blurred / max(1e-12, blurred.max()))**0.65 * float(style['density_opacity']),0,1)
     # Warm neutral haze rather than species-dependent invented polygons.
     rgb = np.array(to_rgba(color('stone'))[:3],dtype=float)
@@ -57,6 +54,10 @@ def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
     image[:,:,3] = alpha
     ax.imshow(image, extent=(xmin,xmax,ymin,ymax),origin='lower',
               interpolation='bilinear',zorder=0,rasterized=True)
+    return {'resolution': size, 'bandwidth_px': float(style['density_sigma_px']),
+            'opacity': float(style['density_opacity']), 'source': 'reference_tips',
+            'sample_weight': 'one_per_reference', 'count_transform': 'log1p',
+            'alpha_power': .65, 'bounds': [xmin,xmax,ymin,ymax]}
 
 
 def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[str],
@@ -82,6 +83,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     # Reference classification must not silently count unselected MAGs as GTDB.
     reference_names = reference_ids(graph, metadata, selected_ids)
     native_fields, group_counts, cloud_labels = [], {}, []
+    legacy_density = None
     if native and motif != 'constellation':
         native_fields, group_counts = add_native_cloud(ax,graph,layout,metadata,
                                                        reference_names,config,s)
@@ -90,7 +92,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
         group_counts = {k:len(v) for k,v in groups_for_references(
             graph,metadata,reference_names,config['cloud'].get('group_by','species')).items()}
     elif s.get('density_overlay', False):
-        add_reference_density_overlay(ax, graph, layout, reference_names, s)
+        legacy_density = add_reference_density_overlay(ax, graph, layout, reference_names, s)
     paths=[]; branch_colours=[]
     for parent, child, length in layout.edges:
         paths.append([layout.coordinates[parent], layout.coordinates[child]])
@@ -270,8 +272,11 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             'native_cloud_labels':cloud_labels,
             'density_type':('reference_tip_and_pure_original_edge_multiscale_visual'
                              if motif in ('cloud','canopy') and config['cloud'].get('density_engine','multiscale')=='multiscale'
-                             else 'reference_tip_gaussian_visual') if native and native_fields else None,
+                             else 'reference_tip_gaussian_visual') if native and native_fields else
+                             ('reference_tip_log_count_float_gaussian_visual' if s.get('density_overlay',False) else None),
+            'density_render_method': 'hybrid_vector_tree_raster_wash' if ax.images else 'vector_tree',
+            'density_kernel': 'padded_float_fft_gaussian' if ax.images else None,
             'density_parameters':{k:config['cloud'][k] for k in (
-                'opacity','bandwidth_px','resolution')} if native and native_fields else None,
+                'opacity','bandwidth_px','resolution')} if native and native_fields else legacy_density,
             'reference_genomes':len(reference_names),
             'context_references':len(context_ids)}

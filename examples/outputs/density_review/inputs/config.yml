@@ -1,0 +1,4 @@
+export:
+  width_inches: 10
+  height_inches: 8
+  dpi: 150

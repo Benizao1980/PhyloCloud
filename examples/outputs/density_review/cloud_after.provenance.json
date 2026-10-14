@@ -1,0 +1,116 @@
+{
+  "cloud_group_by": "species",
+  "cloud_label_by": "same",
+  "cloud_parameters": {
+    "bandwidth_px": 13,
+    "colours": {},
+    "density_engine": "multiscale",
+    "group_by": "species",
+    "label_by": "same",
+    "max_density_groups": 12,
+    "max_labels": 7,
+    "min_label_references": 15,
+    "opacity": 0.72,
+    "resolution": 600
+  },
+  "context_references": 0,
+  "density_kernel": "padded_float_fft_gaussian",
+  "density_overlay": false,
+  "density_parameters": {
+    "bandwidth_px": 13,
+    "opacity": 0.72,
+    "resolution": 600
+  },
+  "density_render_method": "hybrid_vector_tree_raster_wash",
+  "density_type": "reference_tip_and_pure_original_edge_multiscale_visual",
+  "display_length_transform": null,
+  "foreground_edges": 72,
+  "geometric_zoom": false,
+  "input_sha256": {
+    "config": "b9a8906d4eab1ebd909c23ddc747fbfdf4e03b8c248fff0d769fb82dcaecbfa2",
+    "metadata": "787ca1e6866ce77530e14c4428beaf56cd801542faadebbed8b98243f7631cf8",
+    "selected": "b90e68f203fc21373c31399f4ac322faeff3ae3b87b6bf87f00eb6787addd3de",
+    "tree": "499f8360f83045b28ff6336e52c482b44e64ed9c989df96ad1894044e404ec88"
+  },
+  "layout_mode": "tip_count",
+  "layout_parameters": {
+    "angle_mode": "tip_count",
+    "length_mode": "original",
+    "rotation_degrees": 10.0
+  },
+  "length_mode": "original",
+  "native_cloud_labels": [
+    {
+      "count": 210,
+      "group": "Campylobacter infans",
+      "placement": "reference_position_or_quantile",
+      "x": 1.0975432082732495,
+      "y": 1.1127649623722635
+    },
+    {
+      "count": 200,
+      "group": "Campylobacter_D jejuni",
+      "placement": "reference_position_or_quantile",
+      "x": -1.6496985246926477,
+      "y": 1.2851267257598642
+    },
+    {
+      "count": 160,
+      "group": "Campylobacter coli",
+      "placement": "reference_position_or_quantile",
+      "x": -1.1571210547288429,
+      "y": -0.5503555222829962
+    },
+    {
+      "count": 135,
+      "group": "Campylobacter upsaliensis",
+      "placement": "reference_position_or_quantile",
+      "x": 0.056472932277326235,
+      "y": -1.4541211450761347
+    },
+    {
+      "count": 105,
+      "group": "Campylobacter fetus",
+      "placement": "reference_position_or_quantile",
+      "x": 1.235629732832314,
+      "y": -1.2527310824338962
+    },
+    {
+      "count": 90,
+      "group": "Campylobacter_D sp934718785",
+      "placement": "reference_position_or_quantile",
+      "x": 1.2669957526039364,
+      "y": -0.1398457524663991
+    }
+  ],
+  "output_stem": "examples/outputs/density_review/cloud_after",
+  "reference_genomes": 900,
+  "reference_group_counts": {
+    "Campylobacter coli": 160,
+    "Campylobacter fetus": 105,
+    "Campylobacter infans": 210,
+    "Campylobacter upsaliensis": 135,
+    "Campylobacter_D jejuni": 200,
+    "Campylobacter_D sp934718785": 90
+  },
+  "selected": 9,
+  "style_parameters": {
+    "density_opacity": 0.11,
+    "density_overlay": false,
+    "preset": "cloud",
+    "species_background": true
+  },
+  "style_preset": "cloud",
+  "tips": 909,
+  "tree_edges": 1812,
+  "validation": {
+    "all_original_edges_retained": true,
+    "display_distances_are_evolutionary": true,
+    "max_absolute_display_length_error": 2.220446049250313e-16,
+    "max_absolute_edge_length_error": 2.220446049250313e-16,
+    "original_edge_lengths_retained_in_graph": true,
+    "original_edges_retained": 1812,
+    "tip_ids_unique": true,
+    "zero_length_edges": 0
+  }
+}
