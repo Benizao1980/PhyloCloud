@@ -53,3 +53,17 @@ def test_panel_limit_and_metadata_validation(tmp_path):
         plan_species_panels(g, l, m, ids, max_panels=0)
     with pytest.raises(ValueError,match="grouping column"):
         plan_species_panels(g, l, m, ids, group_by="missing_column")
+
+def test_species_panels_use_explicit_nonmetric_layout_without_mutation(tmp_path):
+    files = make_demo(tmp_path / "demo_graphic", seed=21, reference_count=60)
+    graph = TreeGraph.from_newick(files["tree"])
+    metadata = load_metadata(files["metadata"])
+    selected = load_selected(files["selected"])
+    graphic = equal_arc_layout(graph, length_mode="graphic")
+    before = dict(graphic.coordinates)
+    out = tmp_path / "graphic_panels.png"
+    report = draw_species_panels(graph, graphic, metadata, selected, out, dpi=60)
+    assert out.exists()
+    assert report["length_mode"] == "graphic"
+    assert report["display_distances_are_evolutionary"] is False
+    assert graphic.coordinates == before

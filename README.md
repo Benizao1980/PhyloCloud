@@ -81,6 +81,10 @@ phylocloud plot \
 
 You can set exact category colours, density resolution, bandwidth and label count in YAML. See the working [Cloud preset](examples/presets/cloud.yml), [Canopy preset](examples/presets/canopy.yml) and [usage guide](docs/USAGE.md).
 
+## Branch-length options
+
+**Original evolutionary branch lengths are preserved by default**, independently of Cloud/Canopy styling. Use `--length-mode original` (default) for a metric phylogram, or `--length-mode graphic` for an **explicitly non-metric**, more expansive layout of the very same tree. Graphic mode changes displayed distances (including expanding zero-length edges) but preserves source topology, edge IDs and original lengths in the model and provenance. See [usage and interpretation](docs/USAGE.md#displayed-branch-lengths-original-vs-graphical-non-metric).
+
 ## Visual styles
 
 | Style | Status | Appearance |
@@ -128,18 +132,20 @@ See [the full worked example](examples/other_pathogen/README.md), [actual exampl
 
 You will need a combined tree inferred from/including your **reference and focal genomes**, not merely a collection of reference FASTAs or a taxonomic classification report. See our [reference-dataset and tree preparation guide](docs/REFERENCE_DATA.md).
 
+## Automatic species or lineage neighbourhood panels (optional)
 
-### Automatically show species neighbourhoods
-
-The optional `--species-panels 3` switch creates a companion `*_species_panels.png` with the full reference tree and the three most informative metadata-group neighbourhoods. All views use **one exact full-tree layout**; panels have independently disclosed camera magnifications. Example:
+To create a **companion preview PNG** containing the complete tree and up to three true-coordinate zooms chosen from metadata:
 
 ```bash
-phylocloud plot \\
-  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \\
-  --style cloud --species-panels 3 --out outputs/my_cloud
+phylocloud plot \
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --cloud-group-by species --species-panels 3 \
+  --length-mode original --out outputs/my_cloud
 ```
 
-Use `--cloud-group-by lineage` to choose and title panels by lineage instead. This composition is a visual review PNG; the standard editable SVG/PDF and original scientific verification remain available. See [usage](docs/USAGE.md).
+For an explicitly **non-metric graphical** overview (expanded display lengths, but unchanged original graph and selected edges), replace `--length-mode original` with `--length-mode graphic`. This choice is declared on the output and recorded in provenance. You can group and label panels by `lineage`, `host` or any other supplied metadata category using `--cloud-group-by`.
+
+The additional `my_cloud_species_panels.png` is a raster contact sheet for review, **not** an independently editable SVG/PDF. The standard full-tree SVG/PDF remain editable. Individual neighbourhoods have independently magnified camera crops, not new phylogenetic inferences. Groups with few observed reference genomes are not given fictitious rich reference clouds.
 
 ## Neighbourhood magnification (optional)
 

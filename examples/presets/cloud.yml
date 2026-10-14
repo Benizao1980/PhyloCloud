@@ -1,6 +1,7 @@
 # Native Cloud — first supported data-derived reference density style
 layout:
   angle_mode: tip_count             # or experimental phylogenetic_spread
+  length_mode: original             # graphic is non-metric and must be opt-in
   rotation_degrees: 19
 style:
   preset: cloud

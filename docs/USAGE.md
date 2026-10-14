@@ -84,18 +84,35 @@ Cloud/Canopy now support a `cloud.density_engine: multiscale` underlay (default 
 
 This changes only cloud appearance, not tree geometry, branch lengths or selected-edge relationships. Very sparse species cannot acquire large artificial reference clouds. Figure aesthetics at whole-tree scale remain constrained by strongly unequal genetic distances and sampling; use the existing `--detail-selected` exact-coordinate crop for dense focal areas. See [Issue #6](https://github.com/Benizao1980/PhyloCloud/issues/6) for further compositional refinement.
 
+## Displayed branch lengths: original vs graphical (non-metric)
 
-## Automatic reference-species neighbourhood composition (new opt-in preview)
-
-For densely sampled reference phylogenies, add `--species-panels 3` to automatically create a **separate** visually organised review PNG alongside the normal editable SVG/PDF/PNG.
+The **default** is the original evolutionary branch lengths from your source Newick tree. The Cloud or Canopy style does not imply a length transformation.
 
 ```bash
-phylocloud plot \\
-  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \\
-  --style cloud --cloud-group-by species --species-panels 3 \\
-  --out outputs/my_phylogeny
+phylocloud plot --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode original --out outputs/metric_cloud
 ```
 
-This adds `my_phylogeny_species_panels.png` and a `species_panels` section in `*.provenance.json`. Panel categories are selected reproducibly: the most-sampled reference groups, plus one cohort of two or more selected genomes if it would otherwise be excluded. Group names and group sizes come from real metadata. Each panel uses **one original full-tree coordinate system** with a different camera crop; no graph is pruned or independently re-laid out. The raster composition is for visual review/communication; continue to use the separately exported SVG/PDF for editable scientific plotting.
+For an explicitly **non-metric** graphical representation (more spacing around densely packed groups) opt in:
 
-**Scientific caution:** species panels have independent magnification. A species with a single reference genome is not assigned a fictitious rich cloud; grouped focal MAGs can still be labelled in that view. Sampling density is not prevalence. Original branch lengths and topology are unchanged. This feature is still experimental and not a substitute for manuscript validation.
+```bash
+phylocloud plot --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode graphic --out outputs/graphic_cloud
+```
+
+YAML alternative: `layout: {length_mode: original}` or `layout: {length_mode: graphic}`. In graphic mode the displayed segment length is `0.36 + 0.63 * log1p(original_length / scale)**0.64`, where `scale` is the median positive source branch length. **This expands true zero-length branches and destroys evolutionary distance scaling**; the drawing is a topology-grounded graphic, not a phylogram. In both modes the original Newick and its edge lengths remain untouched, original edge identities and selected subtree are unchanged, and provenance records what was drawn. A scale bar is disabled for non-metric displays. Density represents sampled genome coverage rather than natural prevalence.
+
+## Automatic metadata-group neighbourhood composition (experimental)
+
+Add `--species-panels 3` to `phylocloud plot` to create a companion `*_species_panels.png` overview + up to three reproducibly chosen group-specific camera crops. Panel names and counts come from the input metadata, default `species` (or `--cloud-group-by lineage`, etc.). The panel planner prioritises populous reference categories and one group with two or more selected genomes, even if that group has few references.
+
+```bash
+phylocloud plot \
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode original --species-panels 3 \
+  --out outputs/automatic_panels
+```
+
+You may opt into `--length-mode graphic` to make a non-metric graphical drawing; the same **display** layout is used for every panel and the preview explicitly identifies it as non-metric. In either mode the input Newick is unchanged; panel crops do not reconstruct the tree or shuffle genome coordinates. Bounds, names, reference counts and selected IDs appear in the JSON provenance.
+
+The composite is currently **raster only**; use the standard full-tree SVG/PDF for vector editing. Visual density denotes reference sampling, not natural prevalence. This preview is experimental and should be visually checked before manuscript use. The separate `--detail-selected` output remains available for a chosen subset of focal genomes.

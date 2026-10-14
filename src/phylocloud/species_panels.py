@@ -106,7 +106,7 @@ def _gaussian_reference_wash(ax, xy, bounds, rgb, *, alpha=.65, bandwidth=12):
 
 
 def draw_species_panels(graph, layout, metadata, selected_ids, out,
-                        group_by="species", max_panels=3, style="cloud",
+                        group_by="species", max_panels=3, style="cloud", cloud_cfg=None, species_colors=None,
                         dpi=160, title="Phylogenetic diversity in context"):
     """Write a single PNG overview plus data-faithful group-specific crops.
 
@@ -131,8 +131,9 @@ def draw_species_panels(graph, layout, metadata, selected_ids, out,
         ref = (source == "gtdb" or "reference" in source) if source_present else name not in selected
         if ref:
             groups[metadata[name].get(group_by,"").strip() or "Unassigned"].append(name)
-    species_colors = DEFAULT_CONFIG["style"]["species_colors"]
-    cloud_cfg = DEFAULT_CONFIG["cloud"]
+    species_colors = (species_colors if species_colors is not None
+                      else DEFAULT_CONFIG['style']['species_colors'])
+    cloud_cfg = cloud_cfg if cloud_cfg is not None else DEFAULT_CONFIG['cloud']
     palette = lambda group: colour_for_group(group,cloud_cfg,species_colors)
     dark = style == "constellation"
     background = "#17202A" if dark else "#FFFFFF"
@@ -141,10 +142,13 @@ def draw_species_panels(graph, layout, metadata, selected_ids, out,
     fine = "#92A6B5" if dark else "#A8A198"
     fig = plt.figure(figsize=(17,10.6),facecolor=background)
     fig.text(.05,.96,title,fontsize=22,color=ink,va="top",weight="medium")
+    length_mode = getattr(layout, 'length_mode', 'original')
+    display_note = ('ORIGINAL EVOLUTIONARY EDGE LENGTHS' if length_mode == 'original'
+                    else 'NON-METRIC GRAPHIC DISPLAY LENGTHS')
     fig.text(.05,.918,
              f"{len(graph.tips):,} genomes · {len(groups):,} metadata categories · "
-             "one original tree, multiple true-coordinate scales",
-             fontsize=10.3,color=muted)
+             f"{display_note} · shared layout with independently scaled crops",
+             fontsize=10.0,color=muted)
     fig.text(.05,.87,"01   COMPLETE REFERENCE CONTEXT",
              fontsize=10,color=muted,weight="bold")
     xy = np.asarray(list(coords.values()),float)
@@ -235,6 +239,7 @@ def draw_species_panels(graph, layout, metadata, selected_ids, out,
     plt.close(fig)
     return {"png":str(path),"group_by":group_by,
             "layout_shared":True,"original_edges":len(layout.edges),
+            "length_mode":length_mode, "display_distances_are_evolutionary":length_mode=='original',
             "selected_original_edges":len(selected_edges),
             "panels":[{"group":w["group"],"references":len(w["reference_ids"]),
                        "selected_ids":list(w["selected_ids"]),
