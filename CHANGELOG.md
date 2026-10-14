@@ -1,5 +1,9 @@
 # Changelog
 
+- Remove 8-bit blur quantization in `soft_cloud`; taper native Cloud/Canopy
+  density tails continuously instead of hard contour cutoffs. Add synthetic
+  before/after exports, density precision tests and hybrid-wash provenance.
+
 ## [0.3.0a0] — native Cloud/Canopy development
 
 - Added native `cloud` and `canopy` species-coloured reference-density styles and simple broad semantic labels.

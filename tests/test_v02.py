@@ -76,6 +76,13 @@ def test_provenance_and_editable_edges(tmp_path):
     assert '<path' in svg
     assert '<image' in svg or 'image/png' in svg
     assert json.loads(dest.with_suffix('.provenance.json').read_text())['selected']==9
+    assert result['density_kernel']=='padded_float_fft_gaussian'
+    assert result['density_render_method']=='hybrid_vector_tree_raster_wash'
+    assert result['density_parameters']['sample_weight']=='one_per_reference'
+    repeat=tmp_path/'repeat'
+    run_plot(paths['tree'],paths['metadata'],paths['selected'],cfg,repeat)
+    for suffix in ('.png','.svg','.pdf'):
+        assert dest.with_suffix(suffix).read_bytes()==repeat.with_suffix(suffix).read_bytes()
 
 
 def test_crop_reference_and_scale_bar(tmp_path):

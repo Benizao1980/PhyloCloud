@@ -1,0 +1,21 @@
+{
+  "baseline_commit": "cc5beb4",
+  "synthetic_seed": 47,
+  "scientific_before_after_equal": true,
+  "sha256": {
+    "cloud_after.pdf": "badaade2ff555a180a51d5c067f649d02520a10e3a1857496931b86ebbcad960",
+    "cloud_after.png": "6c0371472fae27a1460baf48ec7a87e029e4d1a8ecbe610bf7d7339e54601b5e",
+    "cloud_after.svg": "d4ad27a5d1094d8751492dc46731128b50b13b0c2f3fb6b84fa4f14defeda581",
+    "cloud_before.pdf": "40d1530a86610a4e2989c7996b2bb7f5614ff7f46af3252acfde4762932a6d78",
+    "cloud_before.png": "9c9bb7a78f95079f4b4430a8cdccaa7f3a82e5b32ffed0a4a0f11cd08689e9b3",
+    "cloud_before.svg": "12db3a6ded2c423691671c4160e050ebc4a03168b69f3ad5946c2efa8821809d",
+    "cloud_comparison.jpg": "8111efb653a5378faea759709e3aa62036930fbe2e6e5ae589b939fa2fc0f2f2",
+    "soft_cloud_after.pdf": "43e0534c029ce33260e55584f7b1fa8363aa4257a653c193a21a5756d4be40d7",
+    "soft_cloud_after.png": "4becfd388706eeb8c195bdfa638cc4907c965a86817605e8e3440ae9863c10e4",
+    "soft_cloud_after.svg": "ac9b94e95f0fce7b719e9dcbbf18a77abab5138aefd0159100d68a30e1576275",
+    "soft_cloud_before.pdf": "1c5990c324d8da23e9d82a2e4b3294916f4f0acaf0f929d97ddb6777cf17d197",
+    "soft_cloud_before.png": "97eb8dc8a96c82195a2d75068b20f2d4057d5fdb7bdf083ce1df45b9c6efe48c",
+    "soft_cloud_before.svg": "3b0c25d1bfdc2fdc32722d5eb2a828485f88c28680d08e4960dc31a7451b4c17",
+    "soft_cloud_comparison.jpg": "3480da22de34862592add8de7f95a2519e36574fccc44cdd81541da22a1095f9"
+  }
+}

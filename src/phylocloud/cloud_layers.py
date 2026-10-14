@@ -54,6 +54,8 @@ def _blur_float_counts(count, radius):
     if not count.size or count.max() <= 0:
         return np.zeros_like(count, dtype=float)
     sigma = float(radius)
+    if not math.isfinite(sigma) or sigma <= 0:
+        raise ValueError('Gaussian bandwidth must be positive and finite')
     pad = int(math.ceil(3.5*sigma))
     padded = np.pad(count, ((pad,pad),(pad,pad)), mode='constant')
     ky = np.fft.fftfreq(padded.shape[0])[:,None]
@@ -61,6 +63,12 @@ def _blur_float_counts(count, radius):
     attenuation = np.exp(-2*np.pi**2*sigma**2*(kx**2 + ky**2))
     result = np.fft.irfft2(np.fft.rfft2(padded)*attenuation,s=padded.shape)
     return np.maximum(0,result[pad:-pad,pad:-pad])
+
+
+def _soft_tail(values, threshold):
+    """Suppress numerical haze continuously, without a hard contour boundary."""
+    t = np.clip(values / threshold, 0., 1.)
+    return values * t * t * (3. - 2. * t)
 
 
 def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
@@ -292,7 +300,7 @@ def _multiscale_reference_atmosphere(
         density*=weight
         peak=float(density.max())
         if peak:
-            density[density<peak*.0025]=0.0
+            density = _soft_tail(density, peak*.0025)
         densities.append((group,density,tips))
         fields.append({'group':group,'count':len(ids),'points':tips,'bounds':bounds})
     global_peak=max((float(a.max()) for _,a,_ in densities),default=0.)
@@ -312,7 +320,7 @@ def _multiscale_reference_atmosphere(
     image[:,:,:3]=rgb_total/np.maximum(weight_total[:,:,None],1e-8)
     image[:,:,3]=np.minimum(opacity*.84,
                             opacity*(1-np.exp(-weight_total*1.14)))
-    image[:,:,3][weight_total<.045]=0.0
+    image[:,:,3] *= _soft_tail(weight_total, .045) / np.maximum(weight_total, 1e-8)
     ax.imshow(image,extent=bounds,origin='lower',interpolation='bilinear',
               zorder=0,rasterized=True)
     return fields,counts
