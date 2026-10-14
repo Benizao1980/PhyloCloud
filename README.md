@@ -132,6 +132,21 @@ See [the full worked example](examples/other_pathogen/README.md), [actual exampl
 
 You will need a combined tree inferred from/including your **reference and focal genomes**, not merely a collection of reference FASTAs or a taxonomic classification report. See our [reference-dataset and tree preparation guide](docs/REFERENCE_DATA.md).
 
+## Automatic species or lineage neighbourhood panels (optional)
+
+To create a **companion preview PNG** containing the complete tree and up to three true-coordinate zooms chosen from metadata:
+
+```bash
+phylocloud plot \
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --cloud-group-by species --species-panels 3 \
+  --length-mode original --out outputs/my_cloud
+```
+
+For an explicitly **non-metric graphical** overview (expanded display lengths, but unchanged original graph and selected edges), replace `--length-mode original` with `--length-mode graphic`. This choice is declared on the output and recorded in provenance. You can group and label panels by `lineage`, `host` or any other supplied metadata category using `--cloud-group-by`.
+
+The additional `my_cloud_species_panels.png` is a raster contact sheet for review, **not** an independently editable SVG/PDF. The standard full-tree SVG/PDF remain editable. Individual neighbourhoods have independently magnified camera crops, not new phylogenetic inferences. Groups with few observed reference genomes are not given fictitious rich reference clouds.
+
 ## Neighbourhood magnification (optional)
 
 Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a second, true-coordinate zoom of a **subset of the focal genomes**, plus a convenient side-by-side PNG. The original per-panel SVG/PDF remain editable. No new topology, branch length or genome coordinate is inferred for the detail panel.

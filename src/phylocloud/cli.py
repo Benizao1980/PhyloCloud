@@ -12,7 +12,7 @@ from .render import draw
 from .synthetic import make_demo
 
 
-def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,detail_selected=None,length_mode=None):
+def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,detail_selected=None,length_mode=None,species_panels=None):
     graph=TreeGraph.from_newick(tree)
     meta=load_metadata(metadata)
     ids=load_selected(selected)
@@ -109,6 +109,13 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
             'vector_detail_pdf': detail_out+'.pdf',
             **composition,
         }
+    if species_panels is not None:
+        from .species_panels import draw_species_panels
+        summary['species_panels'] = draw_species_panels(
+            graph, layout, meta, ids, str(out) + '_species_panels.png',
+            group_by=cfg['cloud'].get('group_by', 'species'),
+            max_panels=species_panels, style=cfg['style']['preset'],
+            cloud_cfg=cfg['cloud'], species_colors=cfg['style']['species_colors'])
     report.write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n',encoding='utf-8')
     return summary
 
@@ -124,6 +131,8 @@ def main(argv=None):
     plot.add_argument('--detail-selected',help='Subset of --selected tip IDs for a true-geometry zoom and side-by-side preview PNG')
     plot.add_argument('--style',choices=['publication','soft_cloud','cloud','canopy','constellation','river'])
     plot.add_argument('--cloud-group-by',help='Metadata column for native cloud colours and labels (default species)')
+    plot.add_argument('--species-panels',type=int,metavar='N',
+                      help='Write a companion PNG with 1–6 automatic reference-category neighbourhood panels')
     plot.add_argument('--length-mode',choices=['original','graphic'],
                       help='original branch lengths (default) or NON-METRIC graphical expansion')
     plot.add_argument('--out',required=True,help='Output stem (no file extension)')
@@ -141,7 +150,7 @@ def main(argv=None):
     else:
         result=run_plot(args.tree,args.metadata,args.selected,args.config,args.out,
                         style=args.style,cloud_group_by=args.cloud_group_by,detail_selected=args.detail_selected,
-                        length_mode=args.length_mode)
+                        length_mode=args.length_mode,species_panels=args.species_panels)
     print(json.dumps(result,indent=2))
     return result
 

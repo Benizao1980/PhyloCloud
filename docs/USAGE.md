@@ -101,3 +101,18 @@ phylocloud plot --tree tree.nwk --metadata metadata.tsv --selected selected.txt 
 ```
 
 YAML alternative: `layout: {length_mode: original}` or `layout: {length_mode: graphic}`. In graphic mode the displayed segment length is `0.36 + 0.63 * log1p(original_length / scale)**0.64`, where `scale` is the median positive source branch length. **This expands true zero-length branches and destroys evolutionary distance scaling**; the drawing is a topology-grounded graphic, not a phylogram. In both modes the original Newick and its edge lengths remain untouched, original edge identities and selected subtree are unchanged, and provenance records what was drawn. A scale bar is disabled for non-metric displays. Density represents sampled genome coverage rather than natural prevalence.
+
+## Automatic metadata-group neighbourhood composition (experimental)
+
+Add `--species-panels 3` to `phylocloud plot` to create a companion `*_species_panels.png` overview + up to three reproducibly chosen group-specific camera crops. Panel names and counts come from the input metadata, default `species` (or `--cloud-group-by lineage`, etc.). The panel planner prioritises populous reference categories and one group with two or more selected genomes, even if that group has few references.
+
+```bash
+phylocloud plot \
+  --tree tree.nwk --metadata metadata.tsv --selected selected.txt \
+  --style cloud --length-mode original --species-panels 3 \
+  --out outputs/automatic_panels
+```
+
+You may opt into `--length-mode graphic` to make a non-metric graphical drawing; the same **display** layout is used for every panel and the preview explicitly identifies it as non-metric. In either mode the input Newick is unchanged; panel crops do not reconstruct the tree or shuffle genome coordinates. Bounds, names, reference counts and selected IDs appear in the JSON provenance.
+
+The composite is currently **raster only**; use the standard full-tree SVG/PDF for vector editing. Visual density denotes reference sampling, not natural prevalence. This preview is experimental and should be visually checked before manuscript use. The separate `--detail-selected` output remains available for a chosen subset of focal genomes.
