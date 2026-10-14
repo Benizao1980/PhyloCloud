@@ -66,6 +66,9 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     taxonomy_by_edge = edge_taxa(layout, graph, taxonomy)
     s = config['style']; exp = config['export']; species_colors=s['species_colors']
     motif = s['preset']
+    length_mode = getattr(layout,'length_mode','original')
+    if length_mode == 'graphic' and s.get('scale_bar'):
+        raise ValueError('Scale bars are invalid for non-metric graphic mode')
     native = motif in ('cloud', 'canopy', 'constellation', 'river')
     dark = motif == 'constellation'
     background = s.get('background', '#FFFFFF')
@@ -242,7 +245,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     caption_mode = {'tip_count': 'UNROOTED EQUAL-ARC',
                     'phylogenetic_spread': 'UNROOTED / PHYLOGENETIC-SPREAD ANGLES'}[
                         config['layout'].get('angle_mode', 'tip_count')]
-    footer = ('GEOMETRIC CROP OF FULL TREE  ·  ' if s.get('zoom_to_selected',False) else '') + caption_mode + '  ·  ORIGINAL EDGE LENGTHS  ·  SINGLE SHARED LAYOUT'
+    footer = ('GEOMETRIC CROP OF FULL TREE  ·  ' if s.get('zoom_to_selected',False) else '') + caption_mode + ('  ·  ORIGINAL EVOLUTIONARY BRANCH LENGTHS' if length_mode == 'original' else '  ·  NON-METRIC GRAPHIC LENGTHS') + '  ·  SINGLE SHARED LAYOUT'
     fig.text(.055,.045,footer,
              size=8,color='#B4C1C5' if dark else color('warm_grey'))
     fig.subplots_adjust(left=.025,right=.98,bottom=.11,top=.86)
@@ -257,6 +260,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             'tree_edges':len(layout.edges),'foreground_edges':len(fg),
             'output_stem':str(path),
             'layout_mode':config['layout'].get('angle_mode', 'tip_count'),
+             'length_mode':length_mode,
             'style_preset':s['preset'],
             'density_overlay':bool(s.get('density_overlay',False)),
             'geometric_zoom':bool(s.get('zoom_to_selected',False)),

@@ -12,7 +12,7 @@ from .render import draw
 from .synthetic import make_demo
 
 
-def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,detail_selected=None):
+def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,detail_selected=None,length_mode=None):
     graph=TreeGraph.from_newick(tree)
     meta=load_metadata(metadata)
     ids=load_selected(selected)
@@ -30,9 +30,14 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         cfg['style']['preset']=style
     if cloud_group_by is not None:
         cfg['cloud']['group_by']=cloud_group_by
+    if length_mode is not None:
+        cfg['layout']['length_mode'] = length_mode
+    if cfg['layout'].get('length_mode','original') == 'graphic' and cfg['style'].get('scale_bar'):
+        raise ValueError('Scale bars are invalid for non-metric graphic display lengths')
     layout=equal_arc_layout(
         graph, rotate_degrees=cfg['layout']['rotation_degrees'],
         angle_mode=cfg['layout'].get('angle_mode', 'tip_count'),
+        length_mode=cfg['layout'].get('length_mode', 'original'),
     )
     summary = draw(graph,layout,meta,ids,cfg,out)
     original_edges = {frozenset((node,nb)) for node,nbrs in graph.adjacency.items()
@@ -40,10 +45,15 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
     plotted_edges = {frozenset((p,c)) for p,c,_ in layout.edges}
     assert len(plotted_edges) == len(layout.edges) == len(original_edges)
     assert plotted_edges == original_edges, 'Plot edges differ from original topology'
-    deviations = [abs(math.dist(layout.coordinates[p],layout.coordinates[c]) - length)
-                  for p,c,length in layout.edges]
-    max_error = max(deviations,default=0)
-    assert max_error <= 1e-10, 'Original edge length changed in plot'
+    deviations = [abs(math.dist(layout.coordinates[p],layout.coordinates[c]) -
+                      layout.display_lengths[frozenset((p,c))])
+                  for p,c,_ in layout.edges]
+    max_display_error = max(deviations,default=0)
+    assert max_display_error <= 1e-10, 'Displayed edge length inaccurate'
+    max_error = (max((abs(math.dist(layout.coordinates[p],layout.coordinates[c])-length)
+                      for p,c,length in layout.edges),default=0)
+                 if layout.length_mode == 'original' else None)
+    assert max_error is None or max_error <= 1e-10, 'Original edge length changed in plot'
     def digest(path):
         return hashlib.sha256(Path(path).read_bytes()).hexdigest()
     original_lengths = [length for _,_,length in layout.edges]
@@ -53,6 +63,9 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         'original_edges_retained': len(plotted_edges),
         'zero_length_edges': sum(length == 0 for length in original_lengths),
         'max_absolute_edge_length_error': max_error,
+        'max_absolute_display_length_error': max_display_error,
+        'display_distances_are_evolutionary': layout.length_mode == 'original',
+        'original_edge_lengths_retained_in_graph': True,
     }
     summary['input_sha256'] = {
         'tree': digest(tree), 'metadata': digest(metadata),
@@ -60,6 +73,13 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         'config': digest(config) if config else None,
     }
     summary['layout_parameters'] = cfg['layout']
+    summary['display_length_transform'] = (None if layout.length_mode == 'original' else {
+        'meaning': 'NON-METRIC VISUALIZATION: plotted distances are not evolutionary',
+        'formula': '0.36 + 0.63 * log1p(length / scale)**0.64',
+        'scale': layout.display_scale,
+        'scale_from': 'median positive original branch length',
+        'zero_length_edges_expanded': True,
+    })
     summary['cloud_parameters'] = cfg['cloud']
     summary['style_parameters'] = {
         key:cfg['style'][key] for key in ('preset','density_overlay','density_opacity',
@@ -75,7 +95,7 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         detail_cfg = copy.deepcopy(cfg)
         detail_cfg['style']['zoom_to_selected'] = True
         detail_cfg['style']['title'] = 'PhyloCloud  /  selected-genome neighbourhood'
-        detail_cfg['style']['subtitle'] = 'True geometric crop of original full-tree coordinates'
+        detail_cfg['style']['subtitle'] = 'Crop of the full-tree display coordinates (no second layout)'
         detail_out = str(out) + '_detail'
         detail_info = draw(graph, layout, meta, detail, detail_cfg, detail_out)
         from .panels import compose_preview
@@ -104,20 +124,24 @@ def main(argv=None):
     plot.add_argument('--detail-selected',help='Subset of --selected tip IDs for a true-geometry zoom and side-by-side preview PNG')
     plot.add_argument('--style',choices=['publication','soft_cloud','cloud','canopy','constellation','river'])
     plot.add_argument('--cloud-group-by',help='Metadata column for native cloud colours and labels (default species)')
+    plot.add_argument('--length-mode',choices=['original','graphic'],
+                      help='original branch lengths (default) or NON-METRIC graphical expansion')
     plot.add_argument('--out',required=True,help='Output stem (no file extension)')
     demo=sub.add_parser('demo',help='Create reproducible synthetic inputs and preview')
     demo.add_argument('--outdir',default='outputs/demo')
     demo.add_argument('--seed',type=int,default=47)
     demo.add_argument('--style',choices=['publication','soft_cloud','cloud','canopy','constellation','river'],default='cloud')
     demo.add_argument('--references',type=int,default=900)
+    demo.add_argument('--length-mode',choices=['original','graphic'],default='original')
     args=parser.parse_args(argv)
     if args.command=='demo':
         paths=make_demo(args.outdir,args.seed,args.references)
         result=run_plot(paths['tree'],paths['metadata'],paths['selected'],paths['config'],
-                        Path(args.outdir)/'phylocloud_demo',style=args.style)
+                        Path(args.outdir)/'phylocloud_demo',style=args.style,length_mode=args.length_mode)
     else:
         result=run_plot(args.tree,args.metadata,args.selected,args.config,args.out,
-                        style=args.style,cloud_group_by=args.cloud_group_by,detail_selected=args.detail_selected)
+                        style=args.style,cloud_group_by=args.cloud_group_by,detail_selected=args.detail_selected,
+                        length_mode=args.length_mode)
     print(json.dumps(result,indent=2))
     return result
 
