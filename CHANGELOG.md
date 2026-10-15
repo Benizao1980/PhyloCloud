@@ -1,5 +1,10 @@
 # Changelog
 
+- Extend reference-cloud raster support without changing histogram sampling or
+  scientific geometry; include visible wash in overview framing while preserving
+  explicit selected-tip crops. Add synthetic boundary/vector export regressions,
+  raster and output-hash provenance, and a compact [before/after review](docs/RASTER_BOUNDARY_REVIEW.md).
+
 - Remove 8-bit blur quantization in `soft_cloud`; taper native Cloud/Canopy
   density tails continuously instead of hard contour cutoffs. Add synthetic
   before/after exports, density precision tests and hybrid-wash provenance.

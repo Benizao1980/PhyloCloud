@@ -14,7 +14,37 @@ from .data import color
 from . import __version__
 from .geometry import Layout, TreeGraph, connecting_edges, edge_taxa
 from .cloud_layers import add_native_cloud, label_cloud_groups, colour_for_group, reference_ids
-from .cloud_layers import _blur_float_counts
+from .cloud_layers import _blur_float_counts, _density_grid
+
+DENSITY_VISIBLE_ALPHA = .001
+
+
+def _density_display_info(images, raster):
+    """Bound visible raster pixels for the overview camera, never move the tree."""
+    if raster is None:
+        return None
+    info = dict(raster)
+    visible = []
+    outer_alpha = 0.
+    for image in images:
+        alpha = np.asarray(image.get_array())[:, :, 3]
+        outer_alpha = max(outer_alpha, float(max(alpha[0].max(), alpha[-1].max(),
+                                               alpha[:, 0].max(), alpha[:, -1].max())))
+        rows, cols = np.nonzero(alpha >= DENSITY_VISIBLE_ALPHA)
+        if not len(rows):
+            continue
+        xmin, xmax, ymin, ymax = image.get_extent()
+        ny, nx = alpha.shape
+        dx, dy = (xmax-xmin)/nx, (ymax-ymin)/ny
+        visible.append((xmin+cols.min()*dx, xmin+(cols.max()+1)*dx,
+                        ymin+rows.min()*dy, ymin+(rows.max()+1)*dy))
+    info['visible_bounds'] = ([float(min(b[0] for b in visible)),
+                               float(max(b[1] for b in visible)),
+                               float(min(b[2] for b in visible)),
+                               float(max(b[3] for b in visible))] if visible else None)
+    info['visibility_alpha_threshold'] = DENSITY_VISIBLE_ALPHA
+    info['outer_edge_max_alpha'] = outer_alpha
+    return info
 
 
 def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
@@ -45,19 +75,22 @@ def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
                                  range=((ymin,ymax),(xmin,xmax)))
     # Keep the historical log-count compression, but convolve in float
     # precision. An 8-bit intermediate erased faint tails and made terraces.
-    blurred = _blur_float_counts(np.log1p(count), float(style['density_sigma_px']))
+    bandwidth = float(style['density_sigma_px'])
+    raster = _density_grid((xmin,xmax,ymin,ymax), count.shape, bandwidth)
+    padded = np.pad(np.log1p(count), raster['padding_px_per_side'])
+    blurred = _blur_float_counts(padded, bandwidth)
     alpha = np.clip((blurred / max(1e-12, blurred.max()))**0.65 * float(style['density_opacity']),0,1)
     # Warm neutral haze rather than species-dependent invented polygons.
     rgb = np.array(to_rgba(color('stone'))[:3],dtype=float)
-    image = np.empty((size,size,4),dtype=float)
+    image = np.empty((*raster['raster_shape'],4),dtype=float)
     image[:,:,:3] = rgb
     image[:,:,3] = alpha
-    ax.imshow(image, extent=(xmin,xmax,ymin,ymax),origin='lower',
+    ax.imshow(image, extent=raster['raster_bounds'],origin='lower',
               interpolation='bilinear',zorder=0,rasterized=True)
     return {'resolution': size, 'bandwidth_px': float(style['density_sigma_px']),
             'opacity': float(style['density_opacity']), 'source': 'reference_tips',
             'sample_weight': 'one_per_reference', 'count_transform': 'log1p',
-            'alpha_power': .65, 'bounds': [xmin,xmax,ymin,ymax]}
+            'alpha_power': .65, 'bounds': raster['raster_bounds'], 'raster': raster}
 
 
 def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[str],
@@ -93,6 +126,9 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             graph,metadata,reference_names,config['cloud'].get('group_by','species')).items()}
     elif s.get('density_overlay', False):
         legacy_density = add_reference_density_overlay(ax, graph, layout, reference_names, s)
+    density_raster = _density_display_info(
+        ax.images, native_fields[0]['raster'] if native_fields else
+        (legacy_density['raster'] if legacy_density else None))
     paths=[]; branch_colours=[]
     for parent, child, length in layout.edges:
         paths.append([layout.coordinates[parent], layout.coordinates[child]])
@@ -104,8 +140,10 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     # Two thin, translucent vector stroke passes produce a soft background.
     halo = [to_rgba(c, float(s['halo_alpha'])) for c in branch_colours]
     core = [to_rgba(c, float(s['reference_alpha'])) for c in branch_colours]
-    ax.add_collection(LineCollection(paths, colors=halo, linewidths=s['halo_width'], zorder=1))
-    ax.add_collection(LineCollection(paths, colors=core, linewidths=s['reference_width'], zorder=2))
+    ax.add_collection(LineCollection(paths, colors=halo, linewidths=s['halo_width'], zorder=1,
+                                     gid='reference-tree-halo'))
+    ax.add_collection(LineCollection(paths, colors=core, linewidths=s['reference_width'], zorder=2,
+                                     gid='reference-tree-edges'))
     if motif == 'river':
         ax.add_collection(LineCollection(paths,colors=[to_rgba(c,.055) for c in branch_colours],
                                          linewidths=4.2,zorder=1.5,capstyle='round'))
@@ -131,7 +169,8 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     if fg:
         ax.add_collection(LineCollection(fg, colors=color(s['foreground_color']),
                                          linewidths=s['foreground_width'],alpha=.9,
-                                         capstyle='round',joinstyle='round',zorder=4))
+                                         capstyle='round',joinstyle='round',zorder=4,
+                                         gid='selected-original-edges'))
     # Group captions use actual reference coordinates and avoid highlighted
     # original branches. A zoom suppresses labels outside the crop.
     if native_fields and not s.get('zoom_to_selected',False):
@@ -214,7 +253,14 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     ymin=min([lowy]+[positions[n][1] for n in selected_ids]); ymax=max([highy]+[positions[n][1] for n in selected_ids])
     xmargin=(.85 if s.get('zoom_to_selected',False) else .19)*spread
     ymargin=(.22 if s.get('zoom_to_selected',False) else .15)*spread
-    ax.set_xlim(lowx-xmargin,highx+xmargin); ax.set_ylim(ymin-ymargin,ymax+ymargin)
+    view = [lowx-xmargin,highx+xmargin,ymin-ymargin,ymax+ymargin]
+    # A full overview must include the visible haze as well as tree/label bounds.
+    # Explicit selected-tip zooms remain intentional camera crops of this scene.
+    if not s.get('zoom_to_selected', False) and density_raster and density_raster['visible_bounds']:
+        wash = density_raster['visible_bounds']
+        view = [min(view[0],wash[0]),max(view[1],wash[1]),
+                min(view[2],wash[2]),max(view[3],wash[3])]
+    ax.set_xlim(*view[:2]); ax.set_ylim(*view[2:])
     scale = s.get('scale_bar')
     if scale:
         length=float(scale['length'])
@@ -278,5 +324,9 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             'density_kernel': 'padded_float_fft_gaussian' if ax.images else None,
             'density_parameters':{k:config['cloud'][k] for k in (
                 'opacity','bandwidth_px','resolution')} if native and native_fields else legacy_density,
+            'density_raster': density_raster,
+            'view_bounds': view,
+            'density_camera_policy': 'explicit_selected_crop' if s.get('zoom_to_selected',False)
+                                     else 'include_visible_density',
             'reference_genomes':len(reference_names),
             'context_references':len(context_ids)}
