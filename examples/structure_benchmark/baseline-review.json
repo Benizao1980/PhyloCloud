@@ -1,0 +1,584 @@
+{
+  "scientific_audit": {
+    "tips": 6500,
+    "original_edges": 12996,
+    "zero_length_edges": 1012,
+    "exact_original_edge_identities_and_lengths": true,
+    "unrooted_splits_preserved_by_exact_graph_identity": true,
+    "max_absolute_edge_length_error": 2.220446049250313e-16,
+    "selected_original_edge_ids": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        3099
+      ],
+      [
+        1,
+        3100
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        1441
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        978
+      ],
+      [
+        978,
+        980
+      ],
+      [
+        980,
+        982
+      ],
+      [
+        1441,
+        1594
+      ],
+      [
+        1594,
+        1596
+      ],
+      [
+        1596,
+        1598
+      ],
+      [
+        1598,
+        1600
+      ],
+      [
+        1600,
+        1602
+      ],
+      [
+        1602,
+        1604
+      ],
+      [
+        3099,
+        9884
+      ],
+      [
+        3100,
+        3101
+      ],
+      [
+        3100,
+        3102
+      ],
+      [
+        3101,
+        8358
+      ],
+      [
+        3102,
+        3103
+      ],
+      [
+        3102,
+        3104
+      ],
+      [
+        3103,
+        8015
+      ],
+      [
+        3103,
+        8016
+      ],
+      [
+        3104,
+        3106
+      ],
+      [
+        3106,
+        3107
+      ],
+      [
+        3106,
+        3108
+      ],
+      [
+        3107,
+        6045
+      ],
+      [
+        3108,
+        3109
+      ],
+      [
+        3109,
+        3555
+      ],
+      [
+        3109,
+        3556
+      ],
+      [
+        3555,
+        6041
+      ],
+      [
+        3555,
+        6042
+      ],
+      [
+        3555,
+        6043
+      ],
+      [
+        3555,
+        6044
+      ],
+      [
+        3556,
+        3558
+      ],
+      [
+        3558,
+        3560
+      ],
+      [
+        3560,
+        3562
+      ],
+      [
+        3562,
+        3564
+      ],
+      [
+        3564,
+        3566
+      ],
+      [
+        3566,
+        3568
+      ],
+      [
+        6045,
+        6973
+      ],
+      [
+        6973,
+        7589
+      ],
+      [
+        7589,
+        7869
+      ],
+      [
+        7869,
+        7881
+      ],
+      [
+        7881,
+        7959
+      ],
+      [
+        7959,
+        7985
+      ],
+      [
+        7985,
+        7989
+      ],
+      [
+        8015,
+        8156
+      ],
+      [
+        8016,
+        8018
+      ],
+      [
+        8018,
+        8020
+      ],
+      [
+        8020,
+        8022
+      ],
+      [
+        8156,
+        8158
+      ],
+      [
+        8158,
+        8160
+      ],
+      [
+        8358,
+        8360
+      ],
+      [
+        8360,
+        8361
+      ],
+      [
+        8361,
+        8365
+      ],
+      [
+        8365,
+        8835
+      ],
+      [
+        8835,
+        8849
+      ],
+      [
+        8849,
+        8897
+      ],
+      [
+        8897,
+        8917
+      ],
+      [
+        8917,
+        8925
+      ],
+      [
+        8925,
+        8927
+      ],
+      [
+        9884,
+        9886
+      ],
+      [
+        9886,
+        9887
+      ],
+      [
+        9887,
+        11249
+      ],
+      [
+        11249,
+        11273
+      ],
+      [
+        11273,
+        11275
+      ],
+      [
+        11275,
+        11287
+      ],
+      [
+        11287,
+        11289
+      ],
+      [
+        11289,
+        11291
+      ]
+    ],
+    "selected_edge_oracle": "independent union of paths from first focal tip",
+    "focal_patristic_distances_from_first": {
+      "FOCAL_01": 0.0,
+      "FOCAL_02": 0.0,
+      "FOCAL_03": 0.0,
+      "FOCAL_04": 0.0,
+      "FOCAL_05": 0.019883276800000002,
+      "FOCAL_06": 0.41290269560000004,
+      "FOCAL_07": 1.5832868825999997,
+      "FOCAL_08": 1.1034391195999997,
+      "FOCAL_09": 0.7094770682000001,
+      "FOCAL_10": 1.1324382686,
+      "FOCAL_11": 0.8645760494000001,
+      "FOCAL_12": 2.75958041
+    },
+    "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6"
+  },
+  "shared_view_bounds": [
+    -1.930367359443637,
+    1.3130897392044356,
+    -1.2618382531346626,
+    2.738078955333185
+  ],
+  "same_layout_object_for_all_styles": true,
+  "dependencies": {
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "biopython": "1.88",
+    "Pillow": "12.3.0"
+  },
+  "input_sha256": {
+    "tree": "52042593c646a918cefcaa739f5060e541694263a2d62cfa260eb4cb18b6b41b",
+    "metadata": "9fca0e927163e59b16de6c5cbc45c03c8562de69e1db0c81b7068a47e043b8dd",
+    "selected": "57ad5a6da58277893fd892b3409956e905ba7431e64688af334df61cb8f4ec19"
+  },
+  "source_sha256": {
+    "/Users/user/Developer/MicrobialGenomics/PhyloCloud-codex/scripts/review_structure_benchmark.py": "5e2282d6fa2fb01bc8123a21b7c0d48d0fe67ae980f3b0584df8719ccd7e543f",
+    "src/phylocloud/benchmark.py": "e46a54b14ac250f9458719caac5f5cd2fe619783c9cb91499efd0de160069ae5",
+    "src/phylocloud/render.py": "99c5639930c447cb3115a3518a182f6f219aec9a2baa470b7b6d722e8f77945e",
+    "src/phylocloud/cloud_layers.py": "4883580d45b755d4068bca8e3c3c1c3409de64a840a20359a037f09af9430ef8"
+  },
+  "views": {
+    "publication": {
+      "density_raster": null,
+      "native_cloud_labels": [],
+      "reference_group_counts": {},
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "4aced4090f4798751ba278ffca508f02c2b4f28c794056b8bf641304cd7c4799",
+        "pdf": "fa67b38ab67fe91868320e47c119d948866ad5d9a5206a81fb9be8ee7262f4e0",
+        "png": "93f04a7dad0730d37ead3f1fa435fd286128d5c582becde7fe52ce2bd1de1748"
+      },
+      "annotation_layout": null
+    },
+    "cloud": {
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5427234843598434,
+          1.0127810872207212,
+          -0.9227170663840207,
+          1.9436029135079322
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "native_cloud_labels": [
+        {
+          "group": "Synthetic species A",
+          "count": 2930,
+          "x": 0.5945941544586345,
+          "y": -0.16887030590488922,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species B",
+          "count": 1607,
+          "x": -0.43232461046373427,
+          "y": 0.6383016178787979,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species C",
+          "count": 835,
+          "x": -0.9721940354300723,
+          "y": 0.3558308723771784,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species E",
+          "count": 489,
+          "x": -0.6924401349457179,
+          "y": 0.3557814261847081,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species D",
+          "count": 246,
+          "x": 0.22497641614143485,
+          "y": 1.3717196378503558,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species F",
+          "count": 203,
+          "x": 0.2308077797647933,
+          "y": 1.2177044915245991,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species G",
+          "count": 96,
+          "x": 0.3529297778125269,
+          "y": 0.35406140452237583,
+          "placement": "reference_position_or_quantile"
+        }
+      ],
+      "reference_group_counts": {
+        "Synthetic species B": 1607,
+        "Synthetic species E": 489,
+        "Synthetic species F": 203,
+        "Synthetic species A": 2930,
+        "Synthetic species C": 835,
+        "Synthetic species H": 82,
+        "Synthetic species D": 246,
+        "Synthetic species G": 96
+      },
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "ba9f0ab14d73c17bda175f16c9cfee4df78d4bf5f2d259c8fca0486911c5dab4",
+        "pdf": "afe7920cca9ee0f9be94b0413e31b48c87927ee59ef6cb7a0315a6fc9904db58",
+        "png": "85bd6cdae6e3b88a266a14a33deae7349cd0ba388304210273e50ffb3e26f989"
+      },
+      "annotation_layout": null
+    },
+    "canopy": {
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5313319335207027,
+          1.0051867199946272,
+          -0.9151140956150765,
+          1.9359999427389885
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "native_cloud_labels": [
+        {
+          "group": "Synthetic species A",
+          "count": 2930,
+          "x": 0.5945941544586345,
+          "y": -0.16887030590488922,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species B",
+          "count": 1607,
+          "x": -0.43232461046373427,
+          "y": 0.6383016178787979,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species C",
+          "count": 835,
+          "x": -0.9721940354300723,
+          "y": 0.3558308723771784,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species E",
+          "count": 489,
+          "x": -0.6924401349457179,
+          "y": 0.3557814261847081,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species D",
+          "count": 246,
+          "x": 0.22497641614143485,
+          "y": 1.3717196378503558,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species F",
+          "count": 203,
+          "x": 0.2308077797647933,
+          "y": 1.2177044915245991,
+          "placement": "reference_position_or_quantile"
+        },
+        {
+          "group": "Synthetic species G",
+          "count": 96,
+          "x": 0.3529297778125269,
+          "y": 0.35406140452237583,
+          "placement": "reference_position_or_quantile"
+        }
+      ],
+      "reference_group_counts": {
+        "Synthetic species B": 1607,
+        "Synthetic species E": 489,
+        "Synthetic species F": 203,
+        "Synthetic species A": 2930,
+        "Synthetic species C": 835,
+        "Synthetic species H": 82,
+        "Synthetic species D": 246,
+        "Synthetic species G": 96
+      },
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "21451166d657e332761308684e522facbf519913bb0518bcb5b3efc344231071",
+        "pdf": "7c8e1aab4b838a609f3f1ad301544ed1b9bf194ec99ecd5cd017cffaafd0b41c",
+        "png": "67b534ec3bc1736b5a4d5ed3c54d0f6599e38f7327cb09f57ba414599696137f"
+      },
+      "annotation_layout": null
+    }
+  }
+}
