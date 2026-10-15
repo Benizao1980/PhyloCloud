@@ -1,0 +1,886 @@
+{
+  "scientific_audit": {
+    "tips": 6500,
+    "original_edges": 12996,
+    "zero_length_edges": 1012,
+    "exact_original_edge_identities_and_lengths": true,
+    "unrooted_splits_preserved_by_exact_graph_identity": true,
+    "max_absolute_edge_length_error": 2.220446049250313e-16,
+    "selected_original_edge_ids": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        3099
+      ],
+      [
+        1,
+        3100
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        1441
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        978
+      ],
+      [
+        978,
+        980
+      ],
+      [
+        980,
+        982
+      ],
+      [
+        1441,
+        1594
+      ],
+      [
+        1594,
+        1596
+      ],
+      [
+        1596,
+        1598
+      ],
+      [
+        1598,
+        1600
+      ],
+      [
+        1600,
+        1602
+      ],
+      [
+        1602,
+        1604
+      ],
+      [
+        3099,
+        9884
+      ],
+      [
+        3100,
+        3101
+      ],
+      [
+        3100,
+        3102
+      ],
+      [
+        3101,
+        8358
+      ],
+      [
+        3102,
+        3103
+      ],
+      [
+        3102,
+        3104
+      ],
+      [
+        3103,
+        8015
+      ],
+      [
+        3103,
+        8016
+      ],
+      [
+        3104,
+        3106
+      ],
+      [
+        3106,
+        3107
+      ],
+      [
+        3106,
+        3108
+      ],
+      [
+        3107,
+        6045
+      ],
+      [
+        3108,
+        3109
+      ],
+      [
+        3109,
+        3555
+      ],
+      [
+        3109,
+        3556
+      ],
+      [
+        3555,
+        6041
+      ],
+      [
+        3555,
+        6042
+      ],
+      [
+        3555,
+        6043
+      ],
+      [
+        3555,
+        6044
+      ],
+      [
+        3556,
+        3558
+      ],
+      [
+        3558,
+        3560
+      ],
+      [
+        3560,
+        3562
+      ],
+      [
+        3562,
+        3564
+      ],
+      [
+        3564,
+        3566
+      ],
+      [
+        3566,
+        3568
+      ],
+      [
+        6045,
+        6973
+      ],
+      [
+        6973,
+        7589
+      ],
+      [
+        7589,
+        7869
+      ],
+      [
+        7869,
+        7881
+      ],
+      [
+        7881,
+        7959
+      ],
+      [
+        7959,
+        7985
+      ],
+      [
+        7985,
+        7989
+      ],
+      [
+        8015,
+        8156
+      ],
+      [
+        8016,
+        8018
+      ],
+      [
+        8018,
+        8020
+      ],
+      [
+        8020,
+        8022
+      ],
+      [
+        8156,
+        8158
+      ],
+      [
+        8158,
+        8160
+      ],
+      [
+        8358,
+        8360
+      ],
+      [
+        8360,
+        8361
+      ],
+      [
+        8361,
+        8365
+      ],
+      [
+        8365,
+        8835
+      ],
+      [
+        8835,
+        8849
+      ],
+      [
+        8849,
+        8897
+      ],
+      [
+        8897,
+        8917
+      ],
+      [
+        8917,
+        8925
+      ],
+      [
+        8925,
+        8927
+      ],
+      [
+        9884,
+        9886
+      ],
+      [
+        9886,
+        9887
+      ],
+      [
+        9887,
+        11249
+      ],
+      [
+        11249,
+        11273
+      ],
+      [
+        11273,
+        11275
+      ],
+      [
+        11275,
+        11287
+      ],
+      [
+        11287,
+        11289
+      ],
+      [
+        11289,
+        11291
+      ]
+    ],
+    "selected_edge_oracle": "independent union of paths from first focal tip",
+    "focal_patristic_distances_from_first": {
+      "FOCAL_01": 0.0,
+      "FOCAL_02": 0.0,
+      "FOCAL_03": 0.0,
+      "FOCAL_04": 0.0,
+      "FOCAL_05": 0.019883276800000002,
+      "FOCAL_06": 0.41290269560000004,
+      "FOCAL_07": 1.5832868825999997,
+      "FOCAL_08": 1.1034391195999997,
+      "FOCAL_09": 0.7094770682000001,
+      "FOCAL_10": 1.1324382686,
+      "FOCAL_11": 0.8645760494000001,
+      "FOCAL_12": 2.75958041
+    },
+    "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6"
+  },
+  "shared_view_bounds": [
+    -1.6522516302157655,
+    1.1223092330766433,
+    -1.0322452122399428,
+    2.31618667535539
+  ],
+  "same_layout_object_for_all_styles": true,
+  "same_data_to_display_transform_for_all_styles": true,
+  "data_to_display_affine_at_figure_dpi": [
+    [
+      243.75018171939792,
+      0.0,
+      664.5867778017373
+    ],
+    [
+      0.0,
+      243.75018171939794,
+      435.42907698607564
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dependencies": {
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "biopython": "1.88",
+    "Pillow": "12.3.0"
+  },
+  "input_sha256": {
+    "tree": "52042593c646a918cefcaa739f5060e541694263a2d62cfa260eb4cb18b6b41b",
+    "metadata": "9fca0e927163e59b16de6c5cbc45c03c8562de69e1db0c81b7068a47e043b8dd",
+    "selected": "57ad5a6da58277893fd892b3409956e905ba7431e64688af334df61cb8f4ec19"
+  },
+  "source_sha256": {
+    "scripts/review_structure_benchmark.py": "9bf244f1f5622301ab094331cfc6aec0a5cc4d9e90923cc707b7a94d13985ed4",
+    "src/phylocloud/benchmark.py": "e46a54b14ac250f9458719caac5f5cd2fe619783c9cb91499efd0de160069ae5",
+    "src/phylocloud/render.py": "e5b6760083f6274c7712b3f900d121d0f2227c2b31b9625e23a0baa2d4c53a72",
+    "src/phylocloud/cloud_layers.py": "4883580d45b755d4068bca8e3c3c1c3409de64a840a20359a037f09af9430ef8",
+    "src/phylocloud/composition.py": "84de9ff993193169034761191bf7ffa8250b11047a63fd12ab90aabc6b379614"
+  },
+  "preview_sha256": {
+    "publication": "b91c97bc6bc92daf06c1775c4f11b00c345efd648b76a372389f4b1454097ab6",
+    "cloud": "10f2fadba27cacc5d92c280e069907ca9abf9858f2016f401fe60d804624b272",
+    "canopy": "485309044acb31c9a41ea903f2c4d8e12b3a15a1ab39abb6d6b401a4b00549d6"
+  },
+  "views": {
+    "publication": {
+      "density_raster": null,
+      "native_cloud_labels": [],
+      "reference_group_counts": {
+        "Synthetic species B": 1607,
+        "Synthetic species E": 489,
+        "Synthetic species F": 203,
+        "Synthetic species A": 2930,
+        "Synthetic species C": 835,
+        "Synthetic species H": 82,
+        "Synthetic species D": 246,
+        "Synthetic species G": 96
+      },
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "3bafa73f11ba766438a95e9f9b2e52ccb6309ed83acdf99ab31dc3f6be17e027",
+        "pdf": "90ba722dcf496d81bcee6750da133d818758084c46918256c372511c9651701b",
+        "png": "089766ff0fb5928a5cd1a098396d2dc637e6c1794d4ffc54da1ce180e327f1ad"
+      },
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.6522516302157655,
+          1.1223092330766433,
+          -1.0322452122399428,
+          2.31618667535539
+        ],
+        "canvas_inches": [
+          12.0,
+          11.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      }
+    },
+    "cloud": {
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5427234843598434,
+          1.0127810872207212,
+          -0.9227170663840207,
+          1.9436029135079322
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "native_cloud_labels": [],
+      "reference_group_counts": {
+        "Synthetic species B": 1607,
+        "Synthetic species E": 489,
+        "Synthetic species F": 203,
+        "Synthetic species A": 2930,
+        "Synthetic species C": 835,
+        "Synthetic species H": 82,
+        "Synthetic species D": 246,
+        "Synthetic species G": 96
+      },
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "d383a7b2c664174f36e9527c377644dc79d43af0207e8e6f105d004d48ad0d21",
+        "pdf": "c1c1c4db47a3293c7cadac365a2b79632de1373f5e8242f52d48111d1be942bc",
+        "png": "2e8f0b11d92c45c2ba4d92809a15dc0429c4173a9fab3cd3c37a8a4b4c9f6485"
+      },
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.6522516302157655,
+          1.1223092330766433,
+          -1.0322452122399428,
+          2.31618667535539
+        ],
+        "canvas_inches": [
+          12.0,
+          11.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      }
+    },
+    "canopy": {
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5313319335207027,
+          1.0051867199946272,
+          -0.9151140956150765,
+          1.9359999427389885
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "native_cloud_labels": [],
+      "reference_group_counts": {
+        "Synthetic species B": 1607,
+        "Synthetic species E": 489,
+        "Synthetic species F": 203,
+        "Synthetic species A": 2930,
+        "Synthetic species C": 835,
+        "Synthetic species H": 82,
+        "Synthetic species D": 246,
+        "Synthetic species G": 96
+      },
+      "foreground_edges": 72,
+      "output_sha256": {
+        "svg": "359e837f4e10e10d23eaf9957f8bdf783466d6144abacd69eced61a5bd7289b2",
+        "pdf": "e2797792a4f4d616ba94263691b009eec54937f6e06e987e9480a77bbf5c1ec2",
+        "png": "73726a1095371e617915145330c1889e81682e9657ebd081e8884a870d8e29cc"
+      },
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.6522516302157655,
+          1.1223092330766433,
+          -1.0322452122399428,
+          2.31618667535539
+        ],
+        "canvas_inches": [
+          12.0,
+          11.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      }
+    }
+  }
+}

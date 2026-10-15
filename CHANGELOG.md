@@ -1,5 +1,10 @@
 # Changelog
 
+- Add opt-in measured publication composition: margin callouts, disclosed
+  coincident tips, counted metadata key, separated page regions and fixed-canvas
+  SVG/PDF/PNG. Validate on the 6,500-tip structural benchmark with individual
+  full-page views; preserve exact original tree geometry and foreground edges.
+
 - Extend reference-cloud raster support without changing histogram sampling or
   scientific geometry; include visible wash in overview framing while preserving
   explicit selected-tip crops. Add synthetic boundary/vector export regressions,

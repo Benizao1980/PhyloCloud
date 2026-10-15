@@ -6,9 +6,14 @@ PhyloCloud is a Python command-line tool for drawing large reference phylogenies
 
 The scientific structure comes from **one original Newick tree and one shared layout**. Reference density is computed from the actual reference tips; it is not a reconstructed phylogeny, a measure of prevalence or a confidence envelope.
 
-| Native **Cloud** · synthetic example | Native **Canopy** · same synthetic tree |
-|:---:|:---:|
-| ![Soft data-derived Cloud plot with exact original tree branches](examples/figures/cloud-preview.jpg) | ![Botanical Canopy of the same synthetic tree](examples/figures/canopy-preview.jpg) |
+The [6,500-tip structural benchmark](docs/STRUCTURE_BENCHMARK.md) tests uneven sampling,
+mixed taxonomy, coincident focal tips and long outliers. Inspect individual
+full-page [complete tree](examples/structure_benchmark/publication-tree.jpg),
+[Cloud](examples/structure_benchmark/publication-cloud.jpg) and
+[Canopy](examples/structure_benchmark/publication-canopy.jpg) views at identical coordinates.
+The [composition review](docs/PUBLICATION_COMPOSITION_REVIEW.md) records both the
+visible improvements and remaining limitations; the six-fan quick demo is not
+our visual acceptance benchmark.
 
 **Status:** early open-source prototype (v0.3 development). We welcome feedback and contributions. The existing v0.2 `publication` and `soft_cloud` modes remain available; native `cloud` and `canopy` are experimental new modes. [Design](docs/DESIGN_SPEC.md) · [Architecture](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md) · [Issues](https://github.com/Benizao1980/PhyloCloud/issues)
 

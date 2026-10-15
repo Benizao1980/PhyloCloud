@@ -74,6 +74,7 @@ Only separate review JPEGs and small manifests are retained in Git.
   labels have ambiguous leaders. Numerical geometry preservation is insufficient.
 - Excess margins waste canvas. Some internal whitespace is genuine: the long
   outlier and asymmetric original tree cannot be compacted by moving its nodes.
-- These baseline figures **fail publication-composition acceptance**. The next
-  focused renderer change must demonstrate improvement on this exact fixture,
-  including readable full-size comparisons and actual text-box collision checks.
+- These baseline figures **fail publication-composition acceptance**. The
+  [publication composition review](PUBLICATION_COMPOSITION_REVIEW.md) tests a
+  focused follow-up on this exact fixture, with full-size comparisons and actual
+  text-box collision checks.
