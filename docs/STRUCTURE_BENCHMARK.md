@@ -43,8 +43,9 @@ python -m pytest -q
 ```
 
 Choose a new directory; existing outputs are never overwritten. Individual
-14 × 11 inch configuration exports include 300 dpi PNG, hybrid SVG/PDF and
-per-view provenance. `index.html` links to each full-size view; review JPEGs are
+exports include 300 dpi PNG, hybrid SVG/PDF and
+per-view provenance. The preserved legacy baseline uses a 14 × 11 inch configuration;
+the revised publication composition uses an exact 12 × 11 inch canvas. `index.html` links to each full-size view; review JPEGs are
 2,400 pixels on their longest side, **not miniaturized composite panels**.
 Source/input/output hashes, dependencies, shared bounds, coordinate hash,
 selected edge identities and boundary alpha are in `review.json`.
