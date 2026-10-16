@@ -43,8 +43,9 @@ python -m pytest -q
 ```
 
 Choose a new directory; existing outputs are never overwritten. Individual
-14 × 11 inch configuration exports include 300 dpi PNG, hybrid SVG/PDF and
-per-view provenance. `index.html` links to each full-size view; review JPEGs are
+exports include 300 dpi PNG, hybrid SVG/PDF and
+per-view provenance. The preserved legacy baseline uses a 14 × 11 inch configuration;
+the revised publication composition uses an exact 12 × 11 inch canvas. `index.html` links to each full-size view; review JPEGs are
 2,400 pixels on their longest side, **not miniaturized composite panels**.
 Source/input/output hashes, dependencies, shared bounds, coordinate hash,
 selected edge identities and boundary alpha are in `review.json`.
@@ -74,6 +75,7 @@ Only separate review JPEGs and small manifests are retained in Git.
   labels have ambiguous leaders. Numerical geometry preservation is insufficient.
 - Excess margins waste canvas. Some internal whitespace is genuine: the long
   outlier and asymmetric original tree cannot be compacted by moving its nodes.
-- These baseline figures **fail publication-composition acceptance**. The next
-  focused renderer change must demonstrate improvement on this exact fixture,
-  including readable full-size comparisons and actual text-box collision checks.
+- These baseline figures **fail publication-composition acceptance**. The
+  [publication composition review](PUBLICATION_COMPOSITION_REVIEW.md) tests a
+  focused follow-up on this exact fixture, with full-size comparisons and actual
+  text-box collision checks.

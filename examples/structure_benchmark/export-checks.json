@@ -1,0 +1,94 @@
+{
+  "publication": {
+    "canvas_inches": [
+      12,
+      11
+    ],
+    "pdf_points": [
+      864,
+      792
+    ],
+    "svg_points": [
+      864,
+      792
+    ],
+    "png_pixels": [
+      3600,
+      3300
+    ],
+    "dpi": 300,
+    "embedded_fonts": [
+      "/EWFFPN+DejaVuSans-Bold",
+      "/GIDGAY+DejaVuSans",
+      "/CPUQYB+DejaVuSans"
+    ],
+    "pdf_vector_strokes": 13100,
+    "pdf_raster_images": 0,
+    "extractable_focal_labels": 12,
+    "text_box_overlaps": 0,
+    "clipped_text_boxes": 0,
+    "outer_raster_max_alpha": null
+  },
+  "cloud": {
+    "canvas_inches": [
+      12,
+      11
+    ],
+    "pdf_points": [
+      864,
+      792
+    ],
+    "svg_points": [
+      864,
+      792
+    ],
+    "png_pixels": [
+      3600,
+      3300
+    ],
+    "dpi": 300,
+    "embedded_fonts": [
+      "/DTVNGC+DejaVuSans-Bold",
+      "/HAJSMO+DejaVuSans-Bold",
+      "/GIDGAY+DejaVuSans",
+      "/CPUQYB+DejaVuSans"
+    ],
+    "pdf_vector_strokes": 26096,
+    "pdf_raster_images": 2,
+    "extractable_focal_labels": 12,
+    "text_box_overlaps": 0,
+    "clipped_text_boxes": 0,
+    "outer_raster_max_alpha": 0.0
+  },
+  "canopy": {
+    "canvas_inches": [
+      12,
+      11
+    ],
+    "pdf_points": [
+      864,
+      792
+    ],
+    "svg_points": [
+      864,
+      792
+    ],
+    "png_pixels": [
+      3600,
+      3300
+    ],
+    "dpi": 300,
+    "embedded_fonts": [
+      "/HCDHGP+DejaVuSans-Bold",
+      "/HAJSMO+DejaVuSans-Bold",
+      "/GIDGAY+DejaVuSans",
+      "/CPUQYB+DejaVuSans"
+    ],
+    "pdf_vector_strokes": 26096,
+    "pdf_raster_images": 2,
+    "extractable_focal_labels": 12,
+    "text_box_overlaps": 0,
+    "clipped_text_boxes": 0,
+    "outer_raster_max_alpha": 0.0
+  }
+}

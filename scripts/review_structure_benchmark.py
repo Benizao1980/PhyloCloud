@@ -50,7 +50,7 @@ def scientific_audit(graph, layout, selected):
             parent = parents[node]; expected.add(frozenset((node,parent))); node=parent
     assert expected == connecting_edges(graph,selected)
     index = {n:i for i,n in enumerate(graph.adjacency)}
-    # Canonical split hashes computed from original graph and displayed edges.
+    # Compare exact graph identities rather than materializing every split.
     # Exact undirected edge identity equality above guarantees the same splits,
     # including zero-length edges, without an O(N^2) all-pairs matrix.
     coordinates = [[index[n],*layout.coordinates[n]] for n in graph.adjacency]
@@ -66,7 +66,7 @@ def scientific_audit(graph, layout, selected):
                 coordinate_sha256=hashlib.sha256(json.dumps(coordinates).encode()).hexdigest())
 
 
-def render_review(out, paths, dpi=300):
+def render_review(out, paths, dpi=300, composition='publication'):
     graph=TreeGraph.from_newick(paths['tree']); metadata=load_metadata(paths['metadata'])
     selected=load_selected(paths['selected']); cfg=load_config(None)
     cfg['export'].update(width_inches=14,height_inches=11,dpi=dpi)
@@ -80,10 +80,15 @@ def render_review(out, paths, dpi=300):
     try:
         for preset in ('publication','cloud','canopy'):
             config=copy.deepcopy(cfg); config['style'].update(PRESETS[preset])
-            config['style'].update(preset=preset,
+            config['style'].update(preset=preset,composition=composition,
                 title={'publication':'Complete underlying phylogeny','cloud':'Cloud — structural stress test',
                        'canopy':'Canopy — structural stress test'}[preset],
                 subtitle='6,500 synthetic tips · mixed taxonomy · one original-length layout')
+            if composition=='publication':
+                config['export']['width_inches']=12
+                if preset=='publication':
+                    config['style'].update(reference_color='warm_grey',reference_alpha=.85,
+                                           reference_width=.28,halo_alpha=0.)
             configurations[preset]=config
             saves=[]; figures=[]
             # Defer export until all three views have a common camera.
@@ -96,8 +101,23 @@ def render_review(out, paths, dpi=300):
         bounds=[r['view_bounds'] for r in reports.values()]
         shared=[min(b[0] for b in bounds),max(b[1] for b in bounds),
                 min(b[2] for b in bounds),max(b[3] for b in bounds)]
+        axes_boxes=[fig.axes[0].get_position(original=True) for _,fig,_ in held]
+        common_box=[max(b.x0 for b in axes_boxes),max(b.y0 for b in axes_boxes),
+                    min(b.x1 for b in axes_boxes),min(b.y1 for b in axes_boxes)]
+        transforms=[]
         for preset,fig,saves in held:
-            ax=fig.axes[0]; ax.set_xlim(*shared[:2]); ax.set_ylim(*shared[2:])
+            ax=fig.axes[0]
+            ax.set_position([common_box[0],common_box[1],common_box[2]-common_box[0],common_box[3]-common_box[1]])
+            ax.set_xlim(*shared[:2]); ax.set_ylim(*shared[2:])
+            fig.canvas.draw()
+            transforms.append(ax.transData.get_affine().get_matrix().tolist())
+            np.testing.assert_allclose(transforms[-1],transforms[0],atol=1e-10)
+
+            if hasattr(fig,'_phylocloud_place_labels'):
+                fig.canvas.draw(); fig._phylocloud_place_labels(); fig.canvas.draw()
+                annotations=fig._phylocloud_annotation_check()
+                assert annotations['text_box_overlaps']==annotations['clipped_text_boxes']==0
+                reports[preset]['annotation_layout']=annotations
             for args,kwargs in saves:
                 fig.savefig(*args,**kwargs)
             report=reports[preset]
@@ -119,10 +139,14 @@ def render_review(out, paths, dpi=300):
         for _,fig,_ in held: original_close(fig)
     manifest=dict(scientific_audit=audit,shared_view_bounds=shared,
                   same_layout_object_for_all_styles=True,
+                  same_data_to_display_transform_for_all_styles=True,
+                  data_to_display_affine_at_figure_dpi=transforms[0],
                   dependencies={p:version(p) for p in ('numpy','matplotlib','biopython','Pillow')},
                   input_sha256={k:digest(p) for k,p in paths.items()},
-                  source_sha256={str(p):digest(p) for p in [Path(__file__),Path('src/phylocloud/benchmark.py'),
-                                    Path('src/phylocloud/render.py'),Path('src/phylocloud/cloud_layers.py')]},
+                  source_sha256={str(p):digest(p) for p in [Path('scripts/review_structure_benchmark.py'),Path('src/phylocloud/benchmark.py'),
+                                    Path('src/phylocloud/render.py'),Path('src/phylocloud/cloud_layers.py'),
+                                    Path('src/phylocloud/composition.py')]},
+                  preview_sha256={preset:digest(out/(preset+'.jpg')) for preset in reports},
                   views={preset:{k:r.get(k) for k in ('density_raster','native_cloud_labels','reference_group_counts',
                                      'foreground_edges','output_sha256','annotation_layout')} for preset,r in reports.items()})
     (out/'review.json').write_text(json.dumps(manifest,indent=2)+'\n')
@@ -137,9 +161,10 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--outdir',required=True)
     parser.add_argument('--dpi',type=int,default=300)
+    parser.add_argument('--composition',choices=['legacy','publication'],default='publication')
     args=parser.parse_args(); out=Path(args.outdir); out.mkdir(parents=True,exist_ok=False)
     paths=make_structure_benchmark(out/'inputs')
-    render_review(out,paths,args.dpi)
+    render_review(out,paths,args.dpi,args.composition)
 
 
 if __name__=='__main__': main()
