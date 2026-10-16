@@ -1,5 +1,10 @@
 # Changelog
 
+- Preserve the complete selected original-edge set and reference classification
+  in `--detail-selected` crops; focus IDs now control labels/camera only. Add
+  independent detail provenance, pre-export ID validation, crop-window framing
+  and a full-size synthetic visual review with documented zoom-wash limitations.
+
 - Add opt-in measured publication composition: margin callouts, disclosed
   coincident tips, counted metadata key, separated page regions and fixed-canvas
   SVG/PDF/PNG. Validate on the 6,500-tip structural benchmark with individual

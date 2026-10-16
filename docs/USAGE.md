@@ -116,3 +116,12 @@ phylocloud plot \
 You may opt into `--length-mode graphic` to make a non-metric graphical drawing; the same **display** layout is used for every panel and the preview explicitly identifies it as non-metric. In either mode the input Newick is unchanged; panel crops do not reconstruct the tree or shuffle genome coordinates. Bounds, names, reference counts and selected IDs appear in the JSON provenance.
 
 The composite is currently **raster only**; use the standard full-tree SVG/PDF for vector editing. Visual density denotes reference sampling, not natural prevalence. This preview is experimental and should be visually checked before manuscript use. The separate `--detail-selected` output remains available for a chosen subset of focal genomes.
+
+### Detail selection preserves the overview foreground
+
+`--detail-selected subset.txt` frames and labels those focal tips while preserving
+all original selected connecting edges and reference samples from `--selected`.
+The detail also writes its own provenance JSON. Counts refer to the full tree,
+not just visible tips; edges crossing the camera boundary are clipped, never
+pruned or repositioned. See the [detail review](FIXED_SELECTION_DETAIL_REVIEW.md)
+for the full-size synthetic comparison and the current zoom-density limitation.

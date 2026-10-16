@@ -5,6 +5,7 @@ import math
 import textwrap
 
 from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
 from matplotlib.transforms import Bbox
 
 from .cloud_layers import colour_for_group
@@ -28,13 +29,14 @@ def _pack_vertical(targets, heights, lower, upper, gap):
 
 
 def publication_composition(fig, ax, graph, layout, metadata, selected, references,
-                            context, cfg, density_raster, original_bounds):
+                            context, cfg, density_raster, original_bounds, *, focus_ids=None):
     """Draw margin callouts, a separate metadata key, and measured page regions.
 
     Coincident tips share an explicitly disclosed callout; their true markers
     and original zero-length edges are preserved. Disjoint taxonomic categories
     are listed in a key, never given a single supposed clade/region label.
     """
+    focus = selected if focus_ids is None else focus_ids
     s=cfg['style']; ink=color(s.get('foreground_color','ink'))
     bg=s.get('background','#FFFFFF'); point=fig.dpi/72
     fw,fh=fig.bbox.width,fig.bbox.height
@@ -74,7 +76,7 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     semantic=[]
     keys=[('Original reference edges',color(s.get('reference_color','stone'))),
           ('Exact focal connecting edges',ink),
-          (f'Focal genomes: {len(selected)}',ink)]
+          (f'Focal genomes: {len(selected)}'+(f' ({len(focus)} labelled)' if len(focus)!=len(selected) else ''),ink)]
     for col,(label,c) in enumerate(keys):
         x=22*point+col*colwidth
         fig.add_artist(Line2D([x/fw,(x+16*point)/fw],[semantic_y/fh]*2,
@@ -87,12 +89,13 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     angle=cfg['layout'].get('angle_mode','tip_count')
     method+=' · '+('equal-arc' if angle=='tip_count' else 'experimental phylogenetic-spread angles')
     method+=' · one shared layout'
+    if s.get('zoom_to_selected',False): method='Geometric crop; global counts · '+method
     footer=[fig.text(22*point/fw,27*point/fh,method,fontsize=7.5,color=color('warm_grey')),
             fig.text(22*point/fw,14*point/fh,'Reference sampling density is not prevalence; metadata colours do not define clades.',
                      fontsize=7.5,color=color('warm_grey'))]
     # Build callouts at true positions; no nearest-neighbour collapsing/jitter.
     groups={}
-    for name in selected:
+    for name in focus:
         xy=layout.coordinates[graph.tips[name]]
         groups.setdefault(xy,[]).append(name)
     entries=[]
@@ -121,7 +124,7 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     ax.set_position([rail/fw,bottom,1-2*rail/fw,top-bottom])
     xmin,xmax,ymin,ymax=original_bounds
     if s.get('zoom_to_selected',False):
-        chosen=selected+context
+        chosen=focus+context
         xs=[layout.coordinates[graph.tips[n]][0] for n in chosen]
         ys=[layout.coordinates[graph.tips[n]][1] for n in chosen]
         xmin,xmax,ymin,ymax=min(xs),max(xs),min(ys),max(ys)
@@ -133,6 +136,10 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     pad=max(xmax-xmin,ymax-ymin)*.035
     view=[xmin-pad,xmax+pad,ymin-pad,ymax+pad]
     ax.set_xlim(*view[:2]); ax.set_ylim(*view[2:]); ax.set_aspect('equal',adjustable='box'); ax.axis('off')
+    if s.get('zoom_to_selected',False):
+        ax.add_patch(Rectangle((0,0),1,1,transform=ax.transAxes,fill=False,
+                               edgecolor=color('warm_grey'),linewidth=.6,zorder=12,
+                               clip_on=False,gid='geometric-crop-frame'))
     fig.canvas.draw(); renderer=fig.canvas.get_renderer()
     # Limits/camera may be replaced by a matched-review script before export.
     # A draw callback keeps callouts attached under that shared camera change.

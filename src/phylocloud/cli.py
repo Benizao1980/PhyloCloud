@@ -39,6 +39,13 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         angle_mode=cfg['layout'].get('angle_mode', 'tip_count'),
         length_mode=cfg['layout'].get('length_mode', 'original'),
     )
+    detail = None
+    if detail_selected is not None:
+        detail = load_selected(detail_selected)
+        if len(set(detail)) != len(detail) or len(detail) < 2:
+            raise ValueError('Detail selection needs at least two distinct tip IDs')
+        if not set(detail).issubset(ids):
+            raise ValueError('Detail selection must be a subset of the full selected-genomes file')
     summary = draw(graph,layout,meta,ids,cfg,out)
     original_edges = {frozenset((node,nb)) for node,nbrs in graph.adjacency.items()
                       for nb,_ in nbrs}
@@ -90,22 +97,32 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
                                         'species_background')
     }
     report = Path(out).with_suffix('.provenance.json')
-    if detail_selected is not None:
-        detail = load_selected(detail_selected)
-        if len(set(detail)) != len(detail) or len(detail) < 2:
-            raise ValueError('Detail selection needs at least two distinct tip IDs')
-        if not set(detail).issubset(ids):
-            raise ValueError('Detail selection must be a subset of the full selected-genomes file')
+    if detail is not None:
         detail_cfg = copy.deepcopy(cfg)
         detail_cfg['style']['zoom_to_selected'] = True
         detail_cfg['style']['title'] = 'PhyloCloud  /  selected-genome neighbourhood'
         detail_cfg['style']['subtitle'] = 'Crop of the full-tree display coordinates (no second layout)'
         detail_out = str(out) + '_detail'
-        detail_info = draw(graph, layout, meta, detail, detail_cfg, detail_out)
+        detail_info = draw(graph, layout, meta, ids, detail_cfg, detail_out, focus_ids=detail)
+        assert detail_info['foreground_original_edge_ids'] == summary['foreground_original_edge_ids']
+        assert detail_info['coordinate_sha256'] == summary['coordinate_sha256']
+        detail_info['input_sha256'] = {**summary['input_sha256'], 'detail_selected':digest(detail_selected)}
+        detail_info['configuration'] = detail_cfg
+        detail_info['validation'] = summary['validation']
+        detail_info['output_sha256'] = {
+            ext:digest(Path(detail_out).with_suffix('.'+ext)) for ext in ('svg','pdf','png')}
+        Path(detail_out).with_suffix('.provenance.json').write_text(
+            json.dumps(detail_info,indent=2,sort_keys=True)+'\n',encoding='utf-8')
         from .panels import compose_preview
         composition = compose_preview(str(out)+'.png',detail_out+'.png',str(out)+'_overview_detail.png')
         summary['detail_panel'] = {
             'selected_tip_ids': detail,
+            'highlighted_tip_ids': ids,
+            'same_foreground_edge_set': True,
+            'coordinate_sha256': detail_info['coordinate_sha256'],
+            'view_bounds': detail_info['view_bounds'],
+            'provenance_json': detail_out+'.provenance.json',
+            'output_sha256': detail_info['output_sha256'],
             'full_tree_edges': detail_info['tree_edges'],
             'selected_subtree_edges': detail_info['foreground_edges'],
             'same_layout': True,
@@ -132,7 +149,7 @@ def main(argv=None):
     plot.add_argument('--metadata',required=True)
     plot.add_argument('--selected',required=True)
     plot.add_argument('--config')
-    plot.add_argument('--detail-selected',help='Subset of --selected tip IDs for a true-geometry zoom and side-by-side preview PNG')
+    plot.add_argument('--detail-selected',help='Subset of --selected to frame and label in a crop; preserves the full selected foreground')
     plot.add_argument('--style',choices=['publication','soft_cloud','cloud','canopy','constellation','river'])
     plot.add_argument('--cloud-group-by',help='Metadata column for native cloud colours and labels (default species)')
     plot.add_argument('--species-panels',type=int,metavar='N',
