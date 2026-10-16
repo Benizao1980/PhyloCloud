@@ -14,6 +14,10 @@ from .data import color
 FALLBACK_COLOURS = ('sage', 'powder_blue', 'dusty_pink', 'lavender', 'mustard',
                     'teal', 'apricot', 'seafoam', 'burgundy')
 
+RASTER_SUPPORT_SIGMA = 6.0
+MAX_RASTER_CELLS = 4_000_000
+MAX_LAYER_CELLS = 32_000_000
+
 
 def reference_ids(graph, metadata, selected):
     """Match existing renderer's explicit source classification."""
@@ -56,11 +60,19 @@ def _blur_float_counts(count, radius):
     sigma = float(radius)
     if not math.isfinite(sigma) or sigma <= 0:
         raise ValueError('Gaussian bandwidth must be positive and finite')
-    pad = int(math.ceil(3.5*sigma))
+    pad = int(math.ceil(RASTER_SUPPORT_SIGMA*sigma))
     padded = np.pad(count, ((pad,pad),(pad,pad)), mode='constant')
-    ky = np.fft.fftfreq(padded.shape[0])[:,None]
-    kx = np.fft.rfftfreq(padded.shape[1])[None,:]
-    attenuation = np.exp(-2*np.pi**2*sigma**2*(kx**2 + ky**2))
+    # Transform a positive sampled kernel, rather than truncating its analytic
+    # frequency response. The latter produces ringing at subpixel bandwidths,
+    # whose non-Gaussian tails defeat a finite-support raster padding policy.
+    kernels = []
+    for size in padded.shape:
+        offsets = np.arange(size)
+        distances = np.minimum(offsets, size-offsets)
+        kernel = np.exp(-.5*(distances/sigma)**2)
+        kernel[distances > pad] = 0.
+        kernels.append(kernel/kernel.sum())
+    attenuation = np.fft.fft(kernels[0])[:,None] * np.fft.rfft(kernels[1])[None,:]
     result = np.fft.irfft2(np.fft.rfft2(padded)*attenuation,s=padded.shape)
     return np.maximum(0,result[pad:-pad,pad:-pad])
 
@@ -71,12 +83,46 @@ def _soft_tail(values, threshold):
     return values * t * t * (3. - 2. * t)
 
 
+def _density_grid(bounds, shape, maximum_sigma, layers=1):
+    """Extend the visual raster, preserving the ORIGINAL histogram cell scale.
+
+    Histogram first, then pad with empty cells: enlarging the histogram's range
+    would rebin references and change the bandwidth in tree-coordinate units.
+    Six widest-kernel sigmas make outer-edge alpha negligible after our tone
+    curves. These are raster bounds, never new tree coordinates or clade bounds.
+    """
+    xmin, xmax, ymin, ymax = map(float, bounds)
+    ny, nx = shape
+    dx, dy = (xmax-xmin)/nx, (ymax-ymin)/ny
+    sigma = float(maximum_sigma)
+    if not all(math.isfinite(v) for v in (*bounds, dx, dy)) or min(dx, dy) <= 0:
+        raise ValueError('Cloud extent must be finite and positive')
+    if not math.isfinite(sigma) or sigma <= 0:
+        raise ValueError('Gaussian bandwidth must be positive and finite')
+    if RASTER_SUPPORT_SIGMA*sigma > math.sqrt(MAX_RASTER_CELLS):
+        raise ValueError('Padded cloud raster too large; reduce bandwidth or resolution')
+    pad = int(math.ceil(RASTER_SUPPORT_SIGMA*sigma))
+    padded_shape = (ny+2*pad, nx+2*pad)
+    cells = math.prod(padded_shape)
+    if cells > MAX_RASTER_CELLS or cells*max(1, layers) > MAX_LAYER_CELLS:
+        raise ValueError('Padded cloud raster too large; reduce bandwidth, resolution '
+                         'or max_density_groups')
+    return {'histogram_bounds': list(bounds), 'histogram_shape': [ny, nx],
+            'raster_bounds': [xmin-pad*dx, xmax+pad*dx, ymin-pad*dy, ymax+pad*dy],
+            'raster_shape': list(padded_shape), 'cell_size_xy': [dx, dy],
+            'padding_px_per_side': pad, 'support_sigma': RASTER_SUPPORT_SIGMA,
+            'kernel_discretization': 'normalized_sampled_gaussian',
+            'maximum_sigma_px': sigma, 'maximum_sigma_xy': [sigma*dx, sigma*dy],
+            'sampling': 'original_histogram_then_zero_pad',
+            'max_raster_cells': MAX_RASTER_CELLS, 'max_layer_cells': MAX_LAYER_CELLS}
+
+
 def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
                          species_colors, bounds):
-    """Return group-aware RGBA grids with exact tree-data coordinate bounds.
+    """Return tip-only RGBA grids with expanded, fixed-cell-scale raster bounds.
 
-    Each real reference is counted once. Canopy also uses original-edge interior
-    samples solely to create a soft *edge* density; those are NOT genome points.
+    Each real reference is counted once. The field's ``bounds`` retain the
+    original label-placement domain; ``raster`` describes the visual wash extent.
     """
     group_by = cloud_config.get('group_by', 'species')
     groups = groups_for_references(graph, metadata, reference_names, group_by)
@@ -107,11 +153,13 @@ def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
         remaining = [name for g in ordered[max_groups-1:] for name in groups[g]]
         groups = {g:groups[g] for g in keep}
         groups['Other reference categories'] = remaining
+    raster = _density_grid(bounds, (ny, nx), bandwidth*2.2, len(groups))
     for group in sorted(groups, key=lambda k: (-len(groups[k]), k)):
         ids = groups[group]
         coords_for_group = np.asarray([coords[graph.tips[name]] for name in ids], dtype=float)
         hist, _, _ = np.histogram2d(coords_for_group[:,1], coords_for_group[:,0],
                                     bins=(ny,nx), range=((ymin,ymax),(xmin,xmax)))
+        hist = np.pad(hist, raster['padding_px_per_side'])
         tight = _blur_float_counts(hist, bandwidth)
         broad = _blur_float_counts(hist, bandwidth*2.2)
         if tight.max() == 0:
@@ -125,11 +173,11 @@ def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
         alpha = np.clip((dense ** .83) * alpha_max * sample_factor, 0, .76)
         if cloud_config.get('motif') == 'canopy':
             alpha *= .82
-        rgba = np.empty((ny,nx,4), dtype=np.float32)
+        rgba = np.empty((*raster['raster_shape'],4), dtype=np.float32)
         rgba[:,:,:3] = to_rgb(colour_for_group(group, cloud_config, species_colors))
         rgba[:,:,3] = alpha
         fields.append({'group':group,'count':len(ids),'rgba':rgba,
-                       'points':coords_for_group,'bounds':bounds})
+                       'points':coords_for_group,'bounds':bounds,'raster':raster})
     return fields, dict(tip_counts)
 
 
@@ -148,7 +196,8 @@ def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style):
     fields,counts = compute_cloud_fields(graph,layout,metadata,reference_names,cloud_cfg,
                                          style['species_colors'],bounds)
     for field in fields:
-        ax.imshow(field['rgba'],extent=bounds,origin='lower',interpolation='bilinear',
+        ax.imshow(field['rgba'],extent=field['raster']['raster_bounds'],
+                  origin='lower',interpolation='bilinear',
                   zorder=0,rasterized=True)
     return fields, counts
 
@@ -253,6 +302,7 @@ def _multiscale_reference_atmosphere(
     opacity=float(cloud_cfg.get('opacity',.72))
     if not .1<=bw<=100 or not 0<=opacity<=1:
         raise ValueError('cloud bandwidth or opacity out of range')
+    raster = _density_grid(bounds, (ny,nx), max(.5,bw*.65,bw*2.2), len(groups))
     # Determine species/group purity on the exact ORIGINAL tree. An edge only
     # supplies cloud texture if its descendant side includes a reference tip.
     # The edges keep their original coordinates and branch lengths.
@@ -292,6 +342,7 @@ def _multiscale_reference_atmosphere(
             edge_hist,_,_=np.histogram2d(pts[:,1],pts[:,0],bins=(ny,nx),
                                          range=((ymin,ymax),(xmin,xmax)))
             hist+=edge_hist*.10  # 3 samples, total density 0.30 / original edge
+        hist=np.pad(hist,raster['padding_px_per_side'])
         fine=_blur_float_counts(hist,max(.5,bw*.65))
         broad=_blur_float_counts(hist,bw*2.2)
         density=(.74*fine + .26*broad).astype(np.float32)
@@ -302,11 +353,12 @@ def _multiscale_reference_atmosphere(
         if peak:
             density = _soft_tail(density, peak*.0025)
         densities.append((group,density,tips))
-        fields.append({'group':group,'count':len(ids),'points':tips,'bounds':bounds})
+        fields.append({'group':group,'count':len(ids),'points':tips,'bounds':bounds,
+                       'raster':raster})
     global_peak=max((float(a.max()) for _,a,_ in densities),default=0.)
     scale=max(global_peak*.055,1e-9)
-    rgb_total=np.zeros((ny,nx,3),dtype=np.float32)
-    weight_total=np.zeros((ny,nx),dtype=np.float32)
+    rgb_total=np.zeros((*raster['raster_shape'],3),dtype=np.float32)
+    weight_total=np.zeros(raster['raster_shape'],dtype=np.float32)
     for group,density,tip_xy in densities:
         strength=(1-np.exp(-1.25*np.sqrt(np.maximum(0,density/scale)))).astype(np.float32)
         if len(tip_xy)<3: strength*=.24
@@ -316,11 +368,11 @@ def _multiscale_reference_atmosphere(
         soft_rgb=np.asarray(rgb,dtype=np.float32)*.82+.18
         rgb_total+=strength[:,:,None]*soft_rgb
         weight_total+=strength
-    image=np.empty((ny,nx,4),dtype=np.float32)
+    image=np.empty((*raster['raster_shape'],4),dtype=np.float32)
     image[:,:,:3]=rgb_total/np.maximum(weight_total[:,:,None],1e-8)
     image[:,:,3]=np.minimum(opacity*.84,
                             opacity*(1-np.exp(-weight_total*1.14)))
     image[:,:,3] *= _soft_tail(weight_total, .045) / np.maximum(weight_total, 1e-8)
-    ax.imshow(image,extent=bounds,origin='lower',interpolation='bilinear',
+    ax.imshow(image,extent=raster['raster_bounds'],origin='lower',interpolation='bilinear',
               zorder=0,rasterized=True)
     return fields,counts

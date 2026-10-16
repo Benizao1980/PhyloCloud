@@ -81,6 +81,10 @@ def run_plot(tree,metadata,selected,config,out,style=None,cloud_group_by=None,de
         'zero_length_edges_expanded': True,
     })
     summary['cloud_parameters'] = cfg['cloud']
+    summary['export_parameters'] = cfg['export']
+    summary['output_sha256'] = {
+        ext: digest(Path(out).with_suffix('.'+ext)) for ext in ('svg','pdf','png')
+    }
     summary['style_parameters'] = {
         key:cfg['style'][key] for key in ('preset','density_overlay','density_opacity',
                                         'species_background')

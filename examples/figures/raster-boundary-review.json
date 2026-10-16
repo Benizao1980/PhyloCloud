@@ -1,0 +1,699 @@
+{
+  "baseline_commit": "74b49b65d19c90728df83ddaa6d93c110070363b",
+  "synthetic_seed": 47,
+  "references": 900,
+  "selected_tips": [
+    "MAG_SYN_01",
+    "MAG_SYN_02",
+    "MAG_SYN_03",
+    "MAG_SYN_04",
+    "MAG_SYN_05",
+    "MAG_SYN_06",
+    "MAG_SYN_07",
+    "MAG_SYN_08",
+    "MAG_SYN_09"
+  ],
+  "scientific_before_after_equal": true,
+  "tree_edges": 1812,
+  "selected_original_edges": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      1,
+      1389
+    ],
+    [
+      1,
+      1390
+    ],
+    [
+      2,
+      987
+    ],
+    [
+      2,
+      988
+    ],
+    [
+      3,
+      667
+    ],
+    [
+      4,
+      397
+    ],
+    [
+      5,
+      187
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      7,
+      111
+    ],
+    [
+      111,
+      134
+    ],
+    [
+      134,
+      136
+    ],
+    [
+      136,
+      137
+    ],
+    [
+      137,
+      148
+    ],
+    [
+      187,
+      319
+    ],
+    [
+      319,
+      364
+    ],
+    [
+      364,
+      366
+    ],
+    [
+      366,
+      368
+    ],
+    [
+      397,
+      512
+    ],
+    [
+      512,
+      513
+    ],
+    [
+      513,
+      552
+    ],
+    [
+      552,
+      553
+    ],
+    [
+      553,
+      563
+    ],
+    [
+      563,
+      567
+    ],
+    [
+      567,
+      571
+    ],
+    [
+      571,
+      573
+    ],
+    [
+      667,
+      784
+    ],
+    [
+      784,
+      785
+    ],
+    [
+      785,
+      854
+    ],
+    [
+      854,
+      855
+    ],
+    [
+      855,
+      874
+    ],
+    [
+      874,
+      875
+    ],
+    [
+      875,
+      879
+    ],
+    [
+      879,
+      882
+    ],
+    [
+      987,
+      1210
+    ],
+    [
+      988,
+      989
+    ],
+    [
+      989,
+      1129
+    ],
+    [
+      1129,
+      1166
+    ],
+    [
+      1166,
+      1168
+    ],
+    [
+      1168,
+      1169
+    ],
+    [
+      1169,
+      1179
+    ],
+    [
+      1210,
+      1212
+    ],
+    [
+      1212,
+      1214
+    ],
+    [
+      1214,
+      1216
+    ],
+    [
+      1216,
+      1218
+    ],
+    [
+      1218,
+      1219
+    ],
+    [
+      1219,
+      1230
+    ],
+    [
+      1389,
+      1638
+    ],
+    [
+      1390,
+      1391
+    ],
+    [
+      1391,
+      1547
+    ],
+    [
+      1547,
+      1586
+    ],
+    [
+      1586,
+      1588
+    ],
+    [
+      1588,
+      1589
+    ],
+    [
+      1589,
+      1595
+    ],
+    [
+      1595,
+      1606
+    ],
+    [
+      1606,
+      1607
+    ],
+    [
+      1638,
+      1639
+    ],
+    [
+      1639,
+      1681
+    ],
+    [
+      1681,
+      1709
+    ],
+    [
+      1681,
+      1710
+    ],
+    [
+      1709,
+      1736
+    ],
+    [
+      1710,
+      1711
+    ],
+    [
+      1711,
+      1730
+    ],
+    [
+      1730,
+      1732
+    ],
+    [
+      1736,
+      1738
+    ],
+    [
+      1738,
+      1739
+    ],
+    [
+      1739,
+      1742
+    ]
+  ],
+  "edge_identity_scheme": "input_graph_node_insertion_indices",
+  "node_coordinate_sha256": "4ba92b1b47093fb24010c56eec92afed1986ceba538f9b05c157c231688335c1",
+  "input_sha256": {
+    "tree": "499f8360f83045b28ff6336e52c482b44e64ed9c989df96ad1894044e404ec88",
+    "metadata": "787ca1e6866ce77530e14c4428beaf56cd801542faadebbed8b98243f7631cf8",
+    "selected": "b90e68f203fc21373c31399f4ac322faeff3ae3b87b6bf87f00eb6787addd3de"
+  },
+  "configurations": {
+    "cloud": {
+      "layout": {
+        "rotation_degrees": 10.0,
+        "angle_mode": "tip_count",
+        "length_mode": "original"
+      },
+      "style": {
+        "species_background": true,
+        "preset": "cloud",
+        "reference_alpha": 0.28,
+        "reference_width": 0.38,
+        "halo_alpha": 0.032,
+        "halo_width": 3.4,
+        "density_overlay": false,
+        "zoom_to_selected": false,
+        "density_opacity": 0.11,
+        "density_sigma_px": 9.0,
+        "foreground_width": 2.0,
+        "foreground_color": "ink",
+        "mag_size": 52,
+        "label_font_size": 8.8,
+        "title": "Synthetic reference cloud",
+        "subtitle": "",
+        "species_colors": {
+          "Campylobacter infans": "sage",
+          "Campylobacter_D jejuni": "powder_blue",
+          "Campylobacter jejuni": "powder_blue",
+          "Campylobacter coli": "dusty_pink",
+          "Campylobacter upsaliensis": "lavender",
+          "Campylobacter fetus": "mustard",
+          "Campylobacter_D sp934718785": "teal",
+          "Campylobacter_D coli": "dusty_pink",
+          "Campylobacter_D coli_A": "mustard",
+          "Campylobacter_D coli_B": "apricot",
+          "Campylobacter_D upsaliensis": "lavender",
+          "Campylobacter_D lari": "seafoam"
+        },
+        "background": "#FCFCFA"
+      },
+      "cloud": {
+        "group_by": "species",
+        "label_by": "same",
+        "colours": {},
+        "opacity": 0.72,
+        "bandwidth_px": 13,
+        "resolution": 600,
+        "density_engine": "multiscale",
+        "max_density_groups": 12,
+        "min_label_references": 15,
+        "max_labels": 7
+      },
+      "export": {
+        "width_inches": 7.1,
+        "height_inches": 5.5,
+        "dpi": 300
+      }
+    },
+    "canopy": {
+      "layout": {
+        "rotation_degrees": 10.0,
+        "angle_mode": "tip_count",
+        "length_mode": "original"
+      },
+      "style": {
+        "species_background": true,
+        "preset": "canopy",
+        "reference_alpha": 0.36,
+        "reference_width": 0.34,
+        "halo_alpha": 0.045,
+        "halo_width": 3.2,
+        "density_overlay": false,
+        "zoom_to_selected": false,
+        "density_opacity": 0.11,
+        "density_sigma_px": 9.0,
+        "foreground_width": 1.85,
+        "foreground_color": "ink",
+        "mag_size": 52,
+        "label_font_size": 8.8,
+        "title": "Synthetic reference cloud",
+        "subtitle": "",
+        "species_colors": {
+          "Campylobacter infans": "sage",
+          "Campylobacter_D jejuni": "powder_blue",
+          "Campylobacter jejuni": "powder_blue",
+          "Campylobacter coli": "dusty_pink",
+          "Campylobacter upsaliensis": "lavender",
+          "Campylobacter fetus": "mustard",
+          "Campylobacter_D sp934718785": "teal",
+          "Campylobacter_D coli": "dusty_pink",
+          "Campylobacter_D coli_A": "mustard",
+          "Campylobacter_D coli_B": "apricot",
+          "Campylobacter_D upsaliensis": "lavender",
+          "Campylobacter_D lari": "seafoam"
+        },
+        "background": "#FCFCFA"
+      },
+      "cloud": {
+        "group_by": "species",
+        "label_by": "same",
+        "colours": {},
+        "opacity": 0.72,
+        "bandwidth_px": 13,
+        "resolution": 600,
+        "density_engine": "multiscale",
+        "max_density_groups": 12,
+        "min_label_references": 15,
+        "max_labels": 7
+      },
+      "export": {
+        "width_inches": 7.1,
+        "height_inches": 5.5,
+        "dpi": 300
+      }
+    },
+    "soft_cloud": {
+      "layout": {
+        "rotation_degrees": 10.0,
+        "angle_mode": "tip_count",
+        "length_mode": "original"
+      },
+      "style": {
+        "species_background": true,
+        "preset": "soft_cloud",
+        "reference_alpha": 0.18,
+        "reference_width": 0.4,
+        "halo_alpha": 0.045,
+        "halo_width": 3.3,
+        "density_overlay": true,
+        "zoom_to_selected": false,
+        "density_opacity": 0.2,
+        "density_sigma_px": 9.0,
+        "foreground_width": 1.7,
+        "foreground_color": "ink",
+        "mag_size": 47,
+        "label_font_size": 8.7,
+        "title": "Synthetic reference cloud",
+        "subtitle": "",
+        "species_colors": {
+          "Campylobacter infans": "sage",
+          "Campylobacter_D jejuni": "powder_blue",
+          "Campylobacter jejuni": "powder_blue",
+          "Campylobacter coli": "dusty_pink",
+          "Campylobacter upsaliensis": "lavender",
+          "Campylobacter fetus": "mustard",
+          "Campylobacter_D sp934718785": "teal",
+          "Campylobacter_D coli": "dusty_pink",
+          "Campylobacter_D coli_A": "mustard",
+          "Campylobacter_D coli_B": "apricot",
+          "Campylobacter_D upsaliensis": "lavender",
+          "Campylobacter_D lari": "seafoam"
+        }
+      },
+      "cloud": {
+        "group_by": "species",
+        "label_by": "same",
+        "colours": {},
+        "opacity": 0.72,
+        "bandwidth_px": 13,
+        "resolution": 600,
+        "density_engine": "multiscale",
+        "max_density_groups": 12,
+        "min_label_references": 15,
+        "max_labels": 7
+      },
+      "export": {
+        "width_inches": 7.1,
+        "height_inches": 5.5,
+        "dpi": 300
+      }
+    }
+  },
+  "validation": {
+    "all_original_edges_retained": true,
+    "coordinates_and_selected_edges_unchanged": true,
+    "max_absolute_edge_length_error": 2.220446049250313e-16
+  },
+  "source_sha256": {
+    "src/phylocloud/cloud_layers.py": "4883580d45b755d4068bca8e3c3c1c3409de64a840a20359a037f09af9430ef8",
+    "src/phylocloud/render.py": "99c5639930c447cb3115a3518a182f6f219aec9a2baa470b7b6d722e8f77945e",
+    "src/phylocloud/data.py": "96c0f52289ee7b69092999b2bb9735a7e27f9a95d003405bfb026623f042a3e7"
+  },
+  "dependencies": {
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "biopython": "1.88",
+    "Pillow": "12.3.0"
+  },
+  "comparisons": {
+    "cloud": {
+      "before": {
+        "outer_edge_max_alpha": 0.34218665957450867,
+        "density_raster": null,
+        "output_sha256": {
+          "svg": "ccf00565302c122433dc1a849841babd4999b21fc5218dc88ee9fc2675b89910",
+          "pdf": "3bac0dccfca5feb78aff5465c9539c408f7defbb5862feebc01d50ff282652b1",
+          "png": "7044a66799d3e5607731c56884d4d1f399888ca1c4753e1a24e0c7573a5b8492"
+        }
+      },
+      "after": {
+        "outer_edge_max_alpha": 0.0,
+        "density_raster": {
+          "histogram_bounds": [
+            -2.31616959322888,
+            2.049482940556919,
+            -2.1630707772945996,
+            2.7109019928071403
+          ],
+          "histogram_shape": [
+            669,
+            600
+          ],
+          "raster_bounds": [
+            -3.5676566529141427,
+            3.300970000242181,
+            -3.4161699050337617,
+            3.9640011205463024
+          ],
+          "raster_shape": [
+            1013,
+            944
+          ],
+          "cell_size_xy": [
+            0.007276087556309665,
+            0.007285460044995127
+          ],
+          "padding_px_per_side": 172,
+          "support_sigma": 6.0,
+          "kernel_discretization": "normalized_sampled_gaussian",
+          "maximum_sigma_px": 28.6,
+          "maximum_sigma_xy": [
+            0.20809610411045643,
+            0.20836415728686064
+          ],
+          "sampling": "original_histogram_then_zero_pad",
+          "max_raster_cells": 4000000,
+          "max_layer_cells": 32000000,
+          "visible_bounds": [
+            -2.7527348466074604,
+            2.3841829681471634,
+            -2.454489179094405,
+            3.0970313751918823
+          ],
+          "visibility_alpha_threshold": 0.001,
+          "outer_edge_max_alpha": 0.0
+        },
+        "output_sha256": {
+          "svg": "b616f928f0110f226815ecc92b9e701b56a8bf3db069ebd2359749f0ad1bfb2d",
+          "pdf": "8d44dc551a6ef3799757131405a06543beb33ff951af387bc1f79685e7ab05ab",
+          "png": "e51862d7f4d98a05c90bd4a7f5d785890bec7118f2c53d96ddaf93cbe18251a1"
+        }
+      }
+    },
+    "canopy": {
+      "before": {
+        "outer_edge_max_alpha": 0.26742273569107056,
+        "density_raster": null,
+        "output_sha256": {
+          "svg": "629a33ef46d0e896bdd2dbad1fe488aff2f661e7086b3ba6911c948ba3946200",
+          "pdf": "1f4f4ef2e4f1ddba82dd6b0470a7977b45adb0ed70eecf1b1a4ae7d5bce4fde3",
+          "png": "0985a91e82ffa5ce2cce412b5fc6a8dc623e3d2eefd0447d8da4ceb909f0231e"
+        }
+      },
+      "after": {
+        "outer_edge_max_alpha": 0.0,
+        "density_raster": {
+          "histogram_bounds": [
+            -2.31616959322888,
+            2.049482940556919,
+            -2.1630707772945996,
+            2.7109019928071403
+          ],
+          "histogram_shape": [
+            669,
+            600
+          ],
+          "raster_bounds": [
+            -3.5676566529141427,
+            3.300970000242181,
+            -3.4161699050337617,
+            3.9640011205463024
+          ],
+          "raster_shape": [
+            1013,
+            944
+          ],
+          "cell_size_xy": [
+            0.007276087556309665,
+            0.007285460044995127
+          ],
+          "padding_px_per_side": 172,
+          "support_sigma": 6.0,
+          "kernel_discretization": "normalized_sampled_gaussian",
+          "maximum_sigma_px": 28.6,
+          "maximum_sigma_xy": [
+            0.20809610411045643,
+            0.20836415728686064
+          ],
+          "sampling": "original_histogram_then_zero_pad",
+          "max_raster_cells": 4000000,
+          "max_layer_cells": 32000000,
+          "visible_bounds": [
+            -2.738182671494841,
+            2.3696307930345437,
+            -2.439918259004415,
+            3.0824604551018915
+          ],
+          "visibility_alpha_threshold": 0.001,
+          "outer_edge_max_alpha": 0.0
+        },
+        "output_sha256": {
+          "svg": "860199cafbaee93a8d7a9c33cfd549fcd97001d17c3d714909fd781745ba23c4",
+          "pdf": "d43ed8a550dd36f97239ead60aa420c2f2835afc28a3c98bed1a284f8d16764f",
+          "png": "050c63a61117e89ae2e0f2a37261376251c829613bbc4d7291d632fb280c4f45"
+        }
+      }
+    },
+    "soft_cloud": {
+      "before": {
+        "outer_edge_max_alpha": 0.03206688244370478,
+        "density_raster": null,
+        "output_sha256": {
+          "svg": "092bf622a1a4c3e86d083b8718b2492385632fedba33f4d80c8d52fa9e9f8f2f",
+          "pdf": "59e8eebfc2d8787486f3423afd24ba792d70be7230662e659b0537d8a26e2341",
+          "png": "67ee984dcee4a426203c196c57d763c52602ebc8313e675f4d21347890954d92"
+        }
+      },
+      "after": {
+        "outer_edge_max_alpha": 1.3256892911866328e-11,
+        "density_raster": {
+          "histogram_bounds": [
+            -2.2885810681150964,
+            2.0218944154431355,
+            -2.135482252180816,
+            2.6833134676933565
+          ],
+          "histogram_shape": [
+            460,
+            460
+          ],
+          "raster_bounds": [
+            -2.7945934074893235,
+            2.5279067548173626,
+            -2.7011669671225667,
+            3.2489981826351073
+          ],
+          "raster_shape": [
+            568,
+            568
+          ],
+          "cell_size_xy": [
+            0.009370598877300504,
+            0.010475642869291679
+          ],
+          "padding_px_per_side": 54,
+          "support_sigma": 6.0,
+          "kernel_discretization": "normalized_sampled_gaussian",
+          "maximum_sigma_px": 9.0,
+          "maximum_sigma_xy": [
+            0.08433538989570454,
+            0.0942807858236251
+          ],
+          "sampling": "original_histogram_then_zero_pad",
+          "max_raster_cells": 4000000,
+          "max_layer_cells": 32000000,
+          "visible_bounds": [
+            -2.4572518479065053,
+            2.1811945963572437,
+            -2.3240438238280663,
+            2.882350682209898
+          ],
+          "visibility_alpha_threshold": 0.001,
+          "outer_edge_max_alpha": 1.3256892911866328e-11
+        },
+        "output_sha256": {
+          "svg": "f70187b007e919c9eb1597797715e998b6c1891d1b62673d9abe33bdb6410d57",
+          "pdf": "0cec68ab799aad338e6ca01b19c41c185c80ccd79994a8408745bfee239ec71b",
+          "png": "3ee95a873ccb0b57a0fcd9fe6164b8d9221d491aec0c111f57a5988177f247cf"
+        }
+      }
+    }
+  },
+  "preview_sha256": "bdfb2aed1afbf187388091b62794243cf800038739caf2ddaee45f8bcbf95c79",
+  "render_method": "vector_tree_and_text_with_embedded_raster_wash"
+}
