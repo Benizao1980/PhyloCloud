@@ -1,0 +1,70 @@
+{
+  "tool": "pypdf 6.20.1, Pillow and XML inspection",
+  "views": {
+    "overview": {
+      "pdf_points": [
+        864,
+        792
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "fonts_embedded": true,
+      "focus_labels_extractable": true
+    },
+    "before_subset": {
+      "pdf_points": [
+        864,
+        792
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "fonts_embedded": true,
+      "focus_labels_extractable": true
+    },
+    "detail_tree": {
+      "pdf_points": [
+        864,
+        792
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "fonts_embedded": true,
+      "focus_labels_extractable": true
+    },
+    "detail_cloud": {
+      "pdf_points": [
+        864,
+        792
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "fonts_embedded": true,
+      "focus_labels_extractable": true
+    },
+    "detail_canopy": {
+      "pdf_points": [
+        864,
+        792
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "fonts_embedded": true,
+      "focus_labels_extractable": true
+    }
+  }
+}

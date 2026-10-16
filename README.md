@@ -156,7 +156,7 @@ The additional `my_cloud_species_panels.png` is a raster contact sheet for revie
 
 ## Neighbourhood magnification (optional)
 
-Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a second, true-coordinate zoom of a **subset of the focal genomes**, plus a convenient side-by-side PNG. The original per-panel SVG/PDF remain editable. No new topology, branch length or genome coordinate is inferred for the detail panel.
+Add `--detail-selected path/to/subset.txt` to `phylocloud plot` to generate a second, true-coordinate zoom of a **subset of the focal genomes**, plus a convenient side-by-side PNG. The crop retains the overview’s complete highlighted edge set; the subset controls framing and labels. Each detail has independent provenance. The original per-panel SVG/PDF remain editable. No new topology, branch length or genome coordinate is inferred for the detail panel.
 
 ## How to interpret the picture
 
