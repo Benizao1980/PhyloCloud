@@ -1,5 +1,11 @@
 # Changelog
 
+- Add opt-in viewport-scale density for native multiscale Cloud/Canopy details,
+  guarded finite-kernel support and explicit local-normalization provenance.
+  Preserve full reference membership, original geometry and foreground edges;
+  retain default overview bytes. Include matched full-size/journal-size reviews,
+  independent export QA and empirical input/visual acceptance gates.
+
 - Preserve the complete selected original-edge set and reference classification
   in `--detail-selected` crops; focus IDs now control labels/camera only. Add
   independent detail provenance, pre-export ID validation, crop-window framing

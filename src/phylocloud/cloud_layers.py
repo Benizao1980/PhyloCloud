@@ -117,6 +117,32 @@ def _density_grid(bounds, shape, maximum_sigma, layers=1):
             'max_raster_cells': MAX_RASTER_CELLS, 'max_layer_cells': MAX_LAYER_CELLS}
 
 
+def _viewport_density_grid(view, resolution, maximum_sigma, layers=1):
+    """Square cells at viewport scale, with a full finite-kernel source halo.
+
+    Bin ALL original samples against this domain. Samples outside its halo have
+    no finite-kernel support in the requested viewport; do not prune the graph.
+    """
+    xmin, xmax, ymin, ymax = map(float, view)
+    if not all(math.isfinite(v) for v in view) or min(xmax-xmin, ymax-ymin) <= 0:
+        raise ValueError('Viewport bounds must be finite and positive')
+    if not 128 <= resolution <= 900 or not .5 <= maximum_sigma <= 220.000001:
+        raise ValueError('Viewport resolution or Gaussian support out of range')
+    cell = max(xmax-xmin, ymax-ymin)/resolution
+    nx = max(128, math.ceil((xmax-xmin)/cell))
+    ny = max(128, math.ceil((ymax-ymin)/cell))
+    guard = math.ceil(RASTER_SUPPORT_SIGMA*maximum_sigma)+1
+    nx += 2*guard; ny += 2*guard
+    cx, cy = (xmin+xmax)/2, (ymin+ymax)/2
+    bounds = (cx-nx*cell/2, cx+nx*cell/2, cy-ny*cell/2, cy+ny*cell/2)
+    grid = _density_grid(bounds, (ny, nx), maximum_sigma, layers)
+    grid.update(requested_viewport_bounds=list(view), source_guard_px=guard,
+                sampling='all_original_samples_evaluated_on_viewport_support_grid',
+                normalization_domain='viewport_plus_finite_kernel_support',
+                histogram_reference_tips=0, histogram_edge_samples=0)
+    return grid
+
+
 def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
                          species_colors, bounds):
     """Return tip-only RGBA grids with expanded, fixed-cell-scale raster bounds.
@@ -181,7 +207,8 @@ def compute_cloud_fields(graph, layout, metadata, reference_names, cloud_config,
     return fields, dict(tip_counts)
 
 
-def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style):
+def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style,
+                     viewport_bounds=None):
     xy = np.asarray(list(layout.coordinates.values()), dtype=float)
     xmin, ymin = np.min(xy,axis=0)
     xmax, ymax = np.max(xy,axis=0)
@@ -192,7 +219,8 @@ def add_native_cloud(ax, graph, layout, metadata, reference_names, cfg, style):
     cloud_cfg['motif'] = style['preset']
     if style['preset'] in ('cloud','canopy') and cloud_cfg.get('density_engine','multiscale')=='multiscale':
         return _multiscale_reference_atmosphere(ax,graph,layout,metadata,
-                 reference_names,cloud_cfg,style['species_colors'],bounds,style['preset'])
+                 reference_names,cloud_cfg,style['species_colors'],bounds,style['preset'],
+                 viewport_bounds=viewport_bounds)
     fields,counts = compute_cloud_fields(graph,layout,metadata,reference_names,cloud_cfg,
                                          style['species_colors'],bounds)
     for field in fields:
@@ -268,7 +296,7 @@ def label_cloud_groups(ax, fields, cfg, style, excluded_xy=(), blocked_segments=
 
 def _multiscale_reference_atmosphere(
         ax, graph, layout, metadata, reference_names, cloud_cfg,
-        species_colors, bounds, motif):
+        species_colors, bounds, motif, viewport_bounds=None):
     """Multiscale, shared-normalization soft colour washes from ORIGINAL geometry.
 
     All tree edges are still rendered separately as vector lines by render.py.
@@ -302,7 +330,17 @@ def _multiscale_reference_atmosphere(
     opacity=float(cloud_cfg.get('opacity',.72))
     if not .1<=bw<=100 or not 0<=opacity<=1:
         raise ValueError('cloud bandwidth or opacity out of range')
-    raster = _density_grid(bounds, (ny,nx), max(.5,bw*.65,bw*2.2), len(groups))
+    widest = max(.5,bw*.65,bw*2.2)
+    if viewport_bounds is None:
+        raster = _density_grid(bounds, (ny,nx), widest, len(groups))
+    else:
+        overview_sigma = [widest*(xmax-xmin)/nx, widest*(ymax-ymin)/ny]
+        raster = _viewport_density_grid(viewport_bounds, res, widest, len(groups))
+        raster.update(full_tree_histogram_bounds=list(bounds),
+                      overview_maximum_sigma_xy=overview_sigma,
+                      source_reference_tips=len(reference_names))
+        ny, nx = raster['histogram_shape']
+        xmin, xmax, ymin, ymax = raster['histogram_bounds']
     # Determine species/group purity on the exact ORIGINAL tree. An edge only
     # supplies cloud texture if its descendant side includes a reference tip.
     # The edges keep their original coordinates and branch lengths.
@@ -333,14 +371,20 @@ def _multiscale_reference_atmosphere(
             segments[group].append(a+(b-a)*t)
     densities=[]
     fields=[]
+    if viewport_bounds is not None:
+        raster['source_edge_samples'] = sum(len(s) for s in segments.values())
     for group, ids in groups.items():
         tips=np.asarray([layout.coordinates[graph.tips[name]] for name in ids],dtype=float)
         hist,_,_=np.histogram2d(tips[:,1],tips[:,0],bins=(ny,nx),
                                 range=((ymin,ymax),(xmin,xmax)))
+        if viewport_bounds is not None:
+            raster['histogram_reference_tips'] += int(hist.sum())
         if segments[group]:
             pts=np.asarray(segments[group],dtype=float)
             edge_hist,_,_=np.histogram2d(pts[:,1],pts[:,0],bins=(ny,nx),
                                          range=((ymin,ymax),(xmin,xmax)))
+            if viewport_bounds is not None:
+                raster['histogram_edge_samples'] += int(edge_hist.sum())
             hist+=edge_hist*.10  # 3 samples, total density 0.30 / original edge
         hist=np.pad(hist,raster['padding_px_per_side'])
         fine=_blur_float_counts(hist,max(.5,bw*.65))

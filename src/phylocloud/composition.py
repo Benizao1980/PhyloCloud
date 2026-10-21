@@ -28,6 +28,17 @@ def _pack_vertical(targets, heights, lower, upper, gap):
     return packed
 
 
+def focus_crop_bounds(points):
+    """Existing publication camera policy; no tree coordinate is modified."""
+    xs, ys = zip(*points)
+    xmin, xmax, ymin, ymax = min(xs), max(xs), min(ys), max(ys)
+    span = max(xmax-xmin, ymax-ymin)
+    if span <= 0:
+        raise ValueError('Selected genomes have coincident plotted positions; cannot zoom')
+    pad = span*.035
+    return [xmin-pad, xmax+pad, ymin-pad, ymax+pad]
+
+
 def publication_composition(fig, ax, graph, layout, metadata, selected, references,
                             context, cfg, density_raster, original_bounds, *, focus_ids=None):
     """Draw margin callouts, a separate metadata key, and measured page regions.
@@ -90,6 +101,9 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     method+=' · '+('equal-arc' if angle=='tip_count' else 'experimental phylogenetic-spread angles')
     method+=' · one shared layout'
     if s.get('zoom_to_selected',False): method='Geometric crop; global counts · '+method
+    if density_raster and density_raster.get('normalization_domain')=='viewport_plus_finite_kernel_support':
+        method=('Crop; global counts · '+method.split('Geometric crop; global counts · ')[-1]
+                .replace(' · one shared layout','')+' · local wash normalization')
     footer=[fig.text(22*point/fw,27*point/fh,method,fontsize=7.5,color=color('warm_grey')),
             fig.text(22*point/fw,14*point/fh,'Reference sampling density is not prevalence; metadata colours do not define clades.',
                      fontsize=7.5,color=color('warm_grey'))]
@@ -124,17 +138,14 @@ def publication_composition(fig, ax, graph, layout, metadata, selected, referenc
     ax.set_position([rail/fw,bottom,1-2*rail/fw,top-bottom])
     xmin,xmax,ymin,ymax=original_bounds
     if s.get('zoom_to_selected',False):
-        chosen=focus+context
-        xs=[layout.coordinates[graph.tips[n]][0] for n in chosen]
-        ys=[layout.coordinates[graph.tips[n]][1] for n in chosen]
-        xmin,xmax,ymin,ymax=min(xs),max(xs),min(ys),max(ys)
-        if xmax==xmin and ymax==ymin:
-            raise ValueError('Selected genomes have coincident plotted positions; cannot zoom')
-    elif density_raster and density_raster['visible_bounds']:
-        wash=density_raster['visible_bounds']
-        xmin,xmax,ymin,ymax=min(xmin,wash[0]),max(xmax,wash[1]),min(ymin,wash[2]),max(ymax,wash[3])
-    pad=max(xmax-xmin,ymax-ymin)*.035
-    view=[xmin-pad,xmax+pad,ymin-pad,ymax+pad]
+        pad=max(xmax-xmin,ymax-ymin)*.035
+        view=focus_crop_bounds([layout.coordinates[graph.tips[n]] for n in focus+context])
+    else:
+        if density_raster and density_raster['visible_bounds']:
+            wash=density_raster['visible_bounds']
+            xmin,xmax,ymin,ymax=min(xmin,wash[0]),max(xmax,wash[1]),min(ymin,wash[2]),max(ymax,wash[3])
+        pad=max(xmax-xmin,ymax-ymin)*.035
+        view=[xmin-pad,xmax+pad,ymin-pad,ymax+pad]
     ax.set_xlim(*view[:2]); ax.set_ylim(*view[2:]); ax.set_aspect('equal',adjustable='box'); ax.axis('off')
     if s.get('zoom_to_selected',False):
         ax.add_patch(Rectangle((0,0),1,1,transform=ax.transAxes,fill=False,
