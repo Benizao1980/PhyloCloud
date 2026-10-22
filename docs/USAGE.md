@@ -146,3 +146,11 @@ and **local wash normalization** over a finite-support guarded domain; intensity
 is not quantitatively comparable with an overview. Overviews retain their default
 rendering. Unsupported zoom/style combinations fail clearly. See
 [matched full-size comparisons and limitations](VIEWPORT_DENSITY_REVIEW.md).
+
+## Input integrity before empirical rendering
+
+`python -m phylocloud.preflight --tree tree.nwk --metadata metadata.tsv
+--selected selected.txt --out outputs/new-preflight.json` checks explicitly named
+inputs without a layout or render. Use this only after input access is authorized.
+The output must be new; error/warning codes and hashes support a local input
+review. See the [empirical protocol](EMPIRICAL_REVIEW_PROTOCOL.md#read-only-input-preflight-on-the-preflight-development-branch).

@@ -53,3 +53,39 @@ mandatory before a publication-ready claim or proposed alpha release gate.
 
 There is no empirical approval, publication-ready declaration or release action
 implicit in this checklist. Unpublished inputs/outputs stay local and gitignored.
+
+## Read-only input preflight (on the preflight development branch)
+
+Once the owner supplies named locations and authorizes reading them, run:
+
+```sh
+python -m phylocloud.preflight --tree /approved/tree.nwk \
+  --metadata /approved/metadata.tsv --selected /approved/selected.txt \
+  --out outputs/new-local-preflight.json
+```
+
+This does not search directories, generate a layout, render, infer a tree, modify
+inputs or grant permission to publish them. The output must be a **new file**;
+existing reports and input files cannot be overwritten. Exit status is 0 for
+valid inputs (possibly with warnings), 1 for integrity failures. A missing output
+parent or existing output raises a filesystem error before inputs are inspected.
+Reports may still contain sensitive aggregate counts/hashes: keep empirical
+reports local and gitignored unless publication is separately authorized.
+
+The checker reuses production Newick/metadata/selection parsers and reference
+classification. It checks missing/extra metadata IDs, unknown/duplicate selections,
+invalid/missing branch lengths and duplicate tree/metadata IDs. Original zero-length
+edges remain valid. It reports source-classification overlaps/gaps and blank species
+labels, without repairing aliases, editing labels or changing membership. A single
+selected genome remains valid but receives a no-connecting-subtree warning.
+Production parser whitespace stripping is unchanged; aliases are never guessed.
+
+Default reports contain counts and hashes without file paths or identifier lists.
+Use `--include-identifiers` only for a local detailed diagnostic; those reports
+include offending IDs and parser error text. Hashes are checked before/after each
+individual parse to detect file changes during that read, not as a transactional
+snapshot across all files. Retain the frozen approved inputs for later rendering.
+
+`valid: true` means input integrity only. Provenance, taxonomic correctness,
+publication rights, ecological representativeness and human visual acceptance are
+**not assessed**. No empirical figure is approved or produced by this command.
