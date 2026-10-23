@@ -23,7 +23,7 @@ def _digest(path):
     return digest.hexdigest()
 
 
-def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
+def _inspect_inputs(tree, metadata, selected=None, *, include_identifiers=False):
     """Audit named files only. Permission, provenance and visual review are external.
 
     Reuse production parsers and reference classification; never silently repair
@@ -33,12 +33,14 @@ def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
                   scope='input_integrity_only', permissions_assessed=False,
                   scientific_or_visual_acceptance=False, input_sha256={},
                   errors=[], warnings=[])
-    parsed = {}
-    for key, path, loader in [('tree', tree, TreeGraph.from_newick),
-                              ('metadata', metadata, load_metadata),
-                              ('selected', selected, load_selected)]:
+    parsed = {'selected': []} if selected is None else {}
+    files = [('tree', tree, TreeGraph.from_newick), ('metadata', metadata, load_metadata)]
+    if selected is not None:
+        files.append(('selected', selected, load_selected))
+    for key, path, loader in files:
         try:
             before = _digest(path)
+            report['input_sha256'][key] = before
             parsed[key] = loader(path)
             after = _digest(path)
             report['input_sha256'][key] = after
@@ -50,7 +52,7 @@ def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
                 issue['detail'] = str(error)
             report['errors'].append(issue)
     if len(parsed) != 3 or report['errors']:
-        return report
+        return report, parsed
     graph, rows, ids = (parsed[k] for k in ('tree', 'metadata', 'selected'))
     tips = set(graph.tips)
 
@@ -66,7 +68,7 @@ def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
     diagnostic(report['errors'], 'selected_outside_tree', set(ids) - tips)
     diagnostic(report['errors'], 'duplicate_selected_ids',
                {n for n, count in Counter(ids).items() if count > 1})
-    if len(set(ids)) < 2:
+    if selected is not None and len(set(ids)) < 2:
         report['warnings'].append(dict(code='single_selected_tip_no_connecting_subtree'))
     lengths = [length for a, neighbours in graph.adjacency.items()
                for b, length in neighbours if id(a) < id(b)]
@@ -75,7 +77,7 @@ def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
                           minimum_edge_length=min(lengths), maximum_edge_length=max(lengths))
     report['selection'] = dict(rows=len(ids), distinct_ids=len(set(ids)))
     if report['errors']:
-        return report
+        return report, parsed
     # Import the production policy, rather than duplicating its source semantics.
     from .cloud_layers import reference_ids
     references = reference_ids(graph, rows, ids)
@@ -98,7 +100,17 @@ def inspect_inputs(tree, metadata, selected, *, include_identifiers=False):
         key: hashlib.sha256(json.dumps(sorted(values)).encode()).hexdigest()
         for key, values in [('tips', tips), ('selected', ids), ('reference', references)]}
     report['valid'] = True
-    return report
+    return report, parsed
+
+
+def inspect_inputs(tree, metadata, selected=None, *, include_identifiers=False):
+    """Inspect explicit inputs; optional selection supports reference-only trees.
+
+    Existing selected-file reports are unchanged. The internal context is shared
+    with the bundle validator so inputs are parsed and checked only once.
+    """
+    return _inspect_inputs(tree, metadata, selected,
+                           include_identifiers=include_identifiers)[0]
 
 
 def main(argv=None):

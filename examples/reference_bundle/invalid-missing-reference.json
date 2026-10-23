@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "provider": "independent",
+  "tree_kind": "joint_inference",
+  "reference_scope": "dense_collection",
+  "release": "synthetic-v1",
+  "marker_set": "core_genome",
+  "domain": "bacteria",
+  "branch_length_units": "substitutions_per_site",
+  "reference_ids": [
+    "REF_A",
+    "REF_B",
+    "REF_C",
+    "REF_MISSING"
+  ],
+  "focal_ids": [
+    "FOCAL_1",
+    "FOCAL_2"
+  ],
+  "file_sha256": {
+    "tree": "bd9bbb59f074bab0f02d9650e8f5f0e4b813fce7265c2e558641240b45c4939a",
+    "metadata": "a4586dc1eae41f5c6a68bb0688d64a1abb508751985ca3b88c7391ff9874417f",
+    "selected": "3499e7baabcbbfc7dd548787d222fb56dbd0e64d5a2eb0cfa86ce12d4b3bad2c"
+  },
+  "provenance": {
+    "method": "synthetic hand-specified tree; no inference performed",
+    "reference_release": "synthetic-v1",
+    "marker_set": "core_genome",
+    "notes": "Wholly synthetic parser/consistency fixture, not an empirical benchmark."
+  }
+}

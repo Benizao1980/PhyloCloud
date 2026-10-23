@@ -1,0 +1,116 @@
+{
+  "declarations": {
+    "branch_length_units": "substitutions_per_site",
+    "domain": "bacteria",
+    "marker_set": "core_genome",
+    "provenance": {
+      "marker_set": "core_genome",
+      "method": "synthetic hand-specified tree; no inference performed",
+      "notes": "Wholly synthetic parser/consistency fixture, not an empirical benchmark.",
+      "reference_release": "synthetic-v1"
+    },
+    "provider": "independent",
+    "reference_scope": "dense_collection",
+    "release": "synthetic-v1",
+    "schema_version": 1,
+    "tree_kind": "joint_inference"
+  },
+  "errors": [
+    {
+      "action": "Supply every declared member in both tree and metadata, or correct the documented reference scope.",
+      "code": "declared_membership_mismatch",
+      "count": 1,
+      "message": "reference_ids does not match the exact metadata/tree census."
+    }
+  ],
+  "hash_checks": [
+    {
+      "actual": "bd9bbb59f074bab0f02d9650e8f5f0e4b813fce7265c2e558641240b45c4939a",
+      "expected": "bd9bbb59f074bab0f02d9650e8f5f0e4b813fce7265c2e558641240b45c4939a",
+      "file": "tree",
+      "matched": true
+    },
+    {
+      "actual": "a4586dc1eae41f5c6a68bb0688d64a1abb508751985ca3b88c7391ff9874417f",
+      "expected": "a4586dc1eae41f5c6a68bb0688d64a1abb508751985ca3b88c7391ff9874417f",
+      "file": "metadata",
+      "matched": true
+    },
+    {
+      "actual": "3499e7baabcbbfc7dd548787d222fb56dbd0e64d5a2eb0cfa86ce12d4b3bad2c",
+      "expected": "3499e7baabcbbfc7dd548787d222fb56dbd0e64d5a2eb0cfa86ce12d4b3bad2c",
+      "file": "selected",
+      "matched": true
+    }
+  ],
+  "input_sha256": {
+    "manifest": "9df876e82ceee18971f5cd24070d22a1d2d75db06d206104c26350b5a54eebb2",
+    "metadata": "a4586dc1eae41f5c6a68bb0688d64a1abb508751985ca3b88c7391ff9874417f",
+    "selected": "3499e7baabcbbfc7dd548787d222fb56dbd0e64d5a2eb0cfa86ce12d4b3bad2c",
+    "tree": "bd9bbb59f074bab0f02d9650e8f5f0e4b813fce7265c2e558641240b45c4939a"
+  },
+  "membership": {
+    "focal_genomes": 2,
+    "reference_genomes": 3,
+    "selected_genomes": 2,
+    "selection_file_supplied": true,
+    "sha256": {
+      "focal": "7c2eae7b21c31b89b45a8fbf21b97776529de412b9211351e21dc54651021d42",
+      "reference": "1891b2febf9da396460c60e0c0eee22020823dff173b81d7c660b917e36d31e4"
+    }
+  },
+  "permissions_assessed": false,
+  "phylocloud_version": "0.3.0a0",
+  "phylogenetic_correctness": {
+    "reason": "No placement, backbone comparison or independent inference verification is performed.",
+    "status": "not_assessed"
+  },
+  "preflight": {
+    "errors": [],
+    "input_sha256": {
+      "metadata": "a4586dc1eae41f5c6a68bb0688d64a1abb508751985ca3b88c7391ff9874417f",
+      "selected": "3499e7baabcbbfc7dd548787d222fb56dbd0e64d5a2eb0cfa86ce12d4b3bad2c",
+      "tree": "bd9bbb59f074bab0f02d9650e8f5f0e4b813fce7265c2e558641240b45c4939a"
+    },
+    "membership_sha256": {
+      "reference": "1891b2febf9da396460c60e0c0eee22020823dff173b81d7c660b917e36d31e4",
+      "selected": "7c2eae7b21c31b89b45a8fbf21b97776529de412b9211351e21dc54651021d42",
+      "tips": "bc39e0819ca39abd9ad1bb811009152d8d0d3ca8a34c8fbaa15780b41f657b69"
+    },
+    "permissions_assessed": false,
+    "phylocloud_version": "0.3.0a0",
+    "reference": {
+      "count": 3,
+      "nonselected_not_reference": 0,
+      "selected_also_reference": 0,
+      "source_policy": "explicit_source"
+    },
+    "schema_version": 1,
+    "scientific_or_visual_acceptance": false,
+    "scope": "input_integrity_only",
+    "selection": {
+      "distinct_ids": 2,
+      "rows": 2
+    },
+    "species": {
+      "blank_labels": 0,
+      "categories": 2
+    },
+    "tree": {
+      "maximum_edge_length": 1.25,
+      "minimum_edge_length": 0.0,
+      "nodes": 8,
+      "original_edges": 7,
+      "tips": 5,
+      "zero_length_edges": 2
+    },
+    "valid": true,
+    "warnings": []
+  },
+  "provenance_verification": "declaration_consistency_only",
+  "schema_version": 1,
+  "scope": "offline_integrity_and_declared_provenance",
+  "summary": "FAIL: offline file integrity and declared provenance only.\nPhylogenetic correctness: NOT ASSESSED. Permissions: NOT ASSESSED.\nGenomes: 3 reference, 2 focal; 2 selected.\nERROR [declared_membership_mismatch]: reference_ids does not match the exact metadata/tree census. Supply every declared member in both tree and metadata, or correct the documented reference scope.",
+  "valid": false,
+  "warnings": []
+}

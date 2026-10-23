@@ -1,0 +1,3 @@
+PASS: offline file integrity and declared provenance only.
+Phylogenetic correctness: NOT ASSESSED. Permissions: NOT ASSESSED.
+Genomes: 3 reference, 2 focal; 2 selected.

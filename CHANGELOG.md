@@ -1,5 +1,11 @@
 # Changelog
 
+- Add offline version-1 reference-bundle validation using shared preflight context,
+  explicit reference/focal roles, exact census and selection checks, pinned GTDB
+  declarations, expected hashes and actionable JSON/text diagnostics. Include
+  synthetic valid/invalid examples; phylogenetic correctness remains unassessed.
+  Reject duplicate metadata headers. Existing rendering/CLI behaviour is retained.
+
 - Add a read-only input preflight module for approved, explicitly named files:
   production parser/reference-policy reuse, exact ID diagnostics, original-edge
   counts, hashes and exclusive new reports. No layout, render or input repair.

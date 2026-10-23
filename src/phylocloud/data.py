@@ -70,6 +70,8 @@ def load_metadata(path: str | Path) -> dict[str, dict[str, str]]:
         reader = csv.DictReader(handle, delimiter='\t' if path.suffix.lower() == '.tsv' else ',')
         if not reader.fieldnames or not {'genome_id', 'species'}.issubset(reader.fieldnames):
             raise ValueError('Metadata needs genome_id and species columns')
+        if len(set(reader.fieldnames)) != len(reader.fieldnames):
+            raise ValueError('Metadata column names must be unique')
         result = {}
         for row in reader:
             name = row['genome_id'].strip()

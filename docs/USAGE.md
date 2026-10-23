@@ -154,3 +154,12 @@ rendering. Unsupported zoom/style combinations fail clearly. See
 inputs without a layout or render. Use this only after input access is authorized.
 The output must be new; error/warning codes and hashes support a local input
 review. See the [empirical protocol](EMPIRICAL_REVIEW_PROTOCOL.md#read-only-input-preflight-on-the-preflight-development-branch).
+
+## Offline reference bundles
+
+`python -m phylocloud.reference_bundle` validates an explicitly supplied tree,
+metadata, optional focal selection and small provenance manifest. It prints a
+human summary and writes a new JSON report, without GTDB-Tk, downloads, placements
+or rendering. See the [schema, synthetic examples and scientific limits](REFERENCE_BUNDLE.md).
+A passing integrity report is not independent validation of phylogenetic correctness.
+Existing `plot`, `demo` and input-preflight commands are unchanged.
