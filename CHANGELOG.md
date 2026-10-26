@@ -1,5 +1,9 @@
 # Changelog
 
+- Add a read-only input preflight module for approved, explicitly named files:
+  production parser/reference-policy reuse, exact ID diagnostics, original-edge
+  counts, hashes and exclusive new reports. No layout, render or input repair.
+
 - Add opt-in viewport-scale density for native multiscale Cloud/Canopy details,
   guarded finite-kernel support and explicit local-normalization provenance.
   Preserve full reference membership, original geometry and foreground edges;
