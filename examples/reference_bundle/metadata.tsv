@@ -1,0 +1,6 @@
+genome_id	species	source	reference_release	marker_set
+REF_A	Synthetic mixed species	reference	synthetic-v1	core_genome
+REF_B	Synthetic other species	reference	synthetic-v1	core_genome
+REF_C	Synthetic mixed species	reference	synthetic-v1	core_genome
+FOCAL_1	Synthetic mixed species	focal		core_genome
+FOCAL_2	Synthetic other species	focal		core_genome
