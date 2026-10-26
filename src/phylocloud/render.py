@@ -3,6 +3,8 @@ from __future__ import annotations
 from collections import defaultdict
 from pathlib import Path
 import math
+import hashlib
+import json
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -94,8 +96,15 @@ def add_reference_density_overlay(ax, graph, layout, reference_ids, style):
 
 
 def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[str],
-         config: dict, output_stem: str | Path) -> dict:
+         config: dict, output_stem: str | Path, *, focus_ids: list[str] | None = None) -> dict:
     selected_edges = connecting_edges(graph, selected_ids)
+    focus = list(selected_ids if focus_ids is None else focus_ids)
+    if not focus or len(set(focus)) != len(focus) or not set(focus).issubset(selected_ids):
+        raise ValueError('Focus identifiers must be a nonempty unique subset of selected tips')
+    index = {node:i for i,node in enumerate(graph.adjacency)}
+    coordinate_hash = hashlib.sha256(json.dumps(
+        [[index[n],*layout.coordinates[n]] for n in graph.adjacency]).encode()).hexdigest()
+    foreground_ids = sorted(sorted(index[n] for n in edge) for edge in selected_edges)
     taxonomy = {k:v.get('species', '') for k,v in metadata.items()}
     taxonomy_by_edge = edge_taxa(layout, graph, taxonomy)
     s = config['style']; exp = config['export']; species_colors=s['species_colors']
@@ -198,15 +207,16 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
               if native else color(species_colors.get(species,'warm_grey')))
         ax.scatter([x],[y],s=s['mag_size'],c=[face],edgecolors=ink,
                    linewidths=.8,zorder=6)
-        plotted.append((name,x,y,face))
+        if name in focus:
+            plotted.append((name,x,y,face))
     # Layout size is data-driven; do not impose a common outer radius.
     xx=[p[0] for p in coords.values()]; yy=[p[1] for p in coords.values()]
     lowx,highx=min(xx),max(xx); lowy,highy=min(yy),max(yy)
     # Geometric crop: use *exactly the existing full-tree coordinates*, without
     # pruning/repositioning any node or converting branch lengths.
     if s.get('zoom_to_selected', False):
-        xs=[coords[graph.tips[name]][0] for name in selected_ids+context_ids]
-        ys=[coords[graph.tips[name]][1] for name in selected_ids+context_ids]
+        xs=[coords[graph.tips[name]][0] for name in focus+context_ids]
+        ys=[coords[graph.tips[name]][1] for name in focus+context_ids]
         lowx,highx=min(xs),max(xs); lowy,highy=min(ys),max(ys)
         span=max(highx-lowx,highy-lowy)
         if span <= 0:
@@ -218,7 +228,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
         from .composition import publication_composition
         annotation_layout = publication_composition(
             fig,ax,graph,layout,metadata,selected_ids,reference_names,context_ids,
-            config,density_raster,(lowx,highx,lowy,highy))
+            config,density_raster,(lowx,highx,lowy,highy),focus_ids=focus)
         view = annotation_layout['view_bounds']
         group_counts = annotation_layout['reference_group_counts']
     else:
@@ -236,7 +246,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             positions[name]=[tx,ty,side]
         # Simple deterministic relaxation within left and right margins.
         for side in [-1,1]:
-            group=sorted([name for name in selected_ids if positions[name][2]==side],
+            group=sorted([name for name in focus if positions[name][2]==side],
                          key=lambda n:positions[n][1])
             if not group: continue
             # Only close labels are separated; leader lines retain original xy.
@@ -263,7 +273,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
                     zorder=8, bbox={'facecolor':background,'alpha':.56,
                                    'edgecolor':'none','pad':.65})
         # Content bounds plus deliberately generous margins for direct labels.
-        ymin=min([lowy]+[positions[n][1] for n in selected_ids]); ymax=max([highy]+[positions[n][1] for n in selected_ids])
+        ymin=min([lowy]+[positions[n][1] for n in focus]); ymax=max([highy]+[positions[n][1] for n in focus])
         xmargin=(.85 if s.get('zoom_to_selected',False) else .19)*spread
         ymargin=(.22 if s.get('zoom_to_selected',False) else .15)*spread
         view = [lowx-xmargin,highx+xmargin,ymin-ymargin,ymax+ymargin]
@@ -319,6 +329,11 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
                     pad_inches=0 if modern else .18,metadata=metadata)
     plt.close(fig)
     return {'tips':len(graph.tips),'selected':len(selected_ids),
+            'highlighted_tip_ids':list(selected_ids), 'labelled_tip_ids':focus,
+            'crop_tip_ids':focus+context_ids if s.get('zoom_to_selected',False) else None,
+            'coordinate_sha256':coordinate_hash,
+            'foreground_original_edge_ids':foreground_ids,
+            'edge_identity_scheme':'input_graph_node_insertion_indices',
             'tree_edges':len(layout.edges),'foreground_edges':len(fg),
             'output_stem':str(path),
             'layout_mode':config['layout'].get('angle_mode', 'tip_count'),
