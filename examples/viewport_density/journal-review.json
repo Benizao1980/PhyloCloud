@@ -1,0 +1,1907 @@
+{
+  "scientific_audit": {
+    "tips": 6500,
+    "original_edges": 12996,
+    "zero_length_edges": 1012,
+    "exact_original_edge_identities_and_lengths": true,
+    "unrooted_splits_preserved_by_exact_graph_identity": true,
+    "max_absolute_edge_length_error": 2.220446049250313e-16,
+    "selected_original_edge_ids": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        3099
+      ],
+      [
+        1,
+        3100
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        1441
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        978
+      ],
+      [
+        978,
+        980
+      ],
+      [
+        980,
+        982
+      ],
+      [
+        1441,
+        1594
+      ],
+      [
+        1594,
+        1596
+      ],
+      [
+        1596,
+        1598
+      ],
+      [
+        1598,
+        1600
+      ],
+      [
+        1600,
+        1602
+      ],
+      [
+        1602,
+        1604
+      ],
+      [
+        3099,
+        9884
+      ],
+      [
+        3100,
+        3101
+      ],
+      [
+        3100,
+        3102
+      ],
+      [
+        3101,
+        8358
+      ],
+      [
+        3102,
+        3103
+      ],
+      [
+        3102,
+        3104
+      ],
+      [
+        3103,
+        8015
+      ],
+      [
+        3103,
+        8016
+      ],
+      [
+        3104,
+        3106
+      ],
+      [
+        3106,
+        3107
+      ],
+      [
+        3106,
+        3108
+      ],
+      [
+        3107,
+        6045
+      ],
+      [
+        3108,
+        3109
+      ],
+      [
+        3109,
+        3555
+      ],
+      [
+        3109,
+        3556
+      ],
+      [
+        3555,
+        6041
+      ],
+      [
+        3555,
+        6042
+      ],
+      [
+        3555,
+        6043
+      ],
+      [
+        3555,
+        6044
+      ],
+      [
+        3556,
+        3558
+      ],
+      [
+        3558,
+        3560
+      ],
+      [
+        3560,
+        3562
+      ],
+      [
+        3562,
+        3564
+      ],
+      [
+        3564,
+        3566
+      ],
+      [
+        3566,
+        3568
+      ],
+      [
+        6045,
+        6973
+      ],
+      [
+        6973,
+        7589
+      ],
+      [
+        7589,
+        7869
+      ],
+      [
+        7869,
+        7881
+      ],
+      [
+        7881,
+        7959
+      ],
+      [
+        7959,
+        7985
+      ],
+      [
+        7985,
+        7989
+      ],
+      [
+        8015,
+        8156
+      ],
+      [
+        8016,
+        8018
+      ],
+      [
+        8018,
+        8020
+      ],
+      [
+        8020,
+        8022
+      ],
+      [
+        8156,
+        8158
+      ],
+      [
+        8158,
+        8160
+      ],
+      [
+        8358,
+        8360
+      ],
+      [
+        8360,
+        8361
+      ],
+      [
+        8361,
+        8365
+      ],
+      [
+        8365,
+        8835
+      ],
+      [
+        8835,
+        8849
+      ],
+      [
+        8849,
+        8897
+      ],
+      [
+        8897,
+        8917
+      ],
+      [
+        8917,
+        8925
+      ],
+      [
+        8925,
+        8927
+      ],
+      [
+        9884,
+        9886
+      ],
+      [
+        9886,
+        9887
+      ],
+      [
+        9887,
+        11249
+      ],
+      [
+        11249,
+        11273
+      ],
+      [
+        11273,
+        11275
+      ],
+      [
+        11275,
+        11287
+      ],
+      [
+        11287,
+        11289
+      ],
+      [
+        11289,
+        11291
+      ]
+    ],
+    "selected_edge_oracle": "independent union of paths from first focal tip",
+    "focal_patristic_distances_from_first": {
+      "FOCAL_01": 0.0,
+      "FOCAL_02": 0.0,
+      "FOCAL_03": 0.0,
+      "FOCAL_04": 0.0,
+      "FOCAL_05": 0.019883276800000002,
+      "FOCAL_06": 0.41290269560000004,
+      "FOCAL_07": 1.5832868825999997,
+      "FOCAL_08": 1.1034391195999997,
+      "FOCAL_09": 0.7094770682000001,
+      "FOCAL_10": 1.1324382686,
+      "FOCAL_11": 0.8645760494000001,
+      "FOCAL_12": 2.75958041
+    },
+    "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6"
+  },
+  "focus_tip_ids": [
+    "FOCAL_01",
+    "FOCAL_02",
+    "FOCAL_03",
+    "FOCAL_04",
+    "FOCAL_05",
+    "FOCAL_06"
+  ],
+  "context_reference_ids": [
+    "REF_00499",
+    "REF_01241",
+    "REF_01357",
+    "REF_01809"
+  ],
+  "shared_detail_bounds": [
+    0.08204580972351044,
+    0.4141135114101539,
+    -0.7959295292214015,
+    -0.26601027602687577
+  ],
+  "same_foreground_edges_in_overview_and_details": true,
+  "same_detail_data_to_display_transform": true,
+  "before_foreground_edges": 72,
+  "cumulative_process_peak_rss_bytes": 570933248,
+  "memory_scope": "Whole process including eight retained figures, not isolated per-view memory",
+  "after_foreground_edges": 72,
+  "source_sha256": {
+    "scripts/review_viewport_density.py": "5b20e48f9d88fe986a3cb507899d72096b6004fc294a5c86daaff2e41cd0c594",
+    "src/phylocloud/render.py": "cbf015e27c3f4eb0ae04e475d0df8fe9cf8b52707f919d5265ec1e1dc584cf8c",
+    "src/phylocloud/composition.py": "6edf8d785570a393481c3c72322999234e05b81a7afde206f96f41a3e4ba0384",
+    "src/phylocloud/cli.py": "2161f22d55806a22bba918c6c193d363adf10b4e2576f2afeb7de4cbea76b087",
+    "src/phylocloud/cloud_layers.py": "a2fac4ecdabbd2629a91be96f81986fad29e67de0555eeea99724f6717fd9afa",
+    "src/phylocloud/data.py": "88c118775fbaa37033f422996cd28bd4c7504ef240ec99fa9b346a96ff7527b8",
+    "src/phylocloud/benchmark.py": "e46a54b14ac250f9458719caac5f5cd2fe619783c9cb91499efd0de160069ae5"
+  },
+  "views": {
+    "overview": {
+      "output_sha256": {
+        "svg": "23dd122648f267c84ff4b56fa7cbe4df25ae4c01ff09c31f6fc79a2ddc7c916d",
+        "pdf": "3068d31a191ca49b98a73b0ea27b2511445d303e3ef3bdf212153e03ec100800",
+        "png": "9083d5afbc7cdf3afc073ad75515f7af9df10f9a094081277f2053a92150d10a"
+      },
+      "view_bounds": [
+        -1.6522516302157655,
+        1.1223092330766433,
+        -1.0322452122399428,
+        2.31618667535539
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.6522516302157655,
+          1.1223092330766433,
+          -1.0322452122399428,
+          2.31618667535539
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5427234843598434,
+          1.0127810872207212,
+          -0.9227170663840207,
+          1.9436029135079322
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 1.5232893750071526,
+      "export_seconds": 1.9651449589873664
+    },
+    "overview_tree": {
+      "output_sha256": {
+        "svg": "ed256c85ce7da920b5a4c25c6e37c701cb355da8d2ab744920c27ddd344bed44",
+        "pdf": "d83d658122620474a860760a63bbb53b1efb21fac46c20e12fce614c0a8841ba",
+        "png": "0b3b729c9b937c3ee7b22e47941c0f92827b8506db4a501594ba853cc588c5ac"
+      },
+      "view_bounds": [
+        -1.4628743148277326,
+        0.8455966945885312,
+        -0.9149885748712496,
+        2.312221475057898
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.4628743148277326,
+          0.8455966945885312,
+          -0.9149885748712496,
+          2.312221475057898
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": null,
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 0.43945320800412446,
+      "export_seconds": 1.4190783749800175
+    },
+    "overview_canopy": {
+      "output_sha256": {
+        "svg": "9f6050e57eea81e7935ae715f02f154acf1192e419f97cac67ac674af8c0c788",
+        "pdf": "1f1b9ca7e052664a0253e376d72a84eddfb984e6c2d85e39edb00b1b11ad005e",
+        "png": "f8de779fed079e4986f02cff420680bd37676af247e10f1fc02075ab9cc72cf6"
+      },
+      "view_bounds": [
+        -1.6405939753997119,
+        1.1144487618736363,
+        -1.0243761374940856,
+        2.3159205713784767
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "FOCAL_07"
+            ],
+            "anchor_xy": [
+              0.5945685122285882,
+              0.8905852215302551
+            ],
+            "text": "F07"
+          },
+          {
+            "ids": [
+              "FOCAL_08"
+            ],
+            "anchor_xy": [
+              -0.521427200009845,
+              -0.38560711198527814
+            ],
+            "text": "F08"
+          },
+          {
+            "ids": [
+              "FOCAL_09"
+            ],
+            "anchor_xy": [
+              -0.13452564884878543,
+              -0.3023874056126644
+            ],
+            "text": "F09"
+          },
+          {
+            "ids": [
+              "FOCAL_10"
+            ],
+            "anchor_xy": [
+              -0.5380601122027596,
+              0.33312988578096253
+            ],
+            "text": "F10"
+          },
+          {
+            "ids": [
+              "FOCAL_11"
+            ],
+            "anchor_xy": [
+              -0.19673325855247556,
+              -0.4456010373961899
+            ],
+            "text": "F11"
+          },
+          {
+            "ids": [
+              "FOCAL_12"
+            ],
+            "anchor_xy": [
+              0.5510763525022253,
+              2.206658529499468
+            ],
+            "text": "F12"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          -1.6405939753997119,
+          1.1144487618736363,
+          -1.0243761374940856,
+          2.3159205713784767
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5313319335207027,
+          1.0051867199946272,
+          -0.9151140956150765,
+          1.9359999427389885
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 1.4585380839998834,
+      "export_seconds": 1.7826504580152687
+    },
+    "detail_tree": {
+      "output_sha256": {
+        "svg": "0d7c4e0f2f688032fe69727f12b3c5ea6e38fde64090fd250f643a2ef75415c2",
+        "pdf": "1dc9eb8166d2df78e225ab5bf85ac10f9864e974a262f82fe9375920c40386ea",
+        "png": "2c4060c65df1ed5b36c3068fffafe9535e3171cb8d6f2c570d730282efcaff69"
+      },
+      "view_bounds": [
+        0.08204580972351044,
+        0.4141135114101539,
+        -0.7959295292214015,
+        -0.26601027602687577
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "REF_00499"
+            ],
+            "anchor_xy": [
+              0.39677970406266944,
+              -0.3350502894179482
+            ],
+            "text": "REF_00499"
+          },
+          {
+            "ids": [
+              "REF_01241"
+            ],
+            "anchor_xy": [
+              0.37696740059311323,
+              -0.28334408337436023
+            ],
+            "text": "REF_01241"
+          },
+          {
+            "ids": [
+              "REF_01357"
+            ],
+            "anchor_xy": [
+              0.09937961707099494,
+              -0.649125967205754
+            ],
+            "text": "REF_01357"
+          },
+          {
+            "ids": [
+              "REF_01809"
+            ],
+            "anchor_xy": [
+              0.23351044720822522,
+              -0.778595721873917
+            ],
+            "text": "REF_01809"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": null,
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 0.4547397499845829,
+      "export_seconds": 1.3775664999848232
+    },
+    "detail_cloud": {
+      "output_sha256": {
+        "svg": "f0e866d829c738abd8af1a4c2c8946272639cbe66fb393ec32252f005014a410",
+        "pdf": "0d1fda1625db19a3b920915ae8109d7066733bfcbcf610e81e0c2e5e28afbf8b",
+        "png": "4498165a79d40ac99c6de8f459dcd98ccccef1c277d2357b07a215e9fcfa1baf"
+      },
+      "view_bounds": [
+        0.08204580972351044,
+        0.4141135114101539,
+        -0.7959295292214015,
+        -0.26601027602687577
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "REF_00499"
+            ],
+            "anchor_xy": [
+              0.39677970406266944,
+              -0.3350502894179482
+            ],
+            "text": "REF_00499"
+          },
+          {
+            "ids": [
+              "REF_01241"
+            ],
+            "anchor_xy": [
+              0.37696740059311323,
+              -0.28334408337436023
+            ],
+            "text": "REF_01241"
+          },
+          {
+            "ids": [
+              "REF_01357"
+            ],
+            "anchor_xy": [
+              0.09937961707099494,
+              -0.649125967205754
+            ],
+            "text": "REF_01357"
+          },
+          {
+            "ids": [
+              "REF_01809"
+            ],
+            "anchor_xy": [
+              0.23351044720822522,
+              -0.778595721873917
+            ],
+            "text": "REF_01809"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5427234843598434,
+          1.0127810872207212,
+          -0.9227170663840207,
+          1.9436029135079322
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 1.4501674580096733,
+      "export_seconds": 1.7824667919776402
+    },
+    "detail_canopy": {
+      "output_sha256": {
+        "svg": "e43963d5a6c4881ea24184b668536229971fffa96dd93a6381600e49ef14f34f",
+        "pdf": "3c1aec320193a7410ae77be05ee46a2b747d89c50df485001554c1c71bbaf65f",
+        "png": "41ba3db00119dfc2e53cc9f154ec86234a0337ca3a877c2df689ac8bcbd50c3d"
+      },
+      "view_bounds": [
+        0.08204580972351044,
+        0.4141135114101539,
+        -0.7959295292214015,
+        -0.26601027602687577
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "REF_00499"
+            ],
+            "anchor_xy": [
+              0.39677970406266944,
+              -0.3350502894179482
+            ],
+            "text": "REF_00499"
+          },
+          {
+            "ids": [
+              "REF_01241"
+            ],
+            "anchor_xy": [
+              0.37696740059311323,
+              -0.28334408337436023
+            ],
+            "text": "REF_01241"
+          },
+          {
+            "ids": [
+              "REF_01357"
+            ],
+            "anchor_xy": [
+              0.09937961707099494,
+              -0.649125967205754
+            ],
+            "text": "REF_01357"
+          },
+          {
+            "ids": [
+              "REF_01809"
+            ],
+            "anchor_xy": [
+              0.23351044720822522,
+              -0.778595721873917
+            ],
+            "text": "REF_01809"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "histogram_shape": [
+          841,
+          600
+        ],
+        "raster_bounds": [
+          -2.1009094754777378,
+          1.4836318552385368,
+          -1.553763640206387,
+          2.950996540393035
+        ],
+        "raster_shape": [
+          1185,
+          944
+        ],
+        "cell_size_xy": [
+          0.003797183613046901,
+          0.0038014853844720864
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "sampling": "original_histogram_then_zero_pad",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "visible_bounds": [
+          -1.5313319335207027,
+          1.0051867199946272,
+          -0.9151140956150765,
+          1.9359999427389885
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "overview",
+      "prepare_seconds": 1.4556557910109404,
+      "export_seconds": 1.756677833996946
+    },
+    "viewport_cloud": {
+      "output_sha256": {
+        "svg": "477c4d45c1b5bd2c98067be0952ce1d646cd1cadfa19b75a4abcebb7f20b8867",
+        "pdf": "8eb90e1379e4fd35f51e6d59e504955d65e18e3a5af5c362fea9c9e47038f42d",
+        "png": "cfa8278ad8302ecef41f65135e84948712396f275df0e303693f5e229605d06f"
+      },
+      "view_bounds": [
+        0.08204580972351044,
+        0.4141135114101539,
+        -0.7959295292214015,
+        -0.26601027602687577
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "REF_00499"
+            ],
+            "anchor_xy": [
+              0.39677970406266944,
+              -0.3350502894179482
+            ],
+            "text": "REF_00499"
+          },
+          {
+            "ids": [
+              "REF_01241"
+            ],
+            "anchor_xy": [
+              0.37696740059311323,
+              -0.28334408337436023
+            ],
+            "text": "REF_01241"
+          },
+          {
+            "ids": [
+              "REF_01357"
+            ],
+            "anchor_xy": [
+              0.09937961707099494,
+              -0.649125967205754
+            ],
+            "text": "REF_01357"
+          },
+          {
+            "ids": [
+              "REF_01809"
+            ],
+            "anchor_xy": [
+              0.23351044720822522,
+              -0.778595721873917
+            ],
+            "text": "REF_01809"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -0.07075509010520747,
+          0.5669144112388718,
+          -0.9487229138924896,
+          -0.1132168913557875
+        ],
+        "histogram_shape": [
+          946,
+          722
+        ],
+        "raster_bounds": [
+          -0.2226652760209715,
+          0.7188245971546358,
+          -1.1006330998082536,
+          0.03869329455997653
+        ],
+        "raster_shape": [
+          1290,
+          1066
+        ],
+        "cell_size_xy": [
+          0.0008831987553242094,
+          0.0008831987553242095
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.02525948440227239,
+          0.025259484402272395
+        ],
+        "sampling": "all_original_samples_evaluated_on_viewport_support_grid",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "requested_viewport_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "source_guard_px": 173,
+        "normalization_domain": "viewport_plus_finite_kernel_support",
+        "histogram_reference_tips": 2322,
+        "histogram_edge_samples": 11048,
+        "full_tree_histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "overview_maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "source_reference_tips": 6488,
+        "source_edge_samples": 30942,
+        "visible_bounds": [
+          -0.017763164785754904,
+          0.6154903427817033,
+          -0.8038783180193193,
+          -0.09731931375995173
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "viewport",
+      "prepare_seconds": 1.415240125003038,
+      "export_seconds": 1.7699089589877985
+    },
+    "viewport_canopy": {
+      "output_sha256": {
+        "svg": "f8963e3e2a807a1cdd84df081e61c9fafd53f3a46c3efeb02f72df74e8e5de78",
+        "pdf": "56bc8fbab3e3ac64534de1546094313c8f80a928b237c5bbb1bdc3719f22c9d7",
+        "png": "3676cccbcc3362226b886cf595f99aae08967f48d36a13ec3873209dfcdbbdcc"
+      },
+      "view_bounds": [
+        0.08204580972351044,
+        0.4141135114101539,
+        -0.7959295292214015,
+        -0.26601027602687577
+      ],
+      "foreground_edges": 72,
+      "coordinate_sha256": "f810e8af73fb1fa402d039f5f14843fe4396ff18406c5f11c3a965e238cb26c6",
+      "reference_membership_sha256": "9c5faf39dfaf6a0ea9567e47d31552389979c6c00f4d2e641075139537baa494",
+      "labelled_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06"
+      ],
+      "highlighted_tip_ids": [
+        "FOCAL_01",
+        "FOCAL_02",
+        "FOCAL_03",
+        "FOCAL_04",
+        "FOCAL_05",
+        "FOCAL_06",
+        "FOCAL_07",
+        "FOCAL_08",
+        "FOCAL_09",
+        "FOCAL_10",
+        "FOCAL_11",
+        "FOCAL_12"
+      ],
+      "annotation_layout": {
+        "mode": "publication",
+        "text_box_overlaps": 0,
+        "clipped_text_boxes": 0,
+        "label_groups": [
+          {
+            "ids": [
+              "FOCAL_01",
+              "FOCAL_02",
+              "FOCAL_03",
+              "FOCAL_04"
+            ],
+            "anchor_xy": [
+              0.3320164246553411,
+              -0.2913401975708653
+            ],
+            "text": "F01 / F02 / F03 / F04\n(coincident tips)"
+          },
+          {
+            "ids": [
+              "FOCAL_05"
+            ],
+            "anchor_xy": [
+              0.3459927335914284,
+              -0.2867829927032375
+            ],
+            "text": "F05"
+          },
+          {
+            "ids": [
+              "FOCAL_06"
+            ],
+            "anchor_xy": [
+              0.16006714942861924,
+              -0.4766594381424927
+            ],
+            "text": "F06"
+          },
+          {
+            "ids": [
+              "REF_00499"
+            ],
+            "anchor_xy": [
+              0.39677970406266944,
+              -0.3350502894179482
+            ],
+            "text": "REF_00499"
+          },
+          {
+            "ids": [
+              "REF_01241"
+            ],
+            "anchor_xy": [
+              0.37696740059311323,
+              -0.28334408337436023
+            ],
+            "text": "REF_01241"
+          },
+          {
+            "ids": [
+              "REF_01357"
+            ],
+            "anchor_xy": [
+              0.09937961707099494,
+              -0.649125967205754
+            ],
+            "text": "REF_01357"
+          },
+          {
+            "ids": [
+              "REF_01809"
+            ],
+            "anchor_xy": [
+              0.23351044720822522,
+              -0.778595721873917
+            ],
+            "text": "REF_01809"
+          }
+        ],
+        "coincident_tip_policy": "shared disclosed callout; original markers and edges unchanged",
+        "taxonomy_labels": "separate metadata key, no implied single clade",
+        "reference_group_counts": {
+          "Synthetic species B": 1607,
+          "Synthetic species E": 489,
+          "Synthetic species F": 203,
+          "Synthetic species A": 2930,
+          "Synthetic species C": 835,
+          "Synthetic species H": 82,
+          "Synthetic species D": 246,
+          "Synthetic species G": 96
+        },
+        "view_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "canvas_inches": [
+          7.1,
+          8.0
+        ],
+        "font_family": "DejaVu Sans",
+        "minimum_text_size_pt": 7.5
+      },
+      "density_raster": {
+        "histogram_bounds": [
+          -0.07075509010520747,
+          0.5669144112388718,
+          -0.9487229138924896,
+          -0.1132168913557875
+        ],
+        "histogram_shape": [
+          946,
+          722
+        ],
+        "raster_bounds": [
+          -0.2226652760209715,
+          0.7188245971546358,
+          -1.1006330998082536,
+          0.03869329455997653
+        ],
+        "raster_shape": [
+          1290,
+          1066
+        ],
+        "cell_size_xy": [
+          0.0008831987553242094,
+          0.0008831987553242095
+        ],
+        "padding_px_per_side": 172,
+        "support_sigma": 6.0,
+        "kernel_discretization": "normalized_sampled_gaussian",
+        "maximum_sigma_px": 28.6,
+        "maximum_sigma_xy": [
+          0.02525948440227239,
+          0.025259484402272395
+        ],
+        "sampling": "all_original_samples_evaluated_on_viewport_support_grid",
+        "max_raster_cells": 4000000,
+        "max_layer_cells": 32000000,
+        "requested_viewport_bounds": [
+          0.08204580972351044,
+          0.4141135114101539,
+          -0.7959295292214015,
+          -0.26601027602687577
+        ],
+        "source_guard_px": 173,
+        "normalization_domain": "viewport_plus_finite_kernel_support",
+        "histogram_reference_tips": 2322,
+        "histogram_edge_samples": 11048,
+        "full_tree_histogram_bounds": [
+          -1.447793894033671,
+          0.8305162737944697,
+          -0.8999081540771882,
+          2.2971410542638364
+        ],
+        "overview_maximum_sigma_xy": [
+          0.10859945133314138,
+          0.10872248199590168
+        ],
+        "source_reference_tips": 6488,
+        "source_edge_samples": 30942,
+        "visible_bounds": [
+          -0.01599676727510646,
+          0.6128407465157306,
+          -0.8003455229980224,
+          -0.09996891002592445
+        ],
+        "visibility_alpha_threshold": 0.001,
+        "outer_edge_max_alpha": 0.0
+      },
+      "density_zoom_mode": "viewport",
+      "prepare_seconds": 1.385227249993477,
+      "export_seconds": 1.7733186249970458
+    }
+  }
+}

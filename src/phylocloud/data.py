@@ -54,6 +54,7 @@ DEFAULT_CONFIG = {
         'group_by': 'species', 'label_by': 'same', 'colours': {},
         'opacity': 0.72, 'bandwidth_px': 13, 'resolution': 600,
         'density_engine': 'multiscale',
+        'zoom_bandwidth_mode': 'overview',
         'max_density_groups': 12,
         'min_label_references': 15, 'max_labels': 7,
     },

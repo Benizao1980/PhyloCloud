@@ -121,6 +121,20 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     dark = motif == 'constellation'
     background = s.get('background', '#FFFFFF')
     ink = '#F3F2EC' if dark else color('ink')
+    context_ids = s.get('context_reference_ids', [])
+    if not isinstance(context_ids,list):
+        raise ValueError('context_reference_ids must be a list of exact tree tip IDs')
+    if any(name not in graph.tips or name in selected_ids for name in context_ids):
+        raise ValueError('Context reference IDs must be nonselected tips in the full tree')
+    viewport_bounds = None
+    zoom_mode = config['cloud'].get('zoom_bandwidth_mode', 'overview')
+    if zoom_mode not in ('overview', 'viewport'):
+        raise ValueError('cloud.zoom_bandwidth_mode must be overview or viewport')
+    if zoom_mode == 'viewport' and s.get('zoom_to_selected', False) and (native or s.get('density_overlay')):
+        if not modern or motif not in ('cloud','canopy') or config['cloud'].get('density_engine','multiscale') != 'multiscale':
+            raise ValueError('Viewport density requires publication composition and multiscale Cloud/Canopy')
+        from .composition import focus_crop_bounds
+        viewport_bounds = focus_crop_bounds([layout.coordinates[graph.tips[n]] for n in focus+context_ids])
     path = Path(output_stem)
     path.parent.mkdir(parents=True,exist_ok=True)
     fig, ax = plt.subplots(figsize=(exp['width_inches'], exp['height_inches']))
@@ -133,7 +147,7 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
     legacy_density = None
     if native and motif != 'constellation':
         native_fields, group_counts = add_native_cloud(ax,graph,layout,metadata,
-                                                       reference_names,config,s)
+                                                       reference_names,config,s,viewport_bounds=viewport_bounds)
     elif native:
         from .cloud_layers import groups_for_references
         group_counts = {k:len(v) for k,v in groups_for_references(
@@ -194,11 +208,6 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
 
     # Dot overprinted at each highlighted terminal; directly labelled.
     coords = layout.coordinates
-    context_ids = s.get('context_reference_ids', [])
-    if not isinstance(context_ids,list):
-        raise ValueError('context_reference_ids must be a list of exact tree tip IDs')
-    if any(name not in graph.tips or name in selected_ids for name in context_ids):
-        raise ValueError('Context reference IDs must be nonselected tips in the full tree')
     plotted=[]
     for name in selected_ids:
         x,y = coords[graph.tips[name]]
@@ -354,6 +363,8 @@ def draw(graph: TreeGraph, layout: Layout, metadata: dict, selected_ids: list[st
             'density_parameters':{k:config['cloud'][k] for k in (
                 'opacity','bandwidth_px','resolution')} if native and native_fields else legacy_density,
             'density_raster': density_raster,
+            'density_zoom_mode': 'viewport' if viewport_bounds is not None else 'overview',
+            'reference_membership_sha256': hashlib.sha256(json.dumps(sorted(reference_names)).encode()).hexdigest(),
             'view_bounds': view,
             'annotation_layout': annotation_layout,
             'density_camera_policy': 'explicit_selected_crop' if s.get('zoom_to_selected',False)

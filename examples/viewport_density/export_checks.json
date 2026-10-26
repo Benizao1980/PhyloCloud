@@ -1,0 +1,204 @@
+{
+  "views": {
+    "overview": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/DAWXLP+DejaVuSans-Bold",
+        "/DUZEOM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26096,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 12,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "overview_tree": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/DOZPRD+DejaVuSans-Bold",
+        "/DUZEOM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 13100,
+      "pdf_raster_images": 0,
+      "extractable_focal_labels": 12,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "overview_canopy": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/LXVSAW+DejaVuSans-Bold",
+        "/DUZEOM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26096,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 12,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "detail_tree": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/DAQBTY+DejaVuSans-Bold",
+        "/EAEAKM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 13103,
+      "pdf_raster_images": 0,
+      "extractable_focal_labels": 6,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "detail_cloud": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/EUVLIC+DejaVuSans-Bold",
+        "/EAEAKM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26099,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 6,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "detail_canopy": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/DVVORF+DejaVuSans-Bold",
+        "/EAEAKM+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26099,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 6,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "viewport_cloud": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/IPITJL+DejaVuSans-Bold",
+        "/FWVEBQ+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26099,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 6,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    },
+    "viewport_canopy": {
+      "canvas_inches": [
+        12,
+        11
+      ],
+      "png_pixels": [
+        3600,
+        3300
+      ],
+      "dpi": 300,
+      "embedded_fonts": [
+        "/DVBDFZ+DejaVuSans-Bold",
+        "/FWVEBQ+DejaVuSans",
+        "/CPUQYB+DejaVuSans"
+      ],
+      "pdf_vector_strokes": 26099,
+      "pdf_raster_images": 2,
+      "extractable_focal_labels": 6,
+      "svg_editable_text": true,
+      "text_box_overlaps": 0,
+      "clipped_text_boxes": 0
+    }
+  },
+  "seed": 650047,
+  "rotation_degrees": 19,
+  "package_versions": {
+    "phylocloud": "0.3.0a0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2",
+    "pillow": "12.3.0",
+    "biopython": "1.88",
+    "pypdf": "6.20.1"
+  },
+  "source_sha256": {
+    "src/phylocloud/__init__.py": "1e0115aef639418bc0eabb9f2c98c05ec7e9c64e3c6cdbc439c03862a854357a",
+    "src/phylocloud/__main__.py": "cf7390a2508a0fcad4777a4a629fc5212ab655cb45845975995f835676a834e3",
+    "src/phylocloud/benchmark.py": "e46a54b14ac250f9458719caac5f5cd2fe619783c9cb91499efd0de160069ae5",
+    "src/phylocloud/cli.py": "2161f22d55806a22bba918c6c193d363adf10b4e2576f2afeb7de4cbea76b087",
+    "src/phylocloud/cloud_layers.py": "a2fac4ecdabbd2629a91be96f81986fad29e67de0555eeea99724f6717fd9afa",
+    "src/phylocloud/composition.py": "6edf8d785570a393481c3c72322999234e05b81a7afde206f96f41a3e4ba0384",
+    "src/phylocloud/data.py": "88c118775fbaa37033f422996cd28bd4c7504ef240ec99fa9b346a96ff7527b8",
+    "src/phylocloud/geometry.py": "e8ac5c55c4879adee3d6cecacfeaba65324e4eda06632e8f41f20ebbbfc54574",
+    "src/phylocloud/panels.py": "adfcc45e495379681fd3a3081b037156f2803fa0a70e4e6ff879100fdc3a455a",
+    "src/phylocloud/render.py": "cbf015e27c3f4eb0ae04e475d0df8fe9cf8b52707f919d5265ec1e1dc584cf8c",
+    "src/phylocloud/species_panels.py": "adce4c94c15e4759240bb652e04c00563b5fa5717991bfdb0470205b540b287b",
+    "src/phylocloud/synthetic.py": "51c42565be2d1ada186ad00c5ddb4ebd65cb74f46a62b98fc3d712aaee1399a6"
+  }
+}

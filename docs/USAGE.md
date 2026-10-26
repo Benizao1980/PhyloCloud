@@ -125,3 +125,24 @@ The detail also writes its own provenance JSON. Counts refer to the full tree,
 not just visible tips; edges crossing the camera boundary are clipped, never
 pruned or repositioned. See the [detail review](FIXED_SELECTION_DETAIL_REVIEW.md)
 for the full-size synthetic comparison and the current zoom-density limitation.
+
+## Optional density scale in details
+
+For native multiscale Cloud/Canopy with publication composition:
+
+```yaml
+style:
+  preset: cloud
+  composition: publication
+cloud:
+  density_engine: multiscale
+  zoom_bandwidth_mode: viewport  # default: overview
+```
+
+Use with `--detail-selected focal_subset.txt` (or an explicit selected zoom).
+The full foreground/reference membership remains unchanged; only focus labels,
+camera and the derived optical wash scale differ. Viewport mode uses square cells
+and **local wash normalization** over a finite-support guarded domain; intensity
+is not quantitatively comparable with an overview. Overviews retain their default
+rendering. Unsupported zoom/style combinations fail clearly. See
+[matched full-size comparisons and limitations](VIEWPORT_DENSITY_REVIEW.md).
